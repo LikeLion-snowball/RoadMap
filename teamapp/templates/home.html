@@ -1,0 +1,6 @@
+{% for team in teams.all %} 
+<h1> 제목 : {{ team.title }}</h1>
+<p> 작성일자 : {{ team.pub_date }}</p>
+<p> 구인글 미리보기 : {{ team.summary }}<a href = "%url 'detail' team.id%">...more</a></p>
+<br><br>
+{% endfor %} 
