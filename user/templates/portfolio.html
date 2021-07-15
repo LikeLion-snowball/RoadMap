@@ -53,7 +53,7 @@
         border: 1px solid rgb(170, 170, 170);
         box-shadow: none;
         margin-top: 3rem;
-        margin-bottom: 3rem;
+        margin-bottom: 1rem;
       }
       .portfolio_project,
       .portfolio_activities {
@@ -66,7 +66,7 @@
       }
       .line {
         position: relative;
-        top: -1rem;
+        top: -0.5rem;
         border-right: 1px solid black;
         width: 0.5rem;
         height: 5rem;
@@ -75,61 +75,70 @@
       .activity_name {
         font-size: 1.2rem;
         font-weight: bold;
+        letter-spacing: 1px;
+      }
+      .projects_title, .activities_title {
+        display: flex;
+        justify-content: space-between;
+        margin-right: 1rem;
       }
     </style>
   </head>
   <body>
     <div class="portfolio">
       <div class="portfolio_header">
-        <h1>OO님의 포트폴리오</h1>
+        <h1>{{user.username}}님의 포트폴리오</h1>
         <select id="field" name="field">
-          <option value="private" selected>비공개</option>
-          <option value="open">공개</option>
+          <option value="private" {% if portfolio.isPrivate == true %}selected="selected"{% endif %}>비공개</option>
+          <option value="open" {% if portfolio.isPrivate == false %}selected="selected"{% endif %}>공개</option>
         </select>
       </div>
       <div class="portfolio_content">
-        <h2>Projects</h2>
+        <div class="projects_title">
+          <h2>Projects</h2>
+          <a href=""><h2>+</h2></a>
+        </div>
 
-        <!-- 반복문 시작 -->
+        {% for project in projects.all %}
         <div class="portfolio_project">
           <div>
             <p class="circle">⚫️</p>
             <div class="line"></div>
           </div>
           <div>
-            <p class="project_name">프로젝트명</p>
-            <p class="project_date">시작날짜 ~ 완료날짜</p>
-            <p class="project_github"><a href="">github.com/github주소</a></p>
+            <p class="project_name">{{ project.project_name }}</p>
+            <p class="project_date">
+              {{ project.project_start }} ~ {{ project.project_end }}
+            </p>
+            <p class="project_github">
+              <a href="{{ project.project_github }}" target="_blank"
+                >{{ project.project_github }}</a
+              >
+            </p>
           </div>
         </div>
-        <!-- 반복문 끝 -->
-        <div class="portfolio_project">
-          <div>
-            <p class="circle">⚫️</p>
-            <div class="line"></div>
-          </div>
-          <div>
-            <p class="project_name">프로젝트명</p>
-            <p class="project_date">시작날짜 ~ 완료날짜</p>
-            <p class="project_github"><a href="">github.com/github주소</a></p>
-          </div>
-        </div>
+        {% endfor %}
 
         <hr />
-        <h2>Activities</h2>
+        <div class="activities_title">
+          <h2>Activities</h2>
+          <a href=""><h2>+</h2></a>
+        </div>
 
-        <!-- 반복문 시작 -->
+        {% for activity in activities.all %}
         <div class="portfolio_activities">
           <div>
             <p class="circle">⚫️</p>
             <div class="line" style="height: 4rem"></div>
           </div>
           <div>
-            <p class="activity_name">활동명</p>
-            <p class="activity_date">시작날짜 ~ 완료날짜</p>
+            <p class="activity_name">{{ activity.activity_name }}</p>
+            <p class="activity_date">
+              {{ activity.activity_start }} ~ {{ activity.activity_end }}
+            </p>
           </div>
         </div>
-        <!-- 반복문 끝 -->
+        {% endfor %}
       </div>
     </div>
   </body>

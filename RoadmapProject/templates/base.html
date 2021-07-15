@@ -37,6 +37,10 @@
         margin-left: 3vw;
         margin-right: 3vw;
       }
+      .header_menu a:hover {
+        color: rgb(72, 101, 173);
+        font-weight: bold;
+      }
       .header_user a {
         color: rgb(100, 100, 100);
         font-size: 1.2rem;
@@ -83,7 +87,7 @@
         <a href="javascript:{document.getElementById('logout').submit()}"
           >로그아웃</a
         >
-        <form id="logout" method="POST" action="{% url 'logout' %}">
+        <form id="logout" method="POST" action="">
           {% csrf_token %} <input type="hidden" />
         </form>
         {% else %}
