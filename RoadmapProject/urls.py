@@ -18,11 +18,29 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 ##from . import views
-
+import accounts.views
+import info.views
+import user.views
+import cal.views
+import qna.views
 import teamapp.views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', teamapp.views.home, name="home"),
+    path('accounts/', include('accounts.urls')),
+#     path('',accounts.views.home,name="home"),
+    path('info/', info.views.info, name="info"),
+    path('user/', user.views.myPage, name="myPage"),
+    path('user/portfolio', user.views.portfolio, name="portfolio"),
+    path('', cal.views.cal, name="cal"),
+    path('qna/', qna.views.qna, name="qna"),
+    path('qna/<int:qna_id>', qna.views.detail, name="detail"),
+    path('qna/create',qna.views.create, name="create"),
+    path('qna/postcreate', qna.views.postcreate, name='postcreate'),
+    path('qna/edit', qna.views.edit, name='edit'),
+    path('qna/postupdate/<int:qna_id>', qna.views.postupdate, name='postupdate'),
+    path('qna/postdelete/<int:qna_id>',qna.views.postdelete, name='postdelete'),
+#     path('', teamapp.views.home, name="home"),
     #path('new/', teamapp.views.new, name='new'),
     #path('detail/<int:team_id>', teamapp.views.detail, name="detail"),
     #path('create', teamapp.views.create, name="create"),
@@ -30,4 +48,3 @@ urlpatterns = [
     path('teamapp/', include('teamapp.urls')),
     ##path('delete/<int:team_id>/', views.delete, name='delete'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
