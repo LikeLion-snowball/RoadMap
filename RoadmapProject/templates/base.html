@@ -75,7 +75,7 @@
         <a href="">정보확인</a>
         <a href="">팀원모집</a>
         <a href="{% url 'cal' %}">일정관리</a>
-        <a href="">Q&A</a>
+        <a href="{% url 'qna' %}">Q&A</a>
       </span>
       <span class="header_user">
         {% if user.is_authenticated %}

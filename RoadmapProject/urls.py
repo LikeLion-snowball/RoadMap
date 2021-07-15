@@ -16,8 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 import cal.views
+import qna.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', cal.views.cal, name="cal"),
+    path('qna/', qna.views.qna, name="qna"),
 ]
