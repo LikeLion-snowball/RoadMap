@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Courgette&?family=Nanum+Gothic&family=Nanum+Myeongjo&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        font-family: "Nanum Gothic", serif;
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 80px;
+        padding-left: 8vw;
+        padding-right: 8vw;
+      }
+      .header h1 {
+        text-align: center;
+        display: inline-block;
+        font-size: 2.5rem;
+        color: rgb(72, 101, 173);
+        letter-spacing: 0.1rem;
+      }
+      hr {
+        height: 12px;
+        border: 0;
+        box-shadow: inset 0 12px 12px -12px rgba(61, 61, 61, 0.5);
+      }
+      .header_menu a {
+        font-size: 1.2rem;
+        letter-spacing: 0.1rem;
+        margin-left: 3vw;
+        margin-right: 3vw;
+      }
+      .header_user a {
+        color: rgb(100, 100, 100);
+        font-size: 1.2rem;
+        margin-left: 1vw;
+      }
+      .header_user p {
+        color: rgb(72, 101, 173);
+        display: inline-block;
+      }
+      a {
+        text-decoration: none;
+        color: black;
+      }
+      .copyright {
+        background-color: silver;
+      }
+      .footer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem;
+        background-color: rgb(230, 230, 230);
+      }
+      .footer span {
+        color: rgb(95, 95, 95);
+        font-size: 0.9rem;
+        margin: 0.5rem;
+        background-color: rgb(230, 230, 230);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <a href=""><h1>R❄adMap</h1></a>
+      <span class="header_menu">
+        <a href="">정보확인</a>
+        <a href="">팀원모집</a>
+        <a href="{% url 'cal' %}">일정관리</a>
+        <a href="">Q&A</a>
+      </span>
+      <span class="header_user">
+        {% if user.is_authenticated %}
+        <p>{ user.username }}님</p>
+        <a href="javascript:{document.getElementById('logout').submit()}"
+          >로그아웃</a
+        >
+        <form id="logout" method="POST" action="">
+          {% csrf_token %} <input type="hidden" />
+        </form>
+        {% else %}
+        <a href="">로그인</a>
+        <a href="">회원가입</a>
+        {% endif %}
+      </span>
+    </div>
+    <hr />
+    {% block content %} {% endblock %}
+    <div class="footer">
+      <span>&copy;2021 LikeLion 9기 눈덩이</span>
+      <span>김유진, 노은성, 오예림, 조원아</span>
+    </div>
+  </body>
+</html>
