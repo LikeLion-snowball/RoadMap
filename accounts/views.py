@@ -3,6 +3,9 @@ from django.contrib.auth.models import User
 import django.contrib import auth
 
 # Create your views here.    
+def home(request):
+    return render(request, 'home.html')
+    
 def signup(request):
     if request.method == 'POST':
         if request.POST['password1'] == request.POST['password2']:
