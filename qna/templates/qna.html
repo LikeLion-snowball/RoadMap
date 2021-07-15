@@ -44,9 +44,12 @@
         border: 1.5px solid gray;
         border-radius: 30px;
       }
+      
     </style>
   </head>
   <body>
+    
+    
     <div class="qnaPage">
       <h1>Q & A</h1>
       <div class="qna_search">
@@ -57,7 +60,18 @@
           </select>
           <input class="search" type="text" placeholder="검색어를 입력하세요" />
       </div>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'postcreate' %}">질문하러가기</a>
+        </li>
+
+        {% for qna in qnas.all %}
+            <h1>제목 : {{ qna.title }}</h1>
+            <p>날짜 : {{ qna.pub_date }}</p>
+            <p>본문 : {{ qna.body }}</p><a href="{% url 'detail' qna.id %}">자세히 보기</a>
+        {% endfor %}
+
     </div>
+
   </body>
 </html>
 {% endblock %}
