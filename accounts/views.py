@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 import django.contrib import auth
 
-# Create your views here.
+# Create your views here.    
 def signup(request):
     if request.method == 'POST':
         if request.POST['password1'] == request.POST['password2']:
@@ -19,7 +19,7 @@ def signup(request):
             return render(request, 'accounts/signup.html', {'error':'Passwords must match'})
     else:
         return render(request, 'accounts/signup.html')
-        
+
 def login(request):
     if request.method == 'POST':
         username=request.POST['username']
