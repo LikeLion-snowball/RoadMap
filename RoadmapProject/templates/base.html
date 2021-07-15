@@ -40,12 +40,17 @@
         margin-left: 3vw;
         margin-right: 3vw;
       }
+      .header_menu a:hover {
+        color: rgb(72, 101, 173);
+        font-weight: bold;
+      }
       .header_user a {
         color: rgb(100, 100, 100);
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         margin-left: 1vw;
       }
       .header_user p {
+        font-size: 1.1rem;
         color: rgb(72, 101, 173);
         display: inline-block;
       }
@@ -75,14 +80,14 @@
     <div class="header">
       <a href=""><h1>R❄adMap</h1></a>
       <span class="header_menu">
-        <a href="">정보확인</a>
+        <a href="{% url 'info' %}">정보확인</a>
         <a href="">팀원모집</a>
         <a href="{% url 'cal' %}">일정관리</a>
         <a href="{% url 'qna' %}">Q&A</a>
       </span>
       <span class="header_user">
         {% if user.is_authenticated %}
-        <p>{ user.username }}님</p>
+        <p>{{ user.username }}님</p>
         <a href="javascript:{document.getElementById('logout').submit()}"
           >로그아웃</a
         >
@@ -90,8 +95,8 @@
           {% csrf_token %} <input type="hidden" />
         </form>
         {% else %}
-        <a href="">로그인</a>
-        <a href="">회원가입</a>
+        <a href="{% url 'login' %}">로그인</a>
+        <a href="{% url 'signup' %}">회원가입</a>
         {% endif %}
       </span>
     </div>

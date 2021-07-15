@@ -1,0 +1,84 @@
+{% extends 'base.html' %} {% block content %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .infoPage {
+        text-align: center;
+        min-height: 100vh;
+      }
+      .infoPage h1 {
+        font-size: 2.3rem;
+        color: rgb(72, 101, 173);
+        line-height: 4rem;
+        letter-spacing: 0.2rem;
+      }
+      select {
+        font-size: 1.2rem;
+        width: 7rem;
+        padding: 0.7rem 1.2rem;
+        border: 1.5px solid gray;
+        border-radius: 30px;
+        margin-right: 0.5rem;
+        background: url("https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg")
+          no-repeat 95% 50%;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+      }
+      select::-ms-expand {
+        display: none;
+      }
+      select:focus {
+        outline: none;
+      }
+      input:focus {
+        outline: none;
+      }
+      .infoPage .search {
+        font-size: 1.2rem;
+        width: 35vw;
+        min-width: 300px;
+        max-width: 700px;
+        padding: 0.7rem 1.2rem;
+        border: 1.5px solid gray;
+        border-radius: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="infoPage">
+      <h1>정보확인</h1>
+      <div class="info_search">
+        <select id="region" name="region">
+          <option value="" disabled selected>지역</option>
+          <option value="all">전국</option>
+          <option value="seoul">서울</option>
+          <option value="seoul">경기</option>
+          <option value="seoul">광주</option>
+          <option value="seoul">대구</option>
+          <option value="seoul">대전</option>
+          <option value="seoul">부산</option>
+          <option value="seoul">울산</option>
+          <option value="seoul">인천</option>
+          <option value="seoul">강원</option>
+          <option value="seoul">경남</option>
+          <option value="seoul">경북</option>
+          <option value="seoul">전남</option>
+          <option value="seoul">전북</option>
+          <option value="seoul">충북</option>
+          <option value="seoul">충남</option>
+          <option value="seoul">제주</option>
+        </select>
+        <select id="field" name="field">
+          <option value="" disabled selected>분야</option>
+          <option value="seoul">분야가</option>
+          <option value="seoul">뭐가</option>
+          <option value="seoul">있을까요우</option>
+        </select>
+        <input class="search" type="text" placeholder="검색어를 입력하세요" />
+      </div>
+    </div>
+  </body>
+</html>
+{% endblock %}
