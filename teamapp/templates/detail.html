@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container"> 
+    <div class="card">
+      <div class="card-body">
+        <h1>자세한 구인 내용</h1>
+        <br>
+        <h1>제목: {{team.title}}</h1>
+        <p> 작성일자 : {{ team.pub_date| date:"Y-m-d" }}</p>
+        <p>자세한 본문: {{team.body}}</p>
+        <br>
+            {% if blog.images %}
+                <img src="{{ blog.images.url }}" width="500" height="500">
+            {% endif %}
+            <br>
+            <br>
+        <a href="{% url 'home' %}">이전으로 돌아가기</a>
+       </div>
+    </div>
+</div>
+{% endblock %}

@@ -15,11 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+##from . import views
 import accounts.views
 import info.views
 import user.views
 import cal.views
 import qna.views
+import teamapp.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,4 +40,11 @@ urlpatterns = [
     path('qna/edit', qna.views.edit, name='edit'),
     path('qna/postupdate/<int:qna_id>', qna.views.postupdate, name='postupdate'),
     path('qna/postdelete/<int:qna_id>',qna.views.postdelete, name='postdelete'),
-]
+#     path('', teamapp.views.home, name="home"),
+    #path('new/', teamapp.views.new, name='new'),
+    #path('detail/<int:team_id>', teamapp.views.detail, name="detail"),
+    #path('create', teamapp.views.create, name="create"),
+    #path('postcreate/', teamapp.views.postcreate, name='postcreate'),
+    path('teamapp/', include('teamapp.urls')),
+    ##path('delete/<int:team_id>/', views.delete, name='delete'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
