@@ -13,13 +13,50 @@
         line-height: 4rem;
         letter-spacing: 0.2rem;
       }
-      
+      select {
+        font-size: 1.2rem;
+        width: 7rem;
+        padding: 0.7rem 1.2rem;
+        border: 1.5px solid gray;
+        border-radius: 30px;
+        margin-right: 0.5rem;
+        background: url("https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg")
+          no-repeat 95% 50%;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+      }
+      select::-ms-expand {
+        display: none;
+      }
+      select:focus {
+        outline: none;
+      }
+      input:focus {
+        outline: none;
+      }
+      .qnaPage .search {
+        font-size: 1.2rem;
+        width: 35vw;
+        min-width: 300px;
+        max-width: 700px;
+        padding: 0.7rem 1.2rem;
+        border: 1.5px solid gray;
+        border-radius: 30px;
+      }
     </style>
   </head>
   <body>
     <div class="qnaPage">
       <h1>Q & A</h1>
-      
+      <div class="qna_search">
+          <select id="filter" name="filter">
+              <option value="latest">최신순</option>
+              <option value="popularity">인기순</option>
+              <option value="views">조회순</option>
+          </select>
+          <input class="search" type="text" placeholder="검색어를 입력하세요" />
+      </div>
     </div>
   </body>
 </html>
