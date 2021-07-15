@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', cal.views.cal, name="cal"),
     path('qna/', qna.views.qna, name="qna"),
-    path('qna/<int:blog_id>', qna.views.detail, name="detail"),
+    path('qna/<int:qna_id>', qna.views.detail, name="detail"),
     path('qna/create',qna.views.create, name="create"),
     path('qna/postcreate', qna.views.postcreate, name='postcreate'),
     path('qna/edit', qna.views.edit, name='edit'),
