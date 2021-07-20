@@ -89,14 +89,16 @@
       <div class="portfolio_header">
         <h1>{{user.username}}님의 포트폴리오</h1>
         <select id="field" name="field">
-          <option value="private" {% if portfolio.isPrivate == true %}selected="selected"{% endif %}>비공개</option>
-          <option value="open" {% if portfolio.isPrivate == false %}selected="selected"{% endif %}>공개</option>
+          <!-- <option value="private" {% if portfolio.isPrivate == true %}selected="selected"{% endif %}>비공개</option>
+          <option value="open" {% if portfolio.isPrivate == false %}selected="selected"{% endif %}>공개</option> -->
+          <option value="private" selected="selected"{>비공개</option>
+          <option value="open">공개</option>
         </select>
       </div>
       <div class="portfolio_content">
         <div class="projects_title">
           <h2>Projects</h2>
-          <a href=""><h2>+</h2></a>
+          <a href="{% url 'projectcreate' %}"><h2>+</h2></a>
         </div>
 
         {% for project in projects.all %}
@@ -122,7 +124,7 @@
         <hr />
         <div class="activities_title">
           <h2>Activities</h2>
-          <a href=""><h2>+</h2></a>
+          <a href="{% url 'activitycreate' %}"><h2>+</h2></a>
         </div>
 
         {% for activity in activities.all %}

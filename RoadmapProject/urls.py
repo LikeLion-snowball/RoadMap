@@ -17,10 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-##from . import views
-import accounts.views
 import info.views
-import user.views
 import cal.views
 import qna.views
 import teamapp.views
@@ -30,8 +27,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
 #     path('',accounts.views.home,name="home"),
     path('info/', info.views.info, name="info"),
-    path('user/', user.views.myPage, name="myPage"),
-    path('user/portfolio', user.views.portfolio, name="portfolio"),
+    path('userId/', include('user.urls')),
     path('', cal.views.cal, name="cal"),
     path('qna/', qna.views.qna, name="qna"),
     path('qna/<int:qna_id>', qna.views.detail, name="detail"),
@@ -46,5 +42,4 @@ urlpatterns = [
     path('team_create', teamapp.views.team_create, name="team_create"),
     path('team_postcreate/', teamapp.views.team_postcreate, name='team_postcreate'),
     path('teamapp/', include('teamapp.urls')),
-    ##path('delete/<int:team_id>/', views.delete, name='delete'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
