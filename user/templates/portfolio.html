@@ -76,6 +76,13 @@
         font-size: 1.2rem;
         font-weight: bold;
         letter-spacing: 1px;
+        display: inline-block;
+        margin-bottom: -1px;
+        margin-right: 1.5rem;
+      }
+      .project_github a {
+        padding-bottom: 1px;
+        border-bottom: 1px solid rgb(120, 120, 120);
       }
       .projects_title, .activities_title {
         display: flex;
@@ -91,7 +98,7 @@
         <select id="field" name="field">
           <!-- <option value="private" {% if portfolio.isPrivate == true %}selected="selected"{% endif %}>비공개</option>
           <option value="open" {% if portfolio.isPrivate == false %}selected="selected"{% endif %}>공개</option> -->
-          <option value="private" selected="selected"{>비공개</option>
+          <option value="private" selected="selected">비공개</option>
           <option value="open">공개</option>
         </select>
       </div>
@@ -109,6 +116,10 @@
           </div>
           <div>
             <p class="project_name">{{ project.project_name }}</p>
+            <a href="{% url 'projectupdate' project.id%}"><span>✎</span></a>
+            <a href="{% url 'projectdelete' project.id%}" onclick="return confirm('정말 삭제하시겠습니까?')">
+              <span style="margin-left: 7px;">𝗫</span>
+            </a>
             <p class="project_date">
               {{ project.project_start }} ~ {{ project.project_end }}
             </p>
@@ -135,6 +146,10 @@
           </div>
           <div>
             <p class="activity_name">{{ activity.activity_name }}</p>
+            <a href="{% url 'activityupdate' activity.id%}"><span>✎</span></a>
+            <a href="{% url 'activitydelete' activity.id%}" onclick="return confirm('정말 삭제하시겠습니까?')">
+              <span style="margin-left: 7px;">𝗫</span>
+            </a>
             <p class="activity_date">
               {{ activity.activity_start }} ~ {{ activity.activity_end }}
             </p>
