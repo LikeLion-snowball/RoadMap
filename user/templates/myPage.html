@@ -6,6 +6,7 @@
       .myPage {
         text-align: center;
         min-height: 100vh;
+        font-size: 1.3rem;
       }
       .myPage h1 {
         font-size: 2.3rem;
@@ -13,11 +14,36 @@
         line-height: 4rem;
         letter-spacing: 0.2rem;
       }
+      .my_info {
+        min-height: 150px;
+      }
+      .my_nav p {
+        margin: 2rem 0;
+      }
+      .my_info,
+      .my_nav {
+        margin: 1rem auto;
+        width: 35vw;
+        min-width: 600px;
+        padding: 1rem;
+        border: 2px solid rgb(220, 220, 220);
+        border-radius: 20px;
+      }
     </style>
   </head>
   <body>
     <div class="myPage">
-      <a href="{% url 'portfolio' user.id %}"><p>내 포트폴리오</p></a>
+      <h1>내 정보</h1>
+      <div class="my_info">
+        <p style="font-size: 1.6rem; font-weight: bold">{{ user.username }}</p>
+        <p>숙명여대 18학번 어쩌구저쩌구 정보들</p>
+      </div>
+      <div class="my_nav">
+        <a href="{% url 'portfolio' user.id %}"><p>내 포트폴리오</p></a>
+        <a href=""><p>내가 쓴 글</p></a>
+        <a href=""><p>내가 쓴 댓글</p></a>
+        <a href=""><p>내 스크랩</p></a>
+      </div>
     </div>
   </body>
 </html>
