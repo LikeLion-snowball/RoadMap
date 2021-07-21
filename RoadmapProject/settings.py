@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'bootstrap4',
     'cal',
     'qna',
-    'accounts',
     'info',
     'user',
     'human',
