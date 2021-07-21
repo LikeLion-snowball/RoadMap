@@ -24,8 +24,6 @@ import human.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('accounts.urls')),
-#     path('',accounts.views.home,name="home"),
     path('info/', info.views.info, name="info"),
     path('<int:user_id>/', include('user.urls')),
     path('', cal.views.cal, name="cal"),
