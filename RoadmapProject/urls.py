@@ -21,6 +21,7 @@ import info.views
 import cal.views
 import qna.views
 import teamapp.views
+import human.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -42,4 +43,8 @@ urlpatterns = [
     path('team_create', teamapp.views.team_create, name="team_create"),
     path('team_postcreate/', teamapp.views.team_postcreate, name='team_postcreate'),
     path('teamapp/', include('teamapp.urls')),
+    path('human/', human.views.human, name="human"),
+    path('human/dnew/', human.views.dnew, name='dnew'),
+    path('human/<int:human_id>', human.views.dpage, name='dpage'),
+    path('dwrite/', human.views.dwrite, name='dwrite'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
