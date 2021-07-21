@@ -20,7 +20,6 @@ from django.conf.urls.static import static
 import info.views
 import cal.views
 import qna.views
-import teamapp.views
 import human.views
 
 urlpatterns = [
@@ -37,14 +36,9 @@ urlpatterns = [
     path('qna/edit', qna.views.edit, name='edit'),
     path('qna/postupdate/<int:qna_id>', qna.views.postupdate, name='postupdate'),
     path('qna/postdelete/<int:qna_id>',qna.views.postdelete, name='postdelete'),
-    path('', teamapp.views.team_home, name="team_home"),
-    path('team_new/', teamapp.views.team_new, name='team_new'),
-    path('team_detail/<int:team_id>', teamapp.views.team_detail, name="team_detail"),
-    path('team_create', teamapp.views.team_create, name="team_create"),
-    path('team_postcreate/', teamapp.views.team_postcreate, name='team_postcreate'),
-    path('teamapp/', include('teamapp.urls')),
     path('human/', human.views.human, name="human"),
     path('human/dnew/', human.views.dnew, name='dnew'),
     path('human/<int:human_id>', human.views.dpage, name='dpage'),
-    path('dwrite/', human.views.dwrite, name='dwrite'),
+    path('human/dwrite', human.views.dwrite, name='dwrite'),
+    path('human/dpostcreate', human.views.dpostcreate, name='dpostcreate'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
