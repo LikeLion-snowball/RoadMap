@@ -9,3 +9,4 @@ urlpatterns = [
     path('team_create/', teamapp.views.team_create, name="team_create"),
     path('team_postcreate/', teamapp.views.team_postcreate, name='team_postcreate'),
 ]
+
