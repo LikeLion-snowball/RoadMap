@@ -27,7 +27,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
 #     path('',accounts.views.home,name="home"),
     path('info/', info.views.info, name="info"),
-    path('userId/', include('user.urls')),
+    path('<int:user_id>/', include('user.urls')),
     path('', cal.views.cal, name="cal"),
     path('qna/', qna.views.qna, name="qna"),
     path('qna/<int:qna_id>', qna.views.detail, name="detail"),

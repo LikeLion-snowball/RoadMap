@@ -78,7 +78,7 @@
         letter-spacing: 1px;
         display: inline-block;
         margin-bottom: -1px;
-        margin-right: 1.5rem;
+        margin-right: 1rem;
       }
       .project_github a {
         padding-bottom: 1px;
@@ -105,7 +105,7 @@
       <div class="portfolio_content">
         <div class="projects_title">
           <h2>Projects</h2>
-          <a href="{% url 'projectcreate' %}"><h2>+</h2></a>
+          <a href="{% url 'projectcreate' user.id %}"><h2>+</h2></a>
         </div>
 
         {% for project in projects.all %}
@@ -116,8 +116,8 @@
           </div>
           <div>
             <p class="project_name">{{ project.project_name }}</p>
-            <a href="{% url 'projectupdate' project.id%}"><span>✎</span></a>
-            <a href="{% url 'projectdelete' project.id%}" onclick="return confirm('정말 삭제하시겠습니까?')">
+            <a href="{% url 'projectupdate' user.id project.id %}"><span>✎</span></a>
+            <a href="{% url 'projectdelete' user.id project.id %}" onclick="return confirm('정말 삭제하시겠습니까?')">
               <span style="margin-left: 7px;">𝗫</span>
             </a>
             <p class="project_date">
@@ -135,7 +135,7 @@
         <hr />
         <div class="activities_title">
           <h2>Activities</h2>
-          <a href="{% url 'activitycreate' %}"><h2>+</h2></a>
+          <a href="{% url 'activitycreate' user.id %}"><h2>+</h2></a>
         </div>
 
         {% for activity in activities.all %}
@@ -146,8 +146,8 @@
           </div>
           <div>
             <p class="activity_name">{{ activity.activity_name }}</p>
-            <a href="{% url 'activityupdate' activity.id%}"><span>✎</span></a>
-            <a href="{% url 'activitydelete' activity.id%}" onclick="return confirm('정말 삭제하시겠습니까?')">
+            <a href="{% url 'activityupdate' user.id activity.id %}"><span>✎</span></a>
+            <a href="{% url 'activitydelete' user.id activity.id %}" onclick="return confirm('정말 삭제하시겠습니까?')">
               <span style="margin-left: 7px;">𝗫</span>
             </a>
             <p class="activity_date">

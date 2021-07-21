@@ -87,7 +87,7 @@
       </span>
       <span class="header_user">
         {% if user.is_authenticated %}
-        <a href="{% url 'myPage' %}"><p>{{ user.username }}님</p></a>
+        <a href="{% url 'myPage' user.id %}"><p style="font-weight: bold; letter-spacing: 1px;">{{ user.username }}님</p></a>
         <a href="javascript:{document.getElementById('logout').submit()}"
           >로그아웃</a
         >
