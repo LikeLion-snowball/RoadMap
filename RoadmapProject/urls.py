@@ -21,12 +21,14 @@ import info.views
 import cal.views
 import qna.views
 import human.views
+import home.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', home.views.home, name="home"),
     path('info/', info.views.info, name="info"),
     path('<int:user_id>/', include('user.urls')),
-    path('', cal.views.cal, name="cal"),
+    path('cal/', cal.views.cal, name="cal"),
     path('qna/', qna.views.qna, name="qna"),
     path('qna/<int:qna_id>', qna.views.detail, name="detail"),
     path('qna/create',qna.views.create, name="create"),
