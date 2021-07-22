@@ -3,10 +3,15 @@
 {% block content %} 
 <div class="wrapper" style="text-align: center;"> 
 	<h1>회원가입</h1> 
-	<form method="POST"> 
+	<form method="POST" action="{% url 'signup'%}"> 
 		{% csrf_token %} 
-		{% bootstrap_form form %} 
-	<input type="submit" class="btn btn-primary" value="Sign Up!"> 
+        Username:
+        <input name="username" type="text" value="">
+        Password:
+        <input name="password1" type="password" value="">
+        Confirm Password:
+        <input name="password2" type="password" value="">
+	    <input type="submit" class="btn btn-primary" value="Sign Up!"> 
 	</form> 
 </div> 
 {% endblock %}
