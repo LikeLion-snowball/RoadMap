@@ -1,0 +1,59 @@
+{% extends 'base.html' %} {% block content %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .home {
+        min-height: 100vh;
+        font-size: 1.1rem;
+        margin-top: 3rem;
+      }
+
+      .home_nav {
+        position: fixed;
+        text-align: center;
+        margin-left: 5rem;
+        width: 250px;
+        padding: 1rem;
+        border: 1px solid rgb(220, 220, 220);
+        border-radius: 20px;
+        box-shadow: 0 0 20px -5px rgba(35, 35, 35, 0.4);
+      }
+      .home_nav p {
+        margin: 2rem 0;
+      }
+      .home_nav hr {
+        border: 1px solid rgb(220, 220, 220);
+      }
+
+      .home_recommend {
+        margin-left: calc(8rem + 300px);
+      }
+      .home_recommend h1 {
+        font-size: 2.3rem;
+        color: rgb(72, 101, 173);
+        line-height: 4rem;
+        letter-spacing: 1px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="home">
+        {% if user.is_authenticated %}
+        <div class="home_nav">
+            <p style="font-size: 1.5rem; font-weight: bold; margin-bottom: -1rem;">{{ user.username }}</p>
+            <p>소프트웨어융합전공</p>
+            <hr />
+            <a href="{% url 'portfolio' user.id %}"><p>내 포트폴리오</p></a>
+            <a href=""><p>내가 쓴 글</p></a>
+            <a href=""><p>내가 쓴 댓글</p></a>
+            <a href=""><p>내 스크랩</p></a>
+        </div>
+        <div class="home_recommend">
+            <h1>{{ user.username }}님께 추천하는 채용 정보</h1>
+        </div>
+        {% endif %}
+    </div>
+  </body>
+</html>
+{% endblock %}
