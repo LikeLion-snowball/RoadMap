@@ -39,4 +39,5 @@ urlpatterns = [
     path('human/<int:human_id>', human.views.dpage, name='dpage'),
     path('human/dwrite', human.views.dwrite, name='dwrite'),
     path('human/dpostcreate', human.views.dpostcreate, name='dpostcreate'),
+    path('accounts/', include('accounts.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
