@@ -57,7 +57,7 @@
    
     <br>
     <div class="container">
-        <form action="">
+        <form action="{% url 'dpostcreate' %}">
           <h4>제목: </h4>
           <input type="text" name="title">
           <br>
@@ -69,8 +69,7 @@
           <input class="btn btn-dark" type="submit" value="글쓰기">
       </form>
     </div>
-    
-    {% endblock %}
+ 
     </div>
 
   </body>
