@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'info',
     'user',
     'human',
+    'accounts',
     'home',
 ]
 
