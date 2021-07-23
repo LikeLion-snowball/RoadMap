@@ -24,4 +24,12 @@ class CommentForm(forms.ModelForm):
 class HumanUpdate(forms.ModelForm):
     class Meta:
         model = Human
-        fields = ['title','body']
+        fields = ['title', 'body', 'pub_date']
+        widgets ={
+            'pub_date' : forms.DateInput(
+                attrs={
+                    'class' : 'form-control',
+                    'type' : 'date'
+                }
+            )
+        }

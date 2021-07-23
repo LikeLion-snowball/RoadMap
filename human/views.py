@@ -49,7 +49,7 @@ def dupdate(request, human_id):
     human = Human.objects.get(id=human_id)
 
     if request.method =='POST':
-        form = Dpostupdate(request.POST)
+        form = HumanUpdate(request.POST)
         if form.is_valid():
             human.title = form.cleaned_data['title']
             human.body = form.cleaned_data['body']
@@ -57,7 +57,7 @@ def dupdate(request, human_id):
             human.save()
             return redirect('dpage', human_id=post.pk)
     else:
-        form = Dpostupdate(instance = human)
+        form = HumanUpdate(instance = human)
  
         return render(request,'dupdate.html', {'form':form})
 

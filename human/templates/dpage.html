@@ -54,29 +54,41 @@
   <body>
 
         <br>
-<h1>{{ human.title }}</h1>
-<p>{{ human.pub_date }}</p>
-<p>{{ human.body }}</p> 
+        <div class="container">
+          <div class="card">
+              <div class="card-body">
+                <h1>{{ human.title }}</h1>
+                <p>{{ human.pub_date }}</p>
+                <p>{{ human.body }}</p> 
+                <a href="{% url 'human' %}">돌아가기</a>
+                <a href="{% url 'dpostupdate' human.id %}"> 수정하러가기</a>
+                <a href="{% url 'ddelete' human.id %}">삭제하기</a>
 
-<a href="{% url 'human' %}">돌아가기</a>
-<a href="{% url 'dpostupdate' human.id %}"> 수정하러가기</a>
-<a href="{% url 'ddelete' human.id %}">삭제하기</a>
+                <a class="btn btn-default" href="{% url 'add_comment_to_post' human.id %}">망설이지 말고 right now 댓글달기</a>
 
+              </div>
+          </div>
+        </div>
 
+        {% for comment in human.comments.all %}
+        <div class="container">
+          <div class="card">
+              <div class="card-body">
+                <div class="comment">
+                    <div class="date">{{ comment.created_at }}</div>
+                    <strong>{{ comment.author_name }}</strong>
+                    <p>{{ comment.comment_text|linebreaks }}</p>
+                    <a class="btn btn-default" href="{% url 'add_comment_to_post' human.id %}">같이 하고싶다고 댓글남기기!</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+                
+            {% endfor %}
   </body>
 </html>
 
-{% for comment in human.comments.all %}
-        <div class="comment">
-            <div class="date">{{ comment.created_at }}</div>
-            <strong>{{ comment.author_name }}</strong>
-            <p>{{ comment.comment_text|linebreaks }}</p>
-        </div>
-    {% empty %}
-        <p>No comments here yet :(</p>
-    {% endfor %}
 
-    <hr>
-    <a class="btn btn-default" href="{% url 'add_comment_to_post' human.id %}">댓글달기</a>
 
 {% endblock %}
