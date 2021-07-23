@@ -1,17 +1,50 @@
 {% extends 'base.html' %} 
 {% load bootstrap4 %} 
 {% block content %} 
+
+{% if error %}
+{{ error }}
+<br>
+<br>
+{% endif %}
+
 <div class="wrapper" style="text-align: center;"> 
 	<h1>회원가입</h1> 
 	<form method="POST" action="{% url 'signup'%}"> 
+
 		{% csrf_token %} 
         Username:
         <input name="username" type="text" value="">
+        <br>
         Password:
         <input name="password1" type="password" value="">
+        <br>
         Confirm Password:
         <input name="password2" type="password" value="">
+        <br>
+        <br>
 	    <input type="submit" class="btn btn-primary" value="Sign Up!"> 
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
 	</form> 
 </div> 
 {% endblock %}

@@ -6,13 +6,20 @@ from django.shortcuts import render, redirect
 def signup(request): 
     if request.method == 'POST': 
         if request.POST['password1'] == request.POST['password2']: 
-            user = User.objects.create_user( 
-                username=request.POST['username'], 
-                password=request.POST['password1']
-                ) 
-            auth.login(request, user)
-            return redirect('/') 
-    return render(request, 'signup.html') 
+            try:
+                user = User.objects.get(username=request.POST['username'])
+                return render(request, 'signup.html', {'error':'Username has already been taken'})
+            except User.DoesNotExist:
+                user = User.objects.create_user( 
+                    username=request.POST['username'], 
+                    password=request.POST['password1']
+                    ) 
+                auth.login(request, user)
+                return redirect('/')
+        else:
+            return render(request, 'signup.html', {'error':'Passwords must match'})
+    else: 
+        return render(request, 'signup.html') 
 
 def login(request):
         if request.method == 'POST':
@@ -34,5 +41,4 @@ def logout(request):
     if request.method == 'POST':
          auth.logout(request)
          return redirect('/')
-
-    return render(request, 'login.html')  
+    return render(request, 'signup.html')  
