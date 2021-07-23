@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Human
 from .forms import PostForm
 from django.utils import timezone
+from .forms import CommentForm
+
 # Create your views here.
 
 def human(request):
@@ -57,3 +59,16 @@ def dpostupdate(request, human_id):
     else :
         form=PostForm(instance=post)
         return render(request,'dupdate.html',{'form':form})
+
+def add_comment_to_post(request, human_id):
+    human=get_object_or_404(Human, pk=human_id)
+    if request.method == "POST":
+        form=CommentForm(request.POST)
+        if form.is_valid():
+            comment=form.save(commit=False)
+            comment.post=human
+            comment.save()
+            return redirect('dpage', human_id)
+        else:
+            form=CommentForm()
+        return render(request, 'add_comment_to_post.html', {'form':form})
