@@ -20,3 +20,8 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model=Comment
         fields=('author_name', 'comment_text')
+
+class HumanUpdate(forms.ModelForm):
+    class Meta:
+        model = Human
+        fields = ['title','body']

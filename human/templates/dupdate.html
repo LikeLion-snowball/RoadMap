@@ -1,13 +1,1 @@
-{% extends 'base.html' %}
-{% block content %}
-
-<h1>수정하기</h1>
-
-<form method="POST">
-    {% csrf_token %}
-        {{form.as_p}}
-    <br>
-    <input type="submit" value="수정">
-</form>
-
-{% endblock %}
+{{form.as_ul}}

@@ -44,9 +44,22 @@ def dnew(request):
 
     return render(request, 'dnew.html', {'fulltext': full_text, 'total': len(word_list), 'dictionary': word_dictionary.items()} )
 
-def dupdate(request):
-    return render(request, 'dupdate.html')
 
+def dupdate(request, human_id):
+    human = Human.objects.get(id=human_id)
+
+    if request.method =='POST':
+        form = Dpostupdate(request.POST)
+        if form.is_valid():
+            human.title = form.cleaned_data['title']
+            human.body = form.cleaned_data['body']
+            human.pub_date=timezone.now()
+            human.save()
+            return redirect('dpage', human_id=post.pk)
+    else:
+        form = Dpostupdate(instance = human)
+ 
+        return render(request,'dupdate.html', {'form':form})
 
 def dpostupdate(request, human_id):
     post = get_object_or_404(Human, pk=human_id)
