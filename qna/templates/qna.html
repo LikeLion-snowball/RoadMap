@@ -6,6 +6,7 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
     <style>
       .qnaPage {
         text-align: center;
@@ -48,42 +49,39 @@
         border: 1.5px solid gray;
         border-radius: 30px;
       }
-      
     </style>
   </head>
   <body>
-    
-    
     <div class="qnaPage">
-      <h1>Q & A</h1>
+      <h1>Q&A</h1>
       <div class="qna_search">
-          <select id="filter" name="filter">
-              <option value="latest">최신순</option>
-              <option value="popularity">인기순</option>
-              <option value="views">조회순</option>
-          </select>
-          <input class="search" type="text" placeholder="검색어를 입력하세요" />
+        <select id="filter" name="filter">
+          <option value="" disabled selected>필터</option>
+          <option value="latest">최신순</option>
+          <option value="popularity">인기순</option>
+          <option value="views">조회순</option>
+        </select>
+  
+        <input class="search" type="text" placeholder="검색어를 입력하세요" />
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'postcreate' %}">질문하러가기</a>
+        </li>  
       </div>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'postcreate' %}">질문하러가기</a>
-        </li>
 
-        <br>
-        {% for qna in qnas.all %}
+      <br>
+      {% for qna in qnas.all %}
         <div class="container">
           <div class="card">
             <div class="card-body">
-            <h1>{{ qna.title }}</h1>
-            <p>{{ qna.pub_date }}</p>
-            <p>{{ qna.body }}</p><a href="{% url 'detail' qna.id %}">자세히 보기</a>
+              <h1>{{ qna.title }}</h1>
+              <p>{{ qna.pub_date }}</p>
+              <p>{{ qna.body }}</p><a href="{% url 'detail' qna.id %}">자세히 보기</a>
+            </div>
           </div>
         </div>
-        </div>
-        <br>
-        {% endfor %}
-
+      <br>
+      {% endfor %}
     </div>
-
   </body>
 </html>
 {% endblock %}

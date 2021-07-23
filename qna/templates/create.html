@@ -1,14 +1,33 @@
-{% extends 'base.html' %}
-{% block content %}
-
-<h1>새 글 쓰기</h1>
-
-<form method="POST">
-    {% csrf_token %}
-    <table>
-        {{form.as_table}}
-    </table>
-    <br>
-    <input type="submit" value="등록">
-</form>
+{% extends 'base.html' %} {% block content %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .createPage {
+        text-align: center;
+        min-height: 100vh;
+      }
+      .createPage h1 {
+        font-size: 2.3rem;
+        color: rgb(72, 101, 173);
+        line-height: 4rem;
+        letter-spacing: 0.2rem;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <div class="createPage">
+      <h1>질문하기</h1>
+      <form method="POST">
+        {% csrf_token %}
+        <table>
+            {{form.as_table}}
+        </table>
+        <br>
+        <input type="submit" value="등록">
+      </form>
+    </div>
+  </body>
+</html>
 {% endblock %}
