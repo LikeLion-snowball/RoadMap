@@ -1,0 +1,81 @@
+{% extends 'base.html' %} {% block content %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .project_edit {
+        margin-top: 5rem;
+        min-height: 100vh;
+        font-size: 1.2rem;
+      }
+      .write {
+        display: flex;
+        justify-content: center;
+        margin: 0 auto;
+        background-color: rgb(235, 235, 235);
+        width: 20vw;
+        min-width: 45rem;
+        padding: 3rem;
+        border-radius: 30px;
+      }
+      table td {
+        width: 15rem;
+      }
+      .write input {
+        font-size: 1.1rem;
+        padding: 1rem;
+        margin-top: 0.2rem;
+        background-color: white;
+        border: none;
+        border-radius: 30px;
+        width: 20rem;
+        margin-bottom: 0.5rem;
+      }
+      .write input:focus {
+        outline: none;
+      }
+      .write input[type="submit"] {
+        margin-top: 2rem;
+        padding: 1.1rem 1.5rem;
+        width: 6rem;
+        background-color: white;
+        border-radius: 30px;
+        border: none;
+      }
+      .write input[type="submit"]:hover {
+        background-color: rgb(115, 132, 175);
+        color: white;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="project_edit">
+      <div class="write">
+        <form method="POST">
+          {% csrf_token %}
+          <table>
+            <tr>
+              <td>프로젝트명</td>
+              <td>{{ form.project_name }}</td>
+            </tr>
+            <tr>
+              <td>프로젝트 시작날짜</td>
+              <td>{{ form.project_start }}</td>
+            </tr>
+            <tr>
+              <td>프로젝트 완료날짜</td>
+              <td>{{ form.project_end }}</td>
+            </tr>
+            <tr>
+              <td>github 주소</td>
+              <td>{{ form.project_github }}</td>
+            </tr>
+          </table>
+          <input type="submit" value="등록" />
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
+{% endblock %}
