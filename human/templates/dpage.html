@@ -64,4 +64,18 @@
 
   </body>
 </html>
+
+{% for comment in human.comments.all %}
+        <div class="comment">
+            <div class="date">{{ comment.created_at }}</div>
+            <strong>{{ comment.author_name }}</strong>
+            <p>{{ comment.comment_text|linebreaks }}</p>
+        </div>
+    {% empty %}
+        <p>No comments here yet :(</p>
+    {% endfor %}
+
+    <hr>
+    <a class="btn btn-default" href="{% url 'add_comment_to_post' human.id %}">댓글달기</a>
+
 {% endblock %}

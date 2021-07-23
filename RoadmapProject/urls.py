@@ -40,4 +40,5 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('human/dpostupdate/<int:human_id>',human.views.dpostupdate, name='dpostupdate'),
     path('human/dupdate', human.views.dupdate, name='dupdate'),
+    path('human/comment/<int:human_id>', human.views.add_comment_to_post, name='add_comment_to_post'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
