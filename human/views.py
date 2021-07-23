@@ -44,9 +44,22 @@ def dnew(request):
 
     return render(request, 'dnew.html', {'fulltext': full_text, 'total': len(word_list), 'dictionary': word_dictionary.items()} )
 
-def dupdate(request):
-    return render(request, 'dupdate.html')
 
+def dupdate(request, human_id):
+    human = Human.objects.get(id=human_id)
+
+    if request.method =='POST':
+        form = HumanUpdate(request.POST)
+        if form.is_valid():
+            human.title = form.cleaned_data['title']
+            human.body = form.cleaned_data['body']
+            human.pub_date=timezone.now()
+            human.save()
+            return redirect('dpage', human_id=post.pk)
+    else:
+        form = HumanUpdate(instance = human)
+ 
+        return render(request,'dupdate.html', {'form':form})
 
 def dpostupdate(request, human_id):
     post = get_object_or_404(Human, pk=human_id)
@@ -68,7 +81,15 @@ def add_comment_to_post(request, human_id):
             comment=form.save(commit=False)
             comment.post=human
             comment.save()
-            return redirect('dpage', human_id)
+            return redirect('dpage', human_id=human.pk)
         else:
-            form=CommentForm()
+            redirect('human')
+
+    else:
+        form=CommentForm()
         return render(request, 'add_comment_to_post.html', {'form':form})
+
+def ddelete(request, human_id):
+    human = Human.objects.get(id=human_id)
+    human.delete()
+    return redirect('/')
