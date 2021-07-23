@@ -68,7 +68,10 @@ def add_comment_to_post(request, human_id):
             comment=form.save(commit=False)
             comment.post=human
             comment.save()
-            return redirect('dpage', human_id)
+            return redirect('dpage', human_id=human.pk)
         else:
-            form=CommentForm()
+            redirect('human')
+
+    else:
+        form=CommentForm()
         return render(request, 'add_comment_to_post.html', {'form':form})
