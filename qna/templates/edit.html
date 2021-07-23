@@ -1,13 +1,31 @@
-{% extends 'base.html' %}
-{% block content %}
-
-<h1>수정하기</h1>
-
-<form method="POST">
-    {% csrf_token %}
-        {{form.as_p}}
-    <br>
-    <input type="submit" value="수정">
-</form>
-
+{% extends 'base.html' %} {% block content %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .editPage {
+        text-align: center;
+        min-height: 100vh;
+      }
+      .editPage h1 {
+        font-size: 2.3rem;
+        color: rgb(72, 101, 173);
+        line-height: 4rem;
+        letter-spacing: 0.2rem;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <div class="editPage">
+        <h1>수정하기</h1>
+        <form method="POST">
+            {% csrf_token %}
+                {{form.as_p}}
+            <br>
+            <input type="submit" value="수정">
+        </form>
+    </div>
+  </body>
+</html>
 {% endblock %}
