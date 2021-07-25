@@ -42,5 +42,5 @@ urlpatterns = [
     path('human/dpostupdate/<int:human_id>',human.views.dpostupdate, name='dpostupdate'),
     path('human/dupdate', human.views.dupdate, name='dupdate'),
     path('human/comment/<int:human_id>', human.views.add_comment_to_post, name='add_comment_to_post'),
-    path('human/ddelete/<int:human_id>/', human.views.ddelete, name='ddelete'),
+    # path('human/ddelete/<int:human_id>/', human.views.ddelete, name='ddelete'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

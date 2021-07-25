@@ -84,12 +84,6 @@ def add_comment_to_post(request, human_id):
             return redirect('dpage', human_id=human.pk)
         else:
             redirect('human')
-
-    else:
+    else :
         form=CommentForm()
         return render(request, 'add_comment_to_post.html', {'form':form})
-
-def ddelete(request, human_id):
-    human = Human.objects.get(id=human_id)
-    human.delete()
-    return redirect('/')
