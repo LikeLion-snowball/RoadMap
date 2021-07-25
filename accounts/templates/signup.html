@@ -13,16 +13,30 @@
 	<form method="POST" action="{% url 'signup'%}"> 
 
 		{% csrf_token %} 
-        Username:
+        이름(실명):
+        <input name="name" type="text" value="">
+        <br>
+        아이디:
         <input name="username" type="text" value="">
         <br>
-        Password:
+        비밀번호:
         <input name="password1" type="password" value="">
         <br>
-        Confirm Password:
+        비밀번호 재입력:
         <input name="password2" type="password" value="">
         <br>
+        이메일:
+        <input name="email" type="email" value="">
         <br>
+        휴대폰번호:
+        <input name="phonenum" type="tel" value="010">
+        <br>
+        전공:
+        <input name="major" type="text" value="">
+        <br>
+        포트폴리오 공개여부:
+        <input name="isPrivate" type="BooleanField" value="No">
+        <br> 
 	    <input type="submit" class="btn btn-primary" value="Sign Up!"> 
         <br>
         <br>
