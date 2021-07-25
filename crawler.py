@@ -84,42 +84,30 @@ def fetch_recruit_latest_data():
     return result
 
 def add_new_items(crawled_items):
-    last_inserted_items = Recruit.objects.last()
-    if last_inserted_items is None:
-        last_inserted_id = ""
-    else:
-        last_inserted_id = getattr(last_inserted_items, 'corp')
-    print(last_inserted_id)
-    print()
-
-    new_items = []
     for item in crawled_items:
-        if item['corp'] == last_inserted_id:
-            break
-        new_items.append(item)
-    new_items.reverse()
-
-    for item in new_items:
-        if "-" in item['end_date']:
-            Recruit(corp=item['corp'],
-                    title=item['tit'],
-                    end_date=item['end_date'],
-                    link=item['link'],
-                    logo=item['logo'],
-                    career=item['career'],
-                    academic=item['academic'],
-                    area=item['area']
-            ).save()
-        else:
-            Recruit(corp=item['corp'],
-                    title=item['tit'],
-                    end_date_str=item['end_date'],
-                    link=item['link'],
-                    logo=item['logo'],
-                    career=item['career'],
-                    academic=item['academic'],
-                    area=item['area']
-            ).save()
+        try:
+            object = Recruit.objects.get(link=item['link'])
+        except Recruit.DoesNotExist:
+            if "-" in item['end_date']:
+                Recruit(corp=item['corp'],
+                        title=item['tit'],
+                        end_date=item['end_date'],
+                        link=item['link'],
+                        logo=item['logo'],
+                        career=item['career'],
+                        academic=item['academic'],
+                        area=item['area']
+                ).save()
+            else:
+                Recruit(corp=item['corp'],
+                        title=item['tit'],
+                        end_date_str=item['end_date'],
+                        link=item['link'],
+                        logo=item['logo'],
+                        career=item['career'],
+                        academic=item['academic'],
+                        area=item['area']
+                ).save()
 
 
 
