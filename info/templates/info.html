@@ -88,54 +88,87 @@
   </head>
   <body>
     <div class="infoPage">
-      <h1>정보확인</h1>
-      <div class="info_search">
-        <select id="region" name="region">
-          <option value="" disabled selected>지역</option>
-          <option value="all">전국</option>
-          <option value="seoul">서울</option>
-          <option value="seoul">경기</option>
-          <option value="seoul">광주</option>
-          <option value="seoul">대구</option>
-          <option value="seoul">대전</option>
-          <option value="seoul">부산</option>
-          <option value="seoul">울산</option>
-          <option value="seoul">인천</option>
-          <option value="seoul">강원</option>
-          <option value="seoul">경남</option>
-          <option value="seoul">경북</option>
-          <option value="seoul">전남</option>
-          <option value="seoul">전북</option>
-          <option value="seoul">충북</option>
-          <option value="seoul">충남</option>
-          <option value="seoul">제주</option>
-        </select>
-        <select id="field" name="field">
-          <option value="" disabled selected>분야</option>
-          <option value="seoul">분야가</option>
-          <option value="seoul">뭐가</option>
-          <option value="seoul">있을까요우</option>
-        </select>
-        <input class="search" type="text" placeholder="검색어를 입력하세요" />
+      <a href="{% url 'info' %}"><h1>정보확인</h1></a>
+      <form action="{% url 'result' %}" method="get" id="type_query" style="display: inline;">
+        <div class="info_search">
+          <select name="area" onchange="javascript:{document.getElementById('type_query').submit();}">
+            <option value="" disabled selected>지역</option>
+            <option value="" {% if area == "" %}selected{% endif %}>전국</option>
+            <option value="서울" {% if area == "서울" %}selected{% endif %}>서울</option>
+            <option value="경기" {% if area == "경기" %}selected{% endif %}>경기</option>
+            <option value="광주" {% if area == "광주" %}selected{% endif %}>광주</option>
+            <option value="대구" {% if area == "대구" %}selected{% endif %}>대구</option>
+            <option value="대전" {% if area == "대전" %}selected{% endif %}>대전</option>
+            <option value="부산" {% if area == "부산" %}selected{% endif %}>부산</option>
+            <option value="울산" {% if area == "울산" %}selected{% endif %}>울산</option>
+            <option value="인천" {% if area == "인천" %}selected{% endif %}>인천</option>
+            <option value="강원" {% if area == "강원" %}selected{% endif %}>강원</option>
+            <option value="경남" {% if area == "경남" %}selected{% endif %}>경남</option>
+            <option value="경북" {% if area == "경북" %}selected{% endif %}>경북</option>
+            <option value="전남" {% if area == "전남" %}selected{% endif %}>전남</option>
+            <option value="전북" {% if area == "전북" %}selected{% endif %}>전북</option>
+            <option value="충북" {% if area == "충북" %}selected{% endif %}>충북</option>
+            <option value="충남" {% if area == "충남" %}selected{% endif %}>충남</option>
+            <option value="제주" {% if area == "제주" %}selected{% endif %}>제주</option>
+          </select>
+          <select name="type" style="width: 9rem;" onchange="javascript:{document.getElementById('type_query').submit();}"> 
+            <option value="" disabled selected>근무형태</option>
+            <option value="" {% if type == "" %}selected{% endif %}>전체</option>
+            <option value="정규직" {% if type == "정규직" %}selected{% endif %}>정규직</option>
+            <option value="계약직" {% if type == "계약직" %}selected{% endif %}>계약직</option>
+            <option value="인턴직" {% if type == "인턴직" %}selected{% endif %}>인턴직</option>
+            <option value="교육생" {% if type == "교육생" %}selected{% endif %}>교육생</option>
+          </select>
+          <select name="order" style="width: 8rem;" onchange="javascript:{document.getElementById('type_query').submit();}"> 
+            <option value="인기순" {% if order == "인기순" %}selected{% endif %}>인기순</option>
+            <option value="날짜순" {% if order == "날짜순" %}selected{% endif %}>날짜순</option>
+          </select>
+          <input class="search" type="search" id="search" name="query" placeholder="검색어를 입력하세요" />
+          <input type="submit" hidden />
+        </form>
       </div>
-      <div class="info_recruit">
-        {% for recruit in recruits.all %}
-          <div class="info_recruit_item" onclick="window.open('{{recruit.link}}');" target="_blank">
-            <p class="recruit_corp">{{recruit.corp}}</p>
-            <p class="recruit_tit">{{recruit.title}}</p>
-            <p class="recruit_etc">{{recruit.career}} &nbsp;|&nbsp; {{recruit.academic}} &nbsp;|&nbsp; {{recruit.type}} &nbsp;|&nbsp; {{recruit.area}}</p>
-            {% if recruit.end_date %}
-              {% if recruit.end_date == today %}
-              <p class="recruit_date">오늘마감</p>
+      {% if result_count == 0 %}
+        <p style="margin-top: 3rem;">검색결과가 없습니다.</p>
+      {% endif %}
+      {% if results %}
+          <div class="info_recruit">
+          {% for result in results.all %}
+            <div class="info_recruit_item" onclick="window.open('{{result.link}}');" target="_blank">
+              <p class="recruit_corp">{{result.corp}}</p>
+              <p class="recruit_tit">{{result.title}}</p>
+              <p class="recruit_etc">{{result.career}} &nbsp;|&nbsp; {{result.academic}} &nbsp;|&nbsp; {{result.type}} &nbsp;|&nbsp; {{result.area}}</p>
+              {% if result.end_date %}
+                {% if result.end_date == today %}
+                <p class="recruit_date">오늘마감</p>
+                {% else %}
+                <p class="recruit_date">~ {{result.end_date.month}}/{{result.end_date.day}}</p>
+                {% endif %}
               {% else %}
-              <p class="recruit_date">~ {{recruit.end_date.month}}/{{recruit.end_date.day}}</p>
+                <p class="recruit_date">{{result.end_date_str}}</p>
               {% endif %}
-            {% else %}
-              <p class="recruit_date">{{recruit.end_date_str}}</p>
-            {% endif %}
-          </div>
-        {% endfor %}
-      </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="info_recruit">
+          {% for recruit in recruits.all %}
+            <div class="info_recruit_item" onclick="window.open('{{recruit.link}}');" target="_blank">
+              <p class="recruit_corp">{{recruit.corp}}</p>
+              <p class="recruit_tit">{{recruit.title}}</p>
+              <p class="recruit_etc">{{recruit.career}} &nbsp;|&nbsp; {{recruit.academic}} &nbsp;|&nbsp; {{recruit.type}} &nbsp;|&nbsp; {{recruit.area}}</p>
+              {% if recruit.end_date %}
+                {% if recruit.end_date == today %}
+                <p class="recruit_date">오늘마감</p>
+                {% else %}
+                <p class="recruit_date">~ {{recruit.end_date.month}}/{{recruit.end_date.day}}</p>
+                {% endif %}
+              {% else %}
+                <p class="recruit_date">{{recruit.end_date_str}}</p>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
     </div>
   </body>
 </html>
