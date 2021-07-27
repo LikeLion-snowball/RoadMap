@@ -156,9 +156,13 @@
           <div class="info_recruit_item" target="_blank">
             <div style="display: flex; justify-content: space-between; margin-bottom: -1rem;">
               <p class="recruit_corp">{{result.corp}}</p>
-              <a href="{% url 'scrap' result.id %}"><p class="recruit_scrap" id="recruit_scrap">✩ {{result.scrap_count}}</p></a>
+              {% if user.is_authenticated %}
+                <a href="{% url 'scrap' result.id %}"><p class="recruit_scrap" id="recruit_scrap">✩ {{result.scrap_count}}</p></a>
+              {% else %}
+                <a><p class="recruit_scrap" id="recruit_scrap">✩ {{result.scrap_count}}</p></a>
+              {% endif %}
             </div>
-            <div onclick="window.open('{{recruit.link}}');">
+            <div onclick="window.open('{{result.link}}');">
               <p class="recruit_tit">{{result.title}}</p>
               <p class="recruit_etc">{{result.career}} &nbsp;|&nbsp; {{result.academic}} &nbsp;|&nbsp; {{result.type}} &nbsp;|&nbsp; {{result.area}}</p>
               {% if result.end_date %}
@@ -180,7 +184,11 @@
           <div class="info_recruit_item" target="_blank">
             <div style="display: flex; justify-content: space-between; margin-bottom: -1rem;">
               <p class="recruit_corp">{{recruit.corp}}</p>
-              <a href="{% url 'scrap' recruit.id %}"><p class="recruit_scrap">✩ {{recruit.scrap_count}}</p></a>
+              {% if user.is_authenticated %}
+                <a href="{% url 'scrap' recruit.id %}"><p class="recruit_scrap">✩ {{recruit.scrap_count}}</p></a>
+              {% else %}
+                <a><p class="recruit_scrap">✩ {{recruit.scrap_count}}</p></a>
+              {% endif %}
             </div>
             <div onclick="window.open('{{recruit.link}}');">
               <p class="recruit_tit">{{recruit.title}}</p>
