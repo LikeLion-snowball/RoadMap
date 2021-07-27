@@ -13,20 +13,53 @@
         line-height: 4rem;
         letter-spacing: 0.2rem;
       }
+      .write input {
+        font-size: 1.1rem;
+        padding: 1rem 2rem;
+        margin-top: 1rem;
+        border: 1px solid gray;
+        border-radius: 20px;
+        width: 50rem;
+      }
+      .write textarea {
+        font-size: 1.1rem;
+        padding: 2rem;
+        width: 50rem;
+        height: 20rem;
+        border-radius: 20px;
+      }
+      .write input:focus {
+        outline: none;
+      }
+      .write textarea:focus {
+        outline: none;
+      }
+      .write input[type="submit"] {
+        margin-top: 1rem;
+        padding: 1.1rem 1.5rem;
+        width: 6rem;
+        color: white;
+        font-weight: 500;
+        background-color: rgb(115, 132, 175);
+        border-radius: 30px;
+        border: none;
+      }
+      .write input[type="submit"]:hover {
+        cursor: pointer;
+      }
       
     </style>
   </head>
   <body>
     <div class="createPage">
-      <h1>질문하기</h1>
-      <form method="POST">
-        {% csrf_token %}
-        <table>
-            {{form.as_table}}
-        </table>
-        <br>
-        <input type="submit" value="등록">
-      </form>
+      <div class="write">
+        <h1>질문하기</h1>
+        <form method="POST">
+          {% csrf_token %}
+          {{form.as_p}}
+          <input type="submit" value="등록">
+        </form>
+      </div>
     </div>
   </body>
 </html>

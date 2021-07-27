@@ -2,11 +2,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> -->
-
     <style>
       .qnaPage {
         text-align: center;
@@ -21,6 +16,17 @@
       .nav_item {
         font-size: 1.2rem;
         margin: 2rem;
+      }
+      .qna_create {
+        font-size: 1.2rem;
+        display: inline;
+        border: 1.5px solid gray;
+        border-radius: 30px;
+        background-color: rgb(115, 132, 175);
+        color: white;
+        font-weight: 500;
+        padding: 0.7rem 1.2rem;
+        margin-left: 1rem;
       }
       select {
         font-size: 1.2rem;
@@ -53,11 +59,42 @@
         border: 1.5px solid gray;
         border-radius: 30px;
       }
+      .qna_search {
+        margin-bottom: 3rem;
+      }
+      .qna_post {
+        text-align: left;
+        width: 50vw;
+        min-width: 600px;
+        margin: 0 auto;
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+        padding: 2rem 3rem;
+        border: 1px solid rgb(220, 220, 220);
+        border-radius: 30px;
+        box-shadow: 0 0 20px -5px rgba(110, 110, 110, 0.4);
+      }
+      .qna_post:hover {
+        box-shadow: 0 0 20px -5px rgba(0, 0, 0, 0.7);
+      }
+      .qna_title {
+        color:rgb(72, 101, 173);
+        font-size: 1.3rem;
+        font-weight: bold;
+      }
+      .qna_date {
+        color: gray;
+        font-size: small;
+      }
+      .qna_body {
+        font-size: 1.1rem;
+        line-height: 1.7rem;
+      }
     </style>
   </head>
   <body>
     <div class="qnaPage">
-      <h1>Q&A</h1>
+      <h1><a href="{% url 'qna' %}" style="color: rgb(72, 101, 173);">Q&A</a></h1>
       <div class="qna_search">
         <select id="filter" name="filter">
           <option value="" disabled selected>필터</option>
@@ -67,23 +104,17 @@
         </select>
   
         <input class="search" type="text" placeholder="검색어를 입력하세요" />
-        <div class="nav_item">
-          <a class="nav_link" href="{% url 'postcreate' %}">질문하러가기</a>
-        </div>  
+        <a href="{% url 'postcreate' %}"><p class="qna_create">✏️ 질문하기</p></a>
       </div>
 
-      <br>
       {% for qna in qnas.all %}
-        <div class="container">
-          <div class="card">
-            <div class="card-body">
-              <h1>{{ qna.title }}</h1>
-              <p>{{ qna.pub_date }}</p>
-              <p>{{ qna.body }}</p><a href="{% url 'detail' qna.id %}">자세히 보기</a>
-            </div>
-          </div>
-        </div>
-      <br>
+      <div class="qna_post">
+        <a href="{% url 'detail' qna.id %}">
+          <p class="qna_title">{{ qna.title }}</p>
+          <p class="qna_date">{{ qna.pub_date }}</p>
+          <p class="qna_body">{{ qna.summary }}...</p>
+        </a>
+      </div>
       {% endfor %}
     </div>
   </body>
