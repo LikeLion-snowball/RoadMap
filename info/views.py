@@ -44,4 +44,4 @@ def scrap(request, recruit_id):
 
 def my_scrap(request, user_id):
     scrapped = Scrap.objects.filter(user=request.user)
-    return render(request, 'myScrap.html', {'scraps': scrapped})
+    return render(request, 'myScrap.html', {'scraps': scrapped, 'today': date.today()})

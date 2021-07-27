@@ -6,12 +6,11 @@ from .models import Qna
 class PostForm(forms.ModelForm):
     class Meta:
         model = Qna
-        fields = ['title', 'body', 'pub_date']
-        widgets ={
-            'pub_date' : forms.DateInput(
-                attrs={
-                    'class' : 'form-control',
-                    'type' : 'date'
-                }
-            )
+        fields = ['title', 'body']
+        widgets = {
+        'title': forms.TextInput(
+            attrs={'placeholder': '제목을 입력하세요'}
+            ),
+        'body': forms.Textarea(
+            attrs={'placeholder': '질문을 입력하세요'}),
         }
