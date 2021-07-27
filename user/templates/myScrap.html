@@ -1,0 +1,93 @@
+{% extends 'base.html' %} {% block content %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .infoPage {
+        text-align: center;
+        min-height: 100vh;
+      }
+      .infoPage h1 {
+        font-size: 2.3rem;
+        color: rgb(72, 101, 173);
+        line-height: 4rem;
+        letter-spacing: 0.2rem;
+      }
+      .info_recruit {
+        display: grid;
+        grid-auto-rows: 200px;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        row-gap: 2rem;
+        width: 80vw;
+        max-width: 1500px;
+        margin: 0 auto;
+        justify-items: center;
+        margin-top: 3rem;
+        margin-bottom: 10rem;
+      }
+      .info_recruit_item {
+        text-align: left;
+        padding: 1rem 2.5rem;
+        /* width: 40vw; */
+        width: 600px;
+        border: 1px solid rgb(220, 220, 220);
+        border-radius: 30px;
+        box-shadow: 0 0 20px -5px rgba(110, 110, 110, 0.4);
+      }
+      .info_recruit_item:hover {
+        cursor: pointer;
+        box-shadow: 0 0 20px -5px rgba(0, 0, 0, 0.7);
+      }
+      .recruit_corp {
+        font-size: 1.1rem;
+        color:rgb(72, 101, 173);
+        font-weight: bold;
+      }
+      .recruit_scrap {
+        font-size: 1.1rem;
+        color: rgb(100, 100, 100);
+      }
+      .recruit_tit {
+        font-size: 1.25rem;
+      }
+      .recruit_etc {
+        color: rgb(80, 80, 80);
+      }
+      .recruit_date {
+        color: rgb(218, 19, 19);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="infoPage">
+      <h1><a href="{% url 'info' %}" style="color: rgb(72, 101, 173);">{{ user.username }}님의 스크랩</a></h1>
+      {% if scraps %}
+          <div class="info_recruit">
+          {% for scrap in scraps.all %}
+          <div class="info_recruit_item" target="_blank">
+            <div style="display: flex; justify-content: space-between; margin-bottom: -1rem;">
+              <p class="recruit_corp">{{scrap.recruit.corp}}</p>
+              <a href="{% url 'scrap' scrap.recruit.id %}"><p class="recruit_scrap">★ {{scrap.recruit.scrap_count}}</p></a>
+            </div>
+            <div onclick="window.open('{{scrap.recruit.link}}');">
+              <p class="recruit_tit">{{scrap.recruit.title}}</p>
+              <p class="recruit_etc">{{scrap.recruit.career}} &nbsp;|&nbsp; {{scrap.recruit.academic}} &nbsp;|&nbsp; {{scrap.recruit.type}} &nbsp;|&nbsp; {{scrap.recruit.area}}</p>
+              {% if scrap.recruit.end_date %}
+                {% if scrap.recruit.end_date == today %}
+                <p class="recruit_date">오늘마감</p>
+                {% else %}
+                <p class="recruit_date">~ {{scrap.recruit.end_date.month}}/{{scrap.recruit.end_date.day}}</p>
+                {% endif %}
+              {% else %}
+                <p class="recruit_date">{{scrap.recruit.end_date_str}}</p>
+              {% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </body>
+</html>
+{% endblock %}

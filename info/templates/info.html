@@ -64,7 +64,7 @@
         width: 600px;
         border: 1px solid rgb(220, 220, 220);
         border-radius: 30px;
-        box-shadow: 0 0 20px -5px rgba(125, 125, 125, 0.4);
+        box-shadow: 0 0 20px -5px rgba(110, 110, 110, 0.4);
       }
       .info_recruit_item:hover {
         cursor: pointer;
@@ -75,8 +75,12 @@
         color:rgb(72, 101, 173);
         font-weight: bold;
       }
+      .recruit_scrap {
+        font-size: 1.1rem;
+        color: rgb(100, 100, 100);
+      }
       .recruit_tit {
-        font-size: 1.2rem;
+        font-size: 1.25rem;
       }
       .recruit_etc {
         color: rgb(80, 80, 80);
@@ -88,7 +92,7 @@
   </head>
   <body>
     <div class="infoPage">
-      <a href="{% url 'info' %}"><h1>정보확인</h1></a>
+      <h1><a href="{% url 'info' %}" style="color: rgb(72, 101, 173);">정보확인</a></h1>
       <form action="{% url 'result' %}" method="get" id="type_query" style="display: inline;">
         <div class="info_search">
           <select name="area" onchange="javascript:{document.getElementById('type_query').submit();}">
@@ -133,8 +137,12 @@
       {% if results %}
           <div class="info_recruit">
           {% for result in results.all %}
-            <div class="info_recruit_item" onclick="window.open('{{result.link}}');" target="_blank">
+          <div class="info_recruit_item" target="_blank">
+            <div style="display: flex; justify-content: space-between; margin-bottom: -1rem;">
               <p class="recruit_corp">{{result.corp}}</p>
+              <a href="{% url 'scrap' result.id %}"><p class="recruit_scrap" id="recruit_scrap">✩ {{result.scrap_count}}</p></a>
+            </div>
+            <div onclick="window.open('{{recruit.link}}');">
               <p class="recruit_tit">{{result.title}}</p>
               <p class="recruit_etc">{{result.career}} &nbsp;|&nbsp; {{result.academic}} &nbsp;|&nbsp; {{result.type}} &nbsp;|&nbsp; {{result.area}}</p>
               {% if result.end_date %}
@@ -147,13 +155,18 @@
                 <p class="recruit_date">{{result.end_date_str}}</p>
               {% endif %}
             </div>
+          </div>
           {% endfor %}
         </div>
       {% else %}
         <div class="info_recruit">
           {% for recruit in recruits.all %}
-            <div class="info_recruit_item" onclick="window.open('{{recruit.link}}');" target="_blank">
+          <div class="info_recruit_item" target="_blank">
+            <div style="display: flex; justify-content: space-between; margin-bottom: -1rem;">
               <p class="recruit_corp">{{recruit.corp}}</p>
+              <a href="{% url 'scrap' recruit.id %}"><p class="recruit_scrap">✩ {{recruit.scrap_count}}</p></a>
+            </div>
+            <div onclick="window.open('{{recruit.link}}');">
               <p class="recruit_tit">{{recruit.title}}</p>
               <p class="recruit_etc">{{recruit.career}} &nbsp;|&nbsp; {{recruit.academic}} &nbsp;|&nbsp; {{recruit.type}} &nbsp;|&nbsp; {{recruit.area}}</p>
               {% if recruit.end_date %}
@@ -166,6 +179,7 @@
                 <p class="recruit_date">{{recruit.end_date_str}}</p>
               {% endif %}
             </div>
+          </div>
           {% endfor %}
         </div>
       {% endif %}
