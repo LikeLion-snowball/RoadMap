@@ -1,5 +1,6 @@
-from django.shortcuts import render
-from .models import Recruit
+from django.http.response import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
+from .models import Recruit, Scrap
 from datetime import date
 from django.db.models import Q
 
@@ -27,3 +28,20 @@ def result(request):
     if area:
         result = result.filter(area__icontains=area)
     return render(request, 'info.html', {'results': result, 'result_count':result.count(), 'area': area, 'type': type, 'order': order})
+
+def scrap(request, recruit_id):
+    recruit = get_object_or_404(Recruit, pk=recruit_id)
+    scrapped = Scrap.objects.filter(user=request.user, recruit=recruit)
+    if not scrapped:
+        Scrap.objects.create(user=request.user, recruit=recruit)
+        recruit.scrap_count += 1
+        recruit.save()
+    else:
+        scrapped.delete()
+        recruit.scrap_count -= 1
+        recruit.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+def my_scrap(request, user_id):
+    scrapped = Scrap.objects.filter(user=request.user)
+    return render(request, 'myScrap.html', {'scraps': scrapped})

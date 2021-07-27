@@ -1,4 +1,5 @@
 from django.urls import path
+import info.views
 from . import views
 
 urlpatterns = [
@@ -10,4 +11,5 @@ urlpatterns = [
     path('portfolio/activitycreate/', views.activitycreate, name='activitycreate'),
     path('portfolio/activityupdate/<int:activity_id>', views.activityupdate, name='activityupdate'),
     path('portfolio/activitydelete/<int:activity_id>', views.activitydelete, name='activitydelete'),
+    path('myscrap/', info.views.my_scrap, name="myscrap")
 ]
