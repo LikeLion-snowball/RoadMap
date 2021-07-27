@@ -1,3 +1,4 @@
+import enum
 import os
 from time import sleep
 from bs4 import BeautifulSoup
@@ -36,7 +37,9 @@ def fetch_recruit_latest_data():
     result=[]
     link_root = "https://www.saramin.co.kr"
 
-    for banner in banners:
+    for i, banner in enumerate(banners):
+        if i == 0:
+            continue
         corp = banner.select_one('div.area_rank > div.rank_company_info > a > span').text
         title = banner.select_one('div.area_detail > a.tit > span').text
         dt = banner.select_one('div.area_detail > dl > dd').text
