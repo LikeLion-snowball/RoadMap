@@ -27,7 +27,7 @@ def result(request):
         result = result.filter(type__icontains=type)
     if area:
         result = result.filter(area__icontains=area)
-    return render(request, 'info.html', {'results': result, 'result_count':result.count(), 'area': area, 'type': type, 'order': order})
+    return render(request, 'info.html', {'results': result, 'result_count':result.count(), 'area': area, 'type': type, 'order': order, 'today': date.today()})
 
 def scrap(request, recruit_id):
     recruit = get_object_or_404(Recruit, pk=recruit_id)

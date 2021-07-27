@@ -158,7 +158,7 @@
               <p class="recruit_corp">{{result.corp}}</p>
               <a href="{% url 'scrap' result.id %}"><p class="recruit_scrap" id="recruit_scrap">✩ {{result.scrap_count}}</p></a>
             </div>
-            <div onclick="window.open('{{recruit.link}}');">
+            <div onclick="window.open('{{result.link}}');">
               <p class="recruit_tit">{{result.title}}</p>
               <p class="recruit_etc">{{result.career}} &nbsp;|&nbsp; {{result.academic}} &nbsp;|&nbsp; {{result.type}} &nbsp;|&nbsp; {{result.area}}</p>
               {% if result.end_date %}
