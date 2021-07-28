@@ -13,6 +13,9 @@
         line-height: 4rem;
         letter-spacing: 0.2rem;
       }
+      .write table {
+        margin: 2rem auto;
+      }
       .write input {
         font-size: 1.1rem;
         padding: 1rem 2rem;
@@ -56,7 +59,9 @@
         <h1>질문하기</h1>
         <form method="POST">
           {% csrf_token %}
-          {{form.as_p}}
+          <table>
+          {{form.as_table}}
+          </table>
           <input type="submit" value="등록">
         </form>
       </div>
