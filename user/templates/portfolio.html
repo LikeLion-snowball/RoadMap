@@ -41,6 +41,7 @@
         font-size: 1.1rem;
         text-align: left;
         margin: 0 15vw;
+        margin-bottom: 7rem;
         padding: 1rem 3rem;
         background-color: rgb(235, 235, 235);
         border-radius: 30px;
@@ -69,7 +70,7 @@
         top: -0.5rem;
         border-right: 1px solid black;
         width: 0.5rem;
-        height: 5rem;
+        height: 7rem;
       }
       .project_name,
       .activity_name {
@@ -120,14 +121,19 @@
             <a href="{% url 'projectdelete' user.id project.id %}" onclick="return confirm('정말 삭제하시겠습니까?')">
               <span style="margin-left: 7px;">𝗫</span>
             </a>
+            <p class="project_detail">
+              {{ project.project_detail }}
+            </p>
             <p class="project_date">
               {{ project.project_start }} ~ {{ project.project_end }}
             </p>
+            {% if project.project_github %}
             <p class="project_github">
               <a href="{{ project.project_github }}" target="_blank"
                 >{{ project.project_github }}</a
               >
             </p>
+            {% endif %}
           </div>
         </div>
         {% endfor %}

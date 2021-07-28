@@ -17,7 +17,17 @@
 
       .nav_item {
         font-size: 1.2rem;
-        margin: 2rem;
+        margin: 3rem;
+      }
+      .cal_add {
+        font-size: 1.2rem;
+        display: inline;
+        border: 1.5px solid gray;
+        border-radius: 30px;
+        background-color: rgb(115, 132, 175);
+        color: white;
+        font-weight: 500;
+        padding: 0.7rem 1.2rem;
       }
 
       @font-face {
@@ -29,26 +39,23 @@
       .calendar {
         width: 70vw;
         font-size: 1rem;
-        margin: auto;
         background: #fff;
-        border-radius: 1em;
-        -webkit-box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .2), 10px 10px 10px 10px #fff;
-        box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .2), 10px 10px 10px 10px #fff;
+        padding: 1rem;
+        /* -webkit-box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .2), 10px 10px 10px 10px #fff; */
+        /* box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .2), 10px 10px 10px 10px #fff; */
+        border-radius: 40px;
+        box-shadow: 0 0 20px -7px rgba(115, 132, 175, .8);
         color: #555;
         text-align: center;
       }
-      .month {
-        font-size: 1rem;
-      }
-      .date {
-        font-size: 1rem;
-      }
       .calendar .month {
         color: #222222;
+        line-height: 2rem;
+        font-size: 2rem;
         font-weight: 800;
       }
       .calendar th {
-        padding: 2vw;
+        padding: 1.8rem;
         text-align: center;
         font-size: 1.5rem;
       }
@@ -59,12 +66,12 @@
       }
       .calendar td {
         width: 1rem;
-        height: 5em;
-        padding: .25em .25em;
+        height: 5rem;
+        padding: .6rem .6rem;
         transition: background .5s;
       }
       .calendar td:hover {
-        background: #cacaca;
+        background: #e7e7e7;
         color: #fff;
       }
 
@@ -74,7 +81,6 @@
         list-style: none;
         margin: 0;
       }
-
       .calPage a {
         transition: color .2s;
       }
@@ -82,28 +88,38 @@
         color: black;
       }
       .calPage a:link {
-        color: blue;
+        color: rgb(72, 101, 173);
         text-decoration: none;
       }
       .calPage a:visited {
-        color: blue;
+        color: rgb(72, 101, 173);
         text-decoration: none;
       }
       .calPage a:hover {
-        color: red;
+        color: #e66b6b;
         text-decoration: none;
       }
 
+      .outer {
+        display: flex;
+        justify-content: center;
+      }
       .left {
-        float: left;
-        margin: 10px;
+        font-size: 4rem;
+        font-weight: bold;
+        color:rgb(72, 101, 173);
+        margin-top: 1rem;
+        margin-right: 0.5rem;
       }
       .right {
-        float: right;
-        margin: 10px;
+        font-size: 4rem;
+        font-weight: bold;
+        color:rgb(72, 101, 173);
+        margin-top: 1rem;
+        margin-left: 0.5rem;
       }
 
-      .form {
+      /* .form {
         margin: auto;
       }
       .form input,
@@ -115,20 +131,21 @@
         background: none;
         padding: 5px;
         width: 100%;
-      }
+      } */
     </style>
   </head>
 
   <body>
     <div class="calPage">
+      <!-- <h1><a href="{% url 'calendar' %}" style="color: rgb(72, 101, 173);">일정관리</a></h1> -->
       <div class="nav_item">
-        <a class="nav_link" href="{% url 'new' %}">일정 추가</a>
+        <a href="{% url 'new' %}"><p class="cal_add">✚ 일정 추가</p></a>
       </div>
       <div class="outer">
-        <a class="btn btn-info left" href="{% url 'calendar' %}?{{ prev_month }}"><span>이전 달</span> </a>
-        <a class="btn btn-info right" href="{% url 'calendar' %}?{{ next_month }}"><span>다음 달</span> </a>
+        <a class="btn btn-info left" href="{% url 'calendar' %}?{{ prev_month }}"><span class="left">＜</span> </a>
+        {{calendar}}
+        <a class="btn btn-info right" href="{% url 'calendar' %}?{{ next_month }}"><span class="right">＞</span> </a>
       </div>
-      {{calendar}}
     </div>
   </body>
   
