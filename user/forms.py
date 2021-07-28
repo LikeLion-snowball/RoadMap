@@ -5,7 +5,7 @@ from .models import Activity, Project
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ['project_name', 'project_start', 'project_end', 'project_github']
+        fields = ['project_name', 'project_start', 'project_end', 'project_detail', 'project_github']
         widgets ={
             'project_start' : forms.DateInput(
                 attrs={
