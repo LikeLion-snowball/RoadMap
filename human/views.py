@@ -26,3 +26,4 @@ def postcreate(request):
     post.save()
     return redirect('/human/dpage/' + str(post.id))
 
+

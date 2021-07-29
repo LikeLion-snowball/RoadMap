@@ -6,7 +6,18 @@
     <p>{{ post.created_at }}</p>
     <p>{{ post.body }}</p> 
     <br>
-    <a href="{% url 'dedit' %}">수정하기</a>
+    <a href="{% url 'commentcreate' user.id post.id %}">댓글작성하기</a>
+    <form method='POST'>
+      {% csrf_token %} 
+      {{form}} 
+      <button type='submit'>댓글등록</button>
+    </form>
     <br>
+
+    <h4>댓글목록</h4>
+    {% for comment in post.comment_set.all %}
+            {{comment.content}}<br>
+    {% endfor %}
+    <br><br><br>
     <a href="{% url 'humanhome' %}">돌아가기</a>
     {% endblock %}
