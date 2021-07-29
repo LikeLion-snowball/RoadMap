@@ -1,6 +1,7 @@
+
 {% extends 'base.html' %}
 {% block content %}
-<h1>detail page</h1>
+<h1>로드맵에서는 언제든지 멋진 팀원을 만날 수 있습니다.</h1>
 
     <h1>{{ post.title }}</h1>
     <p>{{ post.created_at }}</p>
@@ -17,25 +18,26 @@
      
     </form>
     <br>
-    <h4>댓글목록</h4>
-    <form method='POST'>
-        {% csrf_token %} 
-        {{form_comment}} 
-        
-    </form>
-    {% for comment in post.comment_set.all %}
-    <div class="comment">
-      <div>
-        <span>{{comment.user.username}}</span>
-        <div>{{comment.content}}</div>
-      </div>
-     
-        <a class="edit" href="{% url 'commentupdate' post.id comment.id %}"><button type="submit">댓글 수정</button></a>
-        <a class="delete" href="{% url 'commentdelete' post.id comment.id %}" onclick="return confirm('정말 삭제하시겠습니까?')"><button type="submit">댓글 삭제</button></a>
+
+<h4>댓글목록</h4>
+<form method='POST'>
+    {% csrf_token %} 
+    {{form_comment}} 
     
-    </div>
-    {% endfor %}
-  </body>
+</form>
+{% for comment in post.comment_set.all %}
+<div class="comment">
+  <div>
+    <span>{{comment.user.username}}</span>
+    <div>{{comment.content}}</div>
+  </div>
+ 
+    <a class="edit" href="{% url 'commentupdate' post.id comment.id %}"><button type="submit">댓글 수정</button></a>
+    <a class="delete" href="{% url 'commentdelete' post.id comment.id %}" onclick="return confirm('정말 삭제하시겠습니까?')"><button type="submit">댓글 삭제</button></a>
+
+</div>
+{% endfor %}
+</body>
 </html>
-    <a href="{% url 'humanhome' %}">돌아가기</a>
-    {% endblock %}
+<a href="{% url 'humanhome' %}">돌아가기</a>
+{% endblock %}
