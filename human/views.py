@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect, HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Humanlog
 from .forms import PostForm
 from django.contrib.auth.models import User
@@ -6,26 +6,39 @@ from django.contrib.auth.models import User
 # Create your views here.
 
 def humanhome(request):
-    humanlogs = Humanlog.objects
-    return render(request, 'humanhome.html', {'humanlogs': humanlogs})
-
-def dpage(request, humanlog_id):
-    humanlog_dpage = get_object_or_404(Humanlog, pk=humanlog_id)
-    return render(request, 'dpage.html', {'humanlog': humanlog_dpage})
+    posts = Humanlog.objects
+    return render(request, 'humanhome.html', {'posts':posts})
 
 def dnew(request):
-    full_text = request.GET['fulltext']
+    return render(request, 'dnew.html')
 
-    word_list = full_text.split()
+def dpage(request, post_id):
+    post_dpage = get_object_or_404(Humanlog, pk=post_id)
+    return render(request, 'dpage.html', {'post': post_dpage})
 
-    word_dictionary = {}
+def newcreate(request):
+    return render(request, 'newcreate.html')
 
-    for word in word_list:
-        if word in word_dictionary:
-            # Increase
-            word_dictionary[word] += 1
-        else:
-            # add to the dictionary
-            word_dictionary[word] = 1
+def hpostcreate(request):
+    post = Humanlog()
+    post.title = request.GET['title']
+    post.body = request.GET['body']
+    post.save()
+    return redirect('/human/dpage/' + str(post.id))
 
-    return render(request, 'dnew.html', {'fulltext': full_text, 'total': len(word_list), 'dictionary': word_dictionary.items()} )
+def hpostdelete(request, post_id):
+    post = Humanlog.objects.get(id=post_id)
+    post.delete()
+    return redirect('/human/humanhome')
+
+def hpostupdate(request, post_id):
+    post = Humanlog.objects.get(id=post_id)
+
+    if request.method == "POST":
+        post.title = request.POST['title']
+        post.body = request.POST['body']
+        post.save()
+        return redirect('/human/dpage/' + str(post.id))
+
+    else:
+        return render(request, 'hpostupdate.html')
