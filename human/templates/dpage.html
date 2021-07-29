@@ -60,15 +60,44 @@
                 <h1>{{ human.title }}</h1>
                 <p>{{ human.pub_date }}</p>
                 <p>{{ human.body }}</p> 
-                <a href="{% url 'human' %}">돌아가기</a>
+                <a href="{% url 'humanhome' %}">돌아가기</a>
                 <a href="{% url 'dpostupdate' human.id %}"> 수정하러가기</a>
-                <a href="{% url 'ddelete' human.id %}">삭제하기</a>
-
+                
                 <a class="btn btn-default" href="{% url 'add_comment_to_post' human.id %}">망설이지 말고 right now 댓글달기</a>
 
               </div>
           </div>
         </div>
+
+        {% if user.is_authenticated %}
+        <h3 class="comment_guide">
+          <a href="{% url 'commentcreate' user.id post.id %}">댓글 작성하기</a>
+        </h3>
+        <div class="comment">
+          <form method="POST">
+            {% csrf_token %} {{ form }}
+            <!-- <button type="submit">댓글 등록</button> -->
+          </form>
+          <br />
+        </div>
+      {% endif %}
+      <h3 class="comment_guide">댓글 목록</h3>
+      <br />
+      <form class="comment_guide" method="POST">
+        {% csrf_token %} {{ update_form }}
+        <!-- <button type="submit">댓글 수정</button> -->
+      </form>
+      {% for comment in post.comment_set.all %}
+      <div class="comment">
+        <div>
+          <span>{{comment.user.username}}</span>
+          <p class="date">{{comment.created_at}}</p>
+          <div>{{comment.content}}</div>
+        </div>
+        <div>
+
+
+
 
         {% for comment in human.comments.all %}
         <div class="container">

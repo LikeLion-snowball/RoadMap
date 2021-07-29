@@ -89,9 +89,10 @@
         <a href="{% url 'home' %}"><h1>R❄adMap</h1></a>
         <span class="header_menu">
           <a href="{% url 'info' %}">정보확인</a>
-          <a href="{% url 'human' %}">팀원모집</a>
+          <a href="{% url 'humanhome' %}">팀원모집</a>
           <a href="{% url 'calendar' %}">일정관리</a>
           <a href="{% url 'qna' %}">Q&A</a>
+          <a href="{% url 'crudapp' %}">구인</a>
         </span>
         <span class="header_user">
           {% if user.is_authenticated %}

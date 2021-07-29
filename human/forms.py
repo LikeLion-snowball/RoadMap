@@ -1,13 +1,13 @@
 from django import forms
-from .models import Human
-from .models import Comment
+from .models import Humanlog
+
 
 class PostForm(forms.ModelForm):
     class Meta:
-        model = Human
-        fields = ['title', 'body', 'pub_date']
+        model = Humanlog
+        fields = ['title', 'body']
         widgets ={
-            'pub_date' : forms.DateInput(
+            'created_at' : forms.DateInput(
                 attrs={
                     'class' : 'form-control',
                     'type' : 'date'
@@ -15,21 +15,4 @@ class PostForm(forms.ModelForm):
             )
         }
 
-class CommentForm(forms.ModelForm):
 
-    class Meta:
-        model=Comment
-        fields=('author_name', 'comment_text')
-
-class HumanUpdate(forms.ModelForm):
-    class Meta:
-        model = Human
-        fields = ['title', 'body', 'pub_date']
-        widgets ={
-            'pub_date' : forms.DateInput(
-                attrs={
-                    'class' : 'form-control',
-                    'type' : 'date'
-                }
-            )
-        }
