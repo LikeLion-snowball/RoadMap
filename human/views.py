@@ -30,3 +30,15 @@ def hpostdelete(request, post_id):
     post = Humanlog.objects.get(id=post_id)
     post.delete()
     return redirect('/human/humanhome')
+
+def hpostupdate(request, post_id):
+    post = Humanlog.objects.get(id=post_id)
+
+    if request.method == "POST":
+        post.title = request.POST['title']
+        post.body = request.POST['body']
+        post.save()
+        return redirect('/human/dpage/' + str(post.id))
+
+    else:
+        return render(request, 'hpostupdate.html')

@@ -6,7 +6,7 @@
     <p>{{ post.created_at }}</p>
     <p>{{ post.body }}</p> 
     <br>
-
+    <a href="{% url 'hpostupdate' post.id %}"><button type='submit'>구인글수정하기</button></a>
     <a href="{% url 'hpostdelete' post.id %}"><button type='submit'>구인글삭제하기</button></a>
     <br>
 

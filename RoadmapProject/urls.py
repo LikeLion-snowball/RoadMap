@@ -43,4 +43,5 @@ urlpatterns = [
     path('human/newcreate/', human.views.newcreate, name="newcreate"),
     path('human/hpostcreate/', human.views.hpostcreate, name="hpostcreate"),
     path('human/hpostdelete/<int:post_id>/', human.views.hpostdelete, name="hpostdelete"),
+    path('human/hpostupdate/<int:post_id>/', human.views.hpostupdate, name="hpostupdate"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
