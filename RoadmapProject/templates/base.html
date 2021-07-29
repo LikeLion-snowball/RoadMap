@@ -92,7 +92,6 @@
           <a href="{% url 'humanhome' %}">팀원모집</a>
           <a href="{% url 'calendar' %}">일정관리</a>
           <a href="{% url 'qna' %}">Q&A</a>
-          <a href="{% url 'crudapp' %}">구인</a>
         </span>
         <span class="header_user">
           {% if user.is_authenticated %}
@@ -100,8 +99,7 @@
           <a href="javascript:{document.getElementById('logout').submit()}"
             >로그아웃</a
           >
-          <form id="logout" method="POST" action="{% url 'logout' %}">
-            {% csrf_token %} <input type="hidden" />
+         
           </form>
           {% else %}
           <a href="{% url 'login' %}">로그인</a>
