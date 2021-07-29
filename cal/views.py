@@ -55,3 +55,8 @@ def event(request, event_id=None):
         form.save()
         return redirect('calendar')
     return render(request, 'input.html', {'form': form})
+
+def eventdelete(request, event_id) :
+    instance = get_object_or_404(Event, pk=event_id)
+    instance.delete()
+    return redirect('calendar')
