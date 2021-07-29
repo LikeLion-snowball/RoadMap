@@ -41,5 +41,6 @@ urlpatterns = [
     path('commentcrud/', include('commentcrud.urls')),
     path('human/dpage/<int:post_id>', human.views.dpage, name="dpage"),
     path('human/newcreate/', human.views.newcreate, name="newcreate"),
-    path('human/postcreate/', human.views.postcreate, name="postcreate"),
+    path('human/hpostcreate/', human.views.hpostcreate, name="hpostcreate"),
+    path('human/hpostdelete/<int:post_id>/', human.views.hpostdelete, name="hpostdelete"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -19,11 +19,14 @@ def dpage(request, post_id):
 def newcreate(request):
     return render(request, 'newcreate.html')
 
-def postcreate(request):
+def hpostcreate(request):
     post = Humanlog()
     post.title = request.GET['title']
     post.body = request.GET['body']
     post.save()
     return redirect('/human/dpage/' + str(post.id))
 
-
+def hpostdelete(request, post_id):
+    post = Humanlog.objects.get(id=post_id)
+    post.delete()
+    return redirect('/human/humanhome')

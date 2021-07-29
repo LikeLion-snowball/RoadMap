@@ -10,7 +10,7 @@
 {% for post in posts.all %}
         <h1>{{post.title}}</h1>
         <p>{{ post.created_at }}</p>
-        <p>{{ post.body }}</p><a href="{% url 'dpage' post.id %}">자세히 보기</a>
+        <p>{{ post.body }}</p><a href="{% url 'dpage' post.id %}"><button type='submit'>구인글 자세히보기</button></a>
     {% endfor %}
 <br>
 {% endblock %}
