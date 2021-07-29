@@ -14,7 +14,7 @@ def login_view(request):
                 login(request, user)
                 return redirect('home')
         else:
-            return render(request, 'login.html', {'form': form})
+            return render(request, 'login.html', {'form': form, 'error': 'username이나 password가 일치하지 않습니다.'})
     else:
         form = AuthenticationForm()
         return render(request, 'login.html', {'form': form})
