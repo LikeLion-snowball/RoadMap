@@ -1,9 +1,8 @@
-{% extends 'base.html' %} {% block content %}
-<a href="{% url 'dwrite' %}"> 구인하러가기</a>
-
 <!DOCTYPE html>
 <html>
   <head>
+    {% extends 'base.html' %} {% block content %} {% load static %}
+<a href="{% url 'dwrite' %}"> 구인하러가기</a>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -80,15 +79,14 @@
             <h1>제목 : {{ human.title }}</h1>
             <p>작성일자 : {{ human.pub_date| date:"Y-m-d" }}</p>
             <p>자세히보기: {{human.body}}</p>
-            <a href="{% url 'dpage' human.id %}">자세히보기</a>
+            <a href="{% url 'dpage' humanlog.id %}">자세히보기</a>
           </div>
         </div>
       </div>
       <br />
-      {% endfor %}
+      {% endfor %} {% endblock %}
 
     </div>
   </body>
 </html>
 
-{% endblock %}

@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'human',
     'accounts',
     'home',
+    'commentcrud',
+    'crudapp',
 ]
 
 MIDDLEWARE = [
