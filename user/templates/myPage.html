@@ -36,7 +36,7 @@
       <h1>내 정보</h1>
       <div class="my_info">
         <p style="font-size: 1.6rem; font-weight: bold">{{ user.username }}</p>
-        <p>숙명여대 18학번 어쩌구저쩌구 정보들</p>
+        <p>숙명여대 {{ user.major }}</p>
       </div>
       <div class="my_nav">
         <a href="{% url 'portfolio' user.id %}"><p>내 포트폴리오</p></a>

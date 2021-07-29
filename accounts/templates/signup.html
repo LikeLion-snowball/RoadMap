@@ -1,5 +1,4 @@
 {% extends 'base.html' %} 
-{% load bootstrap4 %} 
 {% block content %} 
 
 {% if error %}
@@ -8,57 +7,13 @@
 <br>
 {% endif %}
 
-<div class="wrapper" style="text-align: center;"> 
-	<h1>회원가입</h1> 
-	<form method="POST" action="{% url 'signup'%}"> 
+<div style="text-align: center;"> 
+    <h1>로그인</h1>
 
-		{% csrf_token %} 
-        이름(실명):
-        <input name="name" type="text" value="">
-        <br>
-        아이디:
-        <input name="username" type="text" value="">
-        <br>
-        비밀번호:
-        <input name="password1" type="password" value="">
-        <br>
-        비밀번호 재입력:
-        <input name="password2" type="password" value="">
-        <br>
-        이메일:
-        <input name="email" type="email" value="">
-        <br>
-        휴대폰번호:
-        <input name="phonenum" type="tel" value="010">
-        <br>
-        전공:
-        <input name="major" type="text" value="">
-        <br>
-        포트폴리오 공개여부:
-        <input name="isPrivate" type="BooleanField" value="No">
-        <br> 
-	    <input type="submit" class="btn btn-primary" value="Sign Up!"> 
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-	</form> 
-</div> 
+    <form method="POST" action="{% url 'signup' %}">
+	    {%csrf_token%}
+        {{ form.as_p }}
+        <button type="submit">submit</button>
+    </form>
+
 {% endblock %}

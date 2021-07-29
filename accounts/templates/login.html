@@ -1,42 +1,16 @@
 {% extends 'base.html' %} 
-{% load bootstrap4 %} 
 {% block content %} 
-<div class="wrapper" style="text-align: center;"> 
+<div style="text-align: center;"> 
     <h1>로그인</h1>
-
-    <form method="POST" action="{% url 'login'%}">
-	    {%csrf_token%}
-        아이디:
-        <input name="username" type="text" value="">
-        비밀번호:
-        <input name="password" type="password" value="">
-        <input type="submit" class="btn btn-primary" value="Login">
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
+    {% if error %}
+    {{ error }}
+    <br>
+    <br>
+    {% endif %}
+    <form method="POST" action="{% url 'login' %}">
+	    {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">submit</button>
     </form>
 
 {% endblock %}

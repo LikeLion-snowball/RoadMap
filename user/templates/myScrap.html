@@ -77,7 +77,7 @@
   </head>
   <body>
     <div class="infoPage">
-      <h1><a href="{% url 'info' %}" style="color: rgb(72, 101, 173);">{{ user.username }}님의 스크랩</a></h1>
+      <h1><a style="color: rgb(72, 101, 173);">{{ user.username }}님의 스크랩</a></h1>
       {% if scraps %}
           <div class="info_recruit">
           {% for scrap in scraps.all %}
