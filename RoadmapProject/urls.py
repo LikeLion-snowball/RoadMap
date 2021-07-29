@@ -24,8 +24,6 @@ import qna.views
 import human.views
 import home.views
 import commentcrud.views
-import crudapp.views
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home.views.home, name="home"),
@@ -35,7 +33,6 @@ urlpatterns = [
     path('cal/', include('cal.urls')),
     path('qna/', qna.views.qna, name="qna"),
     path('qna/', include('qna.urls')),
-   # path('',human.views.humanhome, name='humanhome'),
     path('human/humanhome', human.views.humanhome, name="humanhome"),
     path('human/dnew/', human.views.dnew, name="dnew"),
     path('commentcrud/', include('commentcrud.urls')),
