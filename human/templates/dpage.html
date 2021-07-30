@@ -142,6 +142,20 @@
         border-radius: 10px;
         border: none;
       }
+      .comment_title {
+        color:rgb(72, 101, 173);
+        font-size: 1.3rem;
+        font-weight: bold;
+      }
+      .comment_date {
+        color: gray;
+        font-size: small;
+        margin-top: 15px;
+        margin-left: 1rem;
+      }
+      .comment_body {
+        font-size: 1.1rem;
+      }
     </style>
   </head>
   <body>
@@ -159,7 +173,7 @@
         <a href="{% url 'hpostcreate' user.id %}"><p class="team_create">✏️ 글쓰기</p></a>
       </div>
          
-      <a href="{% url 'notice' %}">공지사항</a>
+      <!-- <a href="{% url 'notice' %}">공지사항</a> -->
 
       <div class="team_post">
           <div class="team_post_top">
@@ -192,8 +206,12 @@
         <hr>
         {% for comment in post.comment_set.all %}
           <div class="comment">
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: -1rem;">
-              <p class="team_title">{{ comment.user.username }}</p>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: -0.5rem;">
+              <div style="display: flex; align-items: center;">
+                <img class="userImg" src="{% static 'user.png' %}" alt="user">
+                <p class="comment_title">{{ comment.user.username }}</p>
+                <p class="comment_date">{{ comment.created_at }}</p>
+              </div>
               {% if user.is_authenticated and user.username == comment.user.username %}
               <div class="edit">
                 <a href="{% url 'commentupdate' post.id comment.id user.id %}">수정</a>&nbsp;
@@ -201,7 +219,6 @@
               </div>
               {% endif %}
             </div>
-            <p class="team_date">{{ comment.created_at }}</p>
             {% if comment.id == commentId %}
             <form method='POST'>
               {% csrf_token %}
@@ -209,7 +226,7 @@
               <input value="수정" type="submit" />
             </form>
             {% else %}
-            <p class="team_body">{{ comment.content }}</p>
+            <p class="comment_body">{{ comment.content }}</p>
             {% endif %}
           </div>
         <hr>

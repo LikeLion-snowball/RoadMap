@@ -1,12 +1,66 @@
-{% extends 'base.html' %}
-{% block content %}
-<h1>공지사항</h1>
-
-1.반말금지
-2.실명언급금지
-3.전화번호 교환금지
-4.욕설금지
-5.금전거래 금지
-<br><br>
-<a href="{% url 'humanhome' %}">구인홈으로 돌아가기</a>
+{% extends 'base.html' %} {% block content %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+		.noticePage {
+			text-align: center;
+			min-height: 100vh;
+		}
+		.noticePage h1 {
+			font-size: 2.3rem;
+			color: rgb(72, 101, 173);
+			line-height: 4rem;
+			letter-spacing: 0.2rem;
+		}
+		.write table {
+			margin: 2rem auto;
+		}
+		.write input {
+			font-size: 1.1rem;
+			padding: 1rem 2rem;
+			margin-top: 1rem;
+			border: 1px solid gray;
+			border-radius: 20px;
+			width: 50rem;
+		}
+		.write textarea {
+			font-size: 1.1rem;
+			padding: 2rem;
+			width: 50rem;
+			height: 20rem;
+			border-radius: 20px;
+		}
+		.write input:focus {
+			outline: none;
+		}
+		.write textarea:focus {
+			outline: none;
+		}
+		.write input[type="submit"] {
+			margin-top: 1rem;
+			padding: 1.1rem 1.5rem;
+			width: 6rem;
+			color: white;
+			font-weight: 500;
+			background-color: rgb(115, 132, 175);
+			border-radius: 30px;
+			border: none;
+		}
+		.write input[type="submit"]:hover {
+			cursor: pointer;
+		}
+    </style>
+  </head>
+  <body>
+	<div class="noticePage">
+		<h1>공지사항</h1>
+            <p>1.반말금지</p>
+            2.실명언급금지
+            3.전화번호 교환금지
+            4.욕설금지
+            5.금전거래 금지
+	</div>
+  </body>
+</html>
 {% endblock %}
