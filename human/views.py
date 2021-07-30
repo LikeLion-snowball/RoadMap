@@ -1,3 +1,4 @@
+from commentcrud.forms import CommentForm
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Humanlog
 from .forms import PostForm
@@ -12,9 +13,20 @@ def humanhome(request):
 def notice(request):
     return render(request, 'notice.html')
 
-def dpage(request, post_id):
-    detail = get_object_or_404(Humanlog, pk=post_id)
-    return render(request, 'dpage.html', {'post': detail})
+def dpage(request, post_id, user_id):
+    user = get_object_or_404(CustomUser, pk=user_id)
+    post = get_object_or_404(Humanlog, pk=post_id)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = user
+            comment.post = post
+            comment.save()
+            return redirect('dpage', post_id=post.pk, user_id=user.pk)
+    else:
+        form = CommentForm()
+        return render(request, 'dpage.html', {'form': form, 'post': post})
 
 def hpostcreate(request, user_id):
     user = get_object_or_404(CustomUser, pk=user_id)

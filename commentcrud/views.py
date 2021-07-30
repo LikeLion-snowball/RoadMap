@@ -5,22 +5,22 @@ from .models import Comment
 from accounts.models import CustomUser
 
 # Create your views here.
-def commentcreate(request, user_id, post_id):
-    user = get_object_or_404(CustomUser, pk=user_id)
-    post = get_object_or_404(Humanlog, pk=post_id)
-    if request.method=='POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.user = user
-            comment.post = post
-            comment.save()
-            return redirect('dpage', post_id=post.pk)
-        else:
-            redirect('list')
-    else:
-        form = CommentForm()
-        return render(request, 'dpage.html', {'form': form, 'post': post})
+# def commentcreate(request, user_id, post_id):
+#     user = get_object_or_404(CustomUser, pk=user_id)
+#     post = get_object_or_404(Humanlog, pk=post_id)
+#     if request.method=='POST':
+#         form = CommentForm(request.POST)
+#         if form.is_valid():
+#             comment = form.save(commit=False)
+#             comment.user = user
+#             comment.post = post
+#             comment.save()
+#             return redirect('dpage', post_id=post.pk)
+#         else:
+#             redirect('list')
+#     else:
+#         form = CommentForm()
+#         return render(request, 'dpage.html', {'form': form, 'post': post})
 
 def commentupdate(request, post_id, comment_id):
     comment = get_object_or_404(Comment, pk=comment_id)

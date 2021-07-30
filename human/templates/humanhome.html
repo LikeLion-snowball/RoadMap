@@ -125,7 +125,7 @@
 
       {% for post in posts.all %}
       <div class="team_post">
-        <a href="{% url 'dpage' post.id %}">
+        <a href="{% url 'dpage' post.id user.id %}">
           <div class="team_post_user">
             <img class="userImg" src="{% static 'user.png' %}" alt="user">
             <span class="team_user">{{ post.user.username }}</span>

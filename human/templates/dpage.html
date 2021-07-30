@@ -131,6 +131,17 @@
         margin-bottom: 1rem;
         border: 1px solid rgb(220, 220, 220);
       }
+      .comments input[type="submit"] {
+        font-size: 1.1rem;
+        width: 4.5rem;
+        height: 5rem;
+        color: white;
+        font-weight: 500;
+        margin-left: 0.5rem;
+        background-color: rgb(115, 132, 175);
+        border-radius: 10px;
+        border: none;
+      }
     </style>
   </head>
   <body>
@@ -167,12 +178,6 @@
           <p class="team_body">{{ post.body }}</p>
       </div>
 
-      <a href="{% url 'commentcreate' user.id post.id %}"> <button type='submit'>댓글등록</button></a>
-      <form method='POST'>
-        {% csrf_token %} 
-        {{form}} 
-      </form>
-
       <form method='POST'>
         {% csrf_token %}
         {{form_comment}} 
@@ -180,17 +185,15 @@
       
       <div class="comments">
         <h2>댓글목록</h2>
-        <!-- <textarea href="{% url 'commentcreate' user.id post.id %}"> -->
           <form method='POST'>
             {% csrf_token %} 
-            {{form}} 
+            {{ form }} 
+            <input value="등록" type="submit" />
           </form>
-        <!-- </textarea> -->
-        <input value="등록" type="submit" />
         <hr>
         {% for comment in post.comment_set.all %}
           <div class="comment">
-            <div style="display: flex; justify-content: space-between; margin-bottom: -1rem;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: -1rem;">
               <p class="team_title">{{ comment.user.username }}</p>
               <div class="edit">
                 <a href="{% url 'commentupdate' post.id comment.id %}">수정</a>&nbsp;
