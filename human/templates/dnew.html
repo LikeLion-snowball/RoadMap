@@ -1,18 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
+<h1>공지사항</h1>
 
-<h1>새 글 쓰기</h1>
-
-<div class="container">
-    <form action="{% url 'dwrite' %}">
-        <h4>제목:</h4>
-        <input type="text" name="title">
-        <br><br>
-        <h4>본문: </h4>
-        <textarea cols=40 rows=10 name="body"></textarea>
-        <br><br>
-        <input class="btn btn-dark" type="submit" value="제출하기">
-    </form>
-</div>
-
+1.반말금지
+2.실명언급금지
+3.전화번호 교환금지
+4.욕설금지
+5.금전거래 금지
+<br><br>
+<a href="{% url 'humanhome' %}">구인홈으로 돌아가기</a>
 {% endblock %}

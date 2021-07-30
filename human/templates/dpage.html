@@ -1,94 +1,43 @@
-{% extends 'base.html' %} {% block content %}
-<!DOCTYPE html>
-<html>
-  <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <style>
-      .qnaPage {
-        text-align: center;
-        min-height: 100vh;
-      }
-      .qnaPage h1 {
-        font-size: 2.3rem;
-        color: rgb(72, 101, 173);
-        line-height: 4rem;
-        letter-spacing: 0.2rem;
-      }
-      select {
-        font-size: 1.2rem;
-        width: 7rem;
-        padding: 0.7rem 1.2rem;
-        border: 1.5px solid gray;
-        border-radius: 30px;
-        margin-right: 0.5rem;
-        background: url("https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg")
-          no-repeat 95% 50%;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-      }
-      select::-ms-expand {
-        display: none;
-      }
-      select:focus {
-        outline: none;
-      }
-      input:focus {
-        outline: none;
-      }
-      .qnaPage .search {
-        font-size: 1.2rem;
-        width: 35vw;
-        min-width: 300px;
-        max-width: 700px;
-        padding: 0.7rem 1.2rem;
-        border: 1.5px solid gray;
-        border-radius: 30px;
-      }
-      
-    </style>
-  </head>
-  <body>
 
-        <br>
-        <div class="container">
-          <div class="card">
-              <div class="card-body">
-                <h1>{{ human.title }}</h1>
-                <p>{{ human.pub_date }}</p>
-                <p>{{ human.body }}</p> 
-                <a href="{% url 'human' %}">돌아가기</a>
-                <a href="{% url 'dpostupdate' human.id %}"> 수정하러가기</a>
-                <a href="{% url 'ddelete' human.id %}">삭제하기</a>
+{% extends 'base.html' %}
+{% block content %}
+<h1>로드맵에서는 언제든지 멋진 팀원을 만날 수 있습니다.</h1>
 
-                <a class="btn btn-default" href="{% url 'add_comment_to_post' human.id %}">망설이지 말고 right now 댓글달기</a>
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.created_at }}</p>
+    <p>{{ post.body }}</p> 
+    <br>
+    <a href="{% url 'hpostupdate' post.id %}"><button type='submit'>구인글수정하기</button></a>
+    <a href="{% url 'hpostdelete' post.id %}"><button type='submit'>구인글삭제하기</button></a>
+    <br>
 
-              </div>
-          </div>
-        </div>
+    <a href="{% url 'commentcreate' user.id post.id %}"> <button type='submit'>댓글등록</button></a>
+    <form method='POST'>
+      {% csrf_token %} 
+      {{form}} 
+     
+    </form>
+    <br>
 
-        {% for comment in human.comments.all %}
-        <div class="container">
-          <div class="card">
-              <div class="card-body">
-                <div class="comment">
-                    <div class="date">{{ comment.created_at }}</div>
-                    <strong>{{ comment.author_name }}</strong>
-                    <p>{{ comment.comment_text|linebreaks }}</p>
-                    <a class="btn btn-default" href="{% url 'add_comment_to_post' human.id %}">같이 하고싶다고 댓글남기기!</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-                
-            {% endfor %}
-  </body>
+<h4>댓글목록</h4>
+<form method='POST'>
+    {% csrf_token %} 
+    {{form_comment}} 
+    
+</form>
+{% for comment in post.comment_set.all %}
+<div class="comment">
+  <div>
+    <span>{{comment.user.username}}</span>
+    <div>{{comment.content}}</div>
+  </div>
+ 
+    <a class="edit" href="{% url 'commentupdate' post.id comment.id %}"><button type="submit">댓글 수정</button></a>
+    <a class="delete" href="{% url 'commentdelete' post.id comment.id %}" onclick="return confirm('정말 삭제하시겠습니까?')"><button type="submit">댓글 삭제</button></a>
+
+</div>
+{% endfor %}
+</body>
 </html>
-
-
-
+<a href="{% url 'humanhome' %}">돌아가기</a>
 {% endblock %}

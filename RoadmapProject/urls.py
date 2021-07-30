@@ -23,6 +23,8 @@ import cal.views
 import qna.views
 import human.views
 import home.views
+import commentcrud.views
+import crudapp.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,14 +35,13 @@ urlpatterns = [
     path('cal/', include('cal.urls')),
     path('qna/', qna.views.qna, name="qna"),
     path('qna/', include('qna.urls')),
-    path('human/', human.views.human, name="human"),
-    path('human/dnew/', human.views.dnew, name='dnew'),
-    path('human/<int:human_id>', human.views.dpage, name='dpage'),
-    path('human/dwrite', human.views.dwrite, name='dwrite'),
-    path('human/dpostcreate', human.views.dpostcreate, name='dpostcreate'),
-    path('accounts/', include('accounts.urls')),
-    path('human/dpostupdate/<int:human_id>',human.views.dpostupdate, name='dpostupdate'),
-    path('human/dupdate', human.views.dupdate, name='dupdate'),
-    path('human/comment/<int:human_id>', human.views.add_comment_to_post, name='add_comment_to_post'),
-    # path('human/ddelete/<int:human_id>/', human.views.ddelete, name='ddelete'),
+   # path('',human.views.humanhome, name='humanhome'),
+    path('human/humanhome', human.views.humanhome, name="humanhome"),
+    path('human/dnew/', human.views.dnew, name="dnew"),
+    path('commentcrud/', include('commentcrud.urls')),
+    path('human/dpage/<int:post_id>', human.views.dpage, name="dpage"),
+    path('human/newcreate/', human.views.newcreate, name="newcreate"),
+    path('human/hpostcreate/', human.views.hpostcreate, name="hpostcreate"),
+    path('human/hpostdelete/<int:post_id>/', human.views.hpostdelete, name="hpostdelete"),
+    path('human/hpostupdate/<int:post_id>/', human.views.hpostupdate, name="hpostupdate"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
