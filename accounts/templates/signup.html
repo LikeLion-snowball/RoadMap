@@ -1,19 +1,121 @@
-{% extends 'base.html' %} 
-{% block content %} 
+{% extends 'base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .registerPage {
+            text-align: center;
+            min-height: 100vh;
+        }
 
-{% if error %}
-{{ error }}
-<br>
-<br>
-{% endif %}
+        .registerPage h1 {
+            font-size: 2.3rem;
+            color: rgb(72, 101, 173);
+            line-height: 4rem;
+            letter-spacing: 0.2rem;
+        }
+        .signup table {
+            margin: 2rem auto;
+        }
+        .signup input {
+            font-size: 1.1rem;
+            padding: 1rem 2rem;
+            margin-top: 1rem;
+            border: 1px solid gray;
+            border-radius: 20px;
+            width: 15rem;
+        }
+        .signup input:focus {
+            outline: none;
+        }
+        .signup input[type="submit"] {
+            margin-top: 0;
+            padding: 1.1rem 1.5rem;
+            width: 8rem;
+            color: white;
+            font-weight: 500;
+            background-color: rgb(115, 132, 175);
+            border-radius: 30px;
+            border: none;
+        }
+        .signup input[type="submit"]:hover {
+            cursor: pointer;
+        }
+        .registerPage p {
+            color: rgb(207, 0, 0);
+            margin-top: 2rem;
+        }
+        table td {
+            width: 10rem;
+        }
+        .signup_label {
+            font-size: 1.2rem;
+            padding-top: 1rem;
+        }
+        .signup_info {
+            font-size: small;
+            color: gray;
+        }
+    </style>
+</head>
 
-<div style="text-align: center;"> 
-    <h1>로그인</h1>
-
-    <form method="POST" action="{% url 'signup' %}">
-	    {%csrf_token%}
-        {{ form.as_p }}
-        <button type="submit">submit</button>
-    </form>
-
+<body>
+    <div class="registerPage">
+        <h1><a style="color: rgb(72, 101, 173);">회원가입</a></h1>
+        {% if error %}
+        <p>{{ error }}</p>
+        {% endif %}
+        <div class="signup">
+            <form method="POST" action="{% url 'signup' %}">
+                {% csrf_token %}
+                <table>
+                    <!-- {{ form.as_table }} -->
+                    <tr>
+                        <td class="signup_label">닉네임</td>
+                        <td>{{ form.username }}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="signup_info">150자 이하 문자, 숫자 그리고 @/./+/-/_만 가능합니다.</td>
+                    </tr>
+                    <tr>
+                        <td class="signup_label">비밀번호</td>
+                        <td>{{ form.password1 }}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="signup_info">비밀번호는 최소 8자 이상이어야 합니다.<br>숫자로만 이루어진 비밀번호는 사용할 수 없습니다.</td>
+                    </tr>
+                    <tr>
+                        <td class="signup_label">비밀번호 확인</td>
+                        <td>{{ form.password2 }}</td>
+                    </tr>
+                    <tr>
+                        <td class="signup_label">이메일</td>
+                        <td>{{ form.email }}</td>
+                    </tr>
+                    <tr>
+                        <td class="signup_label">전화번호</td>
+                        <td>{{ form.phonenum }}</td>
+                    </tr>
+                    <tr>
+                        <td class="signup_label">전공</td>
+                        <td>{{ form.major }}</td>
+                    </tr>
+                    <tr>
+                        <td class="signup_label">주소</td>
+                        <td>{{ form.address }}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="signup_info">도/시까지 입력해주세요.</td>
+                    </tr>
+                </table>
+                <input value="회원가입" type="submit" />
+            </form>
+        </div>
+    </div>
+</body>
+</html>
 {% endblock %}
