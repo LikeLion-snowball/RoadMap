@@ -12,13 +12,13 @@ class Recruit(models.Model):
     academic = models.CharField(max_length=20)
     type = models.CharField(max_length=20, null=True, blank=True)
     area = models.CharField(max_length=20)
-    scrap = models.ManyToManyField(to=settings.AUTH_USER_MODEL, related_name="recruits", through='Scrap')
+    scrap = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="recruits", through='Scrap')
     scrap_count = models.IntegerField(default=0)
     
     def __str__(self):
         return self.corp
 
 class Scrap(models.Model):
-    user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     recruit = models.ForeignKey(Recruit, related_name="scraps", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
