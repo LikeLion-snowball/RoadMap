@@ -1,12 +1,12 @@
 from django.shortcuts import render,get_object_or_404, redirect
 from .forms import CommentForm
 from human.models import Humanlog
-from django.contrib.auth.models import User
 from .models import Comment
+from accounts.models import CustomUser
 
 # Create your views here.
 def commentcreate(request, user_id, post_id):
-    user = get_object_or_404(User, pk=user_id)
+    user = get_object_or_404(CustomUser, pk=user_id)
     post = get_object_or_404(Humanlog, pk=post_id)
     if request.method=='POST':
         form = CommentForm(request.POST)
