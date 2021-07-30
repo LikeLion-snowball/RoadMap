@@ -35,6 +35,7 @@ urlpatterns = [
     path('cal/', include('cal.urls')),
     path('qna/', qna.views.qna, name="qna"),
     path('qna/', include('qna.urls')),
+    path('accounts/', include('accounts.urls')),
    # path('',human.views.humanhome, name='humanhome'),
     path('human/humanhome', human.views.humanhome, name="humanhome"),
     path('human/dnew/', human.views.dnew, name="dnew"),
