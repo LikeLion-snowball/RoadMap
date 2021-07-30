@@ -1,0 +1,85 @@
+{% extends 'base.html' %} {% block content %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .loginPage {
+            text-align: center;
+            min-height: 100vh;
+        }
+
+        .loginPage h1 {
+            font-size: 2.3rem;
+            color: rgb(72, 101, 173);
+            line-height: 4rem;
+            letter-spacing: 0.2rem;
+        }
+        .login table {
+            margin: 2rem auto;
+        }
+        .login input {
+            font-size: 1.1rem;
+            padding: 1rem 2rem;
+            margin-top: 1rem;
+            border: 1px solid gray;
+            border-radius: 20px;
+            width: 15rem;
+        }
+        .login input:focus {
+            outline: none;
+        }
+        .login input[type="submit"] {
+            margin-top: 0;
+            padding: 1.1rem 1.5rem;
+            width: 7rem;
+            color: white;
+            font-weight: 500;
+            background-color: rgb(115, 132, 175);
+            border-radius: 30px;
+            border: none;
+        }
+        .login input[type="submit"]:hover {
+            cursor: pointer;
+        }
+        .loginPage p {
+            color: rgb(207, 0, 0);
+            margin-top: 2rem;
+        }
+        table td {
+            width: 7rem;
+        }
+        .login_label {
+            font-size: 1.2rem;
+            padding-top: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loginPage">
+        <h1><a style="color: rgb(72, 101, 173);">로그인</a></h1>
+        {% if error %}
+        <p>{{ error }}</p>
+        {% endif %}
+        <div class="login">
+            <form method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+                <table>
+                    <tr>
+                        <td class="login_label">닉네임</td>
+                        <td>{{ form.username }}</td>
+                    </tr>
+                    <tr>
+                        <td class="login_label">비밀번호</td>
+                        <td>{{ form.password }}</td>
+                    </tr>
+                </table>
+                <input value="로그인" type="submit" />
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
+{% endblock %}

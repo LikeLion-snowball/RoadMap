@@ -42,7 +42,7 @@
         {% if user.is_authenticated %}
         <div class="home_nav">
             <p style="font-size: 1.5rem; font-weight: bold; margin-bottom: -1rem;">{{ user.username }}</p>
-            <p>소프트웨어융합전공</p>
+            <p>{{ user.major }}</p>
             <hr />
             <a href="{% url 'portfolio' user.id %}"><p>내 포트폴리오</p></a>
             <a href=""><p>내가 쓴 글</p></a>
