@@ -102,8 +102,8 @@ def fetch_recruit_latest_data():
 
 
 def add_new_items(crawled_items):
-    # Recruit.objects.all().delete()
-    Recruit.objects.filter(end_date__lt=date.today()).delete() # 날짜 지난 거 삭제
+    Recruit.objects.all().delete()
+    # Recruit.objects.filter(end_date__lt=date.today()).delete() # 날짜 지난 거 삭제
     # 상시채용 같은 건 어떻게 업데이트 할건지...?
     for item in crawled_items:
         try:
