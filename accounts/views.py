@@ -1,46 +1,79 @@
-from django.contrib import auth 
-from django.contrib.auth import authenticate
-from django.contrib.auth.models import User 
-from django.shortcuts import render, redirect 
-# Create your views here. 
-# 회원가입 
-def signup(request): 
-    if request.method == 'POST': 
-        if request.POST['password1'] == request.POST['password2']: 
-            try:
-                user = User.objects.get(username=request.POST['username'])
-                return render(request, 'signup.html', {'error':'Username has already been taken'})
-            except User.DoesNotExist:
-                user = User.objects.create_user( 
-                    username=request.POST['username'], 
-                    password=request.POST['password1'],
-                    email=request.POST['email']
-                    ) 
-                auth.login(request, user)
-                return redirect('/')
-        else:
-            return render(request, 'signup.html', {'error':'Passwords must match'})
-    else: 
-        return render(request, 'signup.html') 
+from accounts.models import CustomUser
+from django.shortcuts import redirect, render, get_object_or_404
+from .models import  Project, Activity
+from .forms import ActivityForm, ProjectForm
 
-def login(request):
-        if request.method == 'POST':
-        # login.html에서 넘어온 username과 password를 각 변수에 저장하기.
-            username = request.POST['username']
-            password = request.POST['password']
-        # 해당 username과 password와 일치하는 user 객체를 가져온다.
-            user = auth.authenticate(request, username=username, password=password)
-        # 해당 user 객체가 존재한다면(객체가 존재하지 않는다면 none을 반환할 텐데, none이 not이니까 존재한다면!)
-            if user is not None:
-                auth.login(request, user)
-                return redirect('/')
-            else:
-                return render(request, 'login.html', {'error': 'username or password is incorrect.'})
-        else:
-            return render(request, 'login.html')
+# Create your views here.
+def myPage(request, user_id):
+    return render(request, "myPage.html")
+    
+def portfolio(request, user_id):
+    projects = Project.objects.filter(user=request.user)
+    projects.order_by('project_start') # 시작날짜 순으로 정렬
+    activities = Activity.objects.all().filter(user=request.user)
+    activities.order_by('activity_start') # 시작날짜 순으로 정렬
+    return render(request, "portfolio.html", {'projects': projects, 'activities': activities})
 
-def logout(request):
+def projectcreate(request, user_id):
+    user = get_object_or_404(CustomUser, pk=user_id)
     if request.method == 'POST':
-         auth.logout(request)
-         return redirect('/')
-    return render(request, 'signup.html')  
+        form = ProjectForm(request.POST)
+        if form.is_valid():
+            project = form.save(commit=False)
+            project.user = user
+            project.save()
+            return redirect('portfolio', user_id=user.pk)
+    else:
+        form = ProjectForm()
+        return render(request, 'project_new.html', {'form':form})
+
+def projectupdate(request, user_id, project_id):
+    user = get_object_or_404(CustomUser, pk=user_id)
+    project = get_object_or_404(Project, pk=project_id)
+    if request.method == 'POST':
+        form = ProjectForm(request.POST, instance=project)
+        if form.is_valid():
+            project = form.save(commit=False)
+            project.save()
+            return redirect('portfolio', user_id=user.pk)
+    else:
+        form = ProjectForm(instance=project)
+        return render(request, 'project_edit.html', {'form': form, 'project': project})
+
+def projectdelete(request, user_id, project_id):
+    user = get_object_or_404(CustomUser, pk=user_id)
+    project = get_object_or_404(Project, pk=project_id)
+    project.delete()
+    return redirect('portfolio', user_id=user.pk)
+
+def activitycreate(request, user_id):
+    user = get_object_or_404(CustomUser, pk=user_id)
+    if request.method == 'POST':
+        form = ActivityForm(request.POST)
+        if form.is_valid():
+            project = form.save(commit=False)
+            project.user = user
+            project.save()
+            return redirect('portfolio', user_id=user.pk)
+    else:
+        form = ActivityForm()
+        return render(request, 'activity_new.html', {'form':form})
+
+def activityupdate(request, user_id, activity_id):
+    user = get_object_or_404(CustomUser, pk=user_id)
+    activity = get_object_or_404(Activity, pk=activity_id)
+    if request.method == 'POST':
+        form = ActivityForm(request.POST, instance=activity)
+        if form.is_valid():
+            activity = form.save(commit=False)
+            activity.save()
+            return redirect('portfolio', user_id=user.pk)
+    else:
+        form = ActivityForm(instance=activity)
+        return render(request, 'activity_edit.html', {'form': form, 'activity': activity})
+
+def activitydelete(request, user_id, activity_id):
+    user = get_object_or_404(CustomUser, pk=user_id)
+    activity = get_object_or_404(Activity, pk=activity_id)
+    activity.delete()
+    return redirect('portfolio', user_id=user.pk)
