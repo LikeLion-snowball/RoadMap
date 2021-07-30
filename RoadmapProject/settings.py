@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'accounts',
     'home',
     'commentcrud',
-    'crudapp',
 ]
 
 MIDDLEWARE = [
@@ -131,7 +130,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'teamapp', 'static')
+    os.path.join(BASE_DIR, 'human', 'static')
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')

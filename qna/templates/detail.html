@@ -107,7 +107,6 @@
         <a href="{% url 'postcreate' %}"><p class="qna_create">✏️ 질문하기</p></a>
       </div>
       <div class="qna_post">
-        <a href="{% url 'detail' qna.id %}">
           <div style="display: flex; justify-content: space-between; margin-bottom: -1rem;">
             <p class="qna_title">{{ qna.title }}</p>
             <div class="edit">
@@ -117,7 +116,6 @@
           </div>
           <p class="qna_date">{{ qna.pub_date }}</p>
           <p class="qna_body">{{ qna.body }}</p>
-        </a>
       </div>
     </div>
   </body>

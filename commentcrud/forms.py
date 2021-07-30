@@ -6,7 +6,7 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ['content']
         widgets = {
-            'content': forms.TextInput(attrs={'placeholder': '댓글을 작성해주세요'}),
+            'content': forms.Textarea(attrs={'placeholder': '댓글을 작성해주세요'}),
         }
         labels = {
             'content': '입력 후 엔터 '
