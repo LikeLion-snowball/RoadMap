@@ -118,14 +118,20 @@
         </select>
   
         <input class="search" type="text" placeholder="검색어를 입력하세요" />
+        {% if user.is_authenticated %}
         <a href="{% url 'hpostcreate' user.id %}"><p class="team_create">✏️ 글쓰기</p></a>
+        {% endif %}
       </div>
          
     <!-- <a href="{% url 'notice' %}">공지사항</a> -->
 
       {% for post in posts.all %}
       <div class="team_post">
+        {% if user.is_authenticated %}
         <a href="{% url 'dpage' post.id user.id %}">
+        {% else %}
+        <a href="{% url 'dpage_visitor' post.id %}">
+        {% endif %}
           <div class="team_post_user">
             <img class="userImg" src="{% static 'user.png' %}" alt="user">
             <span class="team_user">{{ post.user.username }}</span>
