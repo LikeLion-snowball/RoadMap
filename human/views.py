@@ -28,6 +28,10 @@ def dpage(request, post_id, user_id):
         form = CommentForm()
         return render(request, 'dpage.html', {'form': form, 'post': post})
 
+def dpage_visitor(request, post_id):
+    post = get_object_or_404(Humanlog, pk=post_id)
+    return render(request, 'dpage.html', {'post': post})
+
 def hpostcreate(request, user_id):
     user = get_object_or_404(CustomUser, pk=user_id)
     if request.method == 'POST':
