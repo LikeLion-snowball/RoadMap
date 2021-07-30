@@ -17,14 +17,9 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-import accounts.views
-import info.views
 import cal.views
 import qna.views
-import human.views
 import home.views
-import commentcrud.views
-import crudapp.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,13 +31,6 @@ urlpatterns = [
     path('qna/', qna.views.qna, name="qna"),
     path('qna/', include('qna.urls')),
     path('accounts/', include('accounts.urls')),
-   # path('',human.views.humanhome, name='humanhome'),
-    path('human/humanhome', human.views.humanhome, name="humanhome"),
-    path('human/dnew/', human.views.dnew, name="dnew"),
+    path('human/', include('human.urls')),
     path('commentcrud/', include('commentcrud.urls')),
-    path('human/dpage/<int:post_id>', human.views.dpage, name="dpage"),
-    path('human/newcreate/', human.views.newcreate, name="newcreate"),
-    path('human/hpostcreate/', human.views.hpostcreate, name="hpostcreate"),
-    path('human/hpostdelete/<int:post_id>/', human.views.hpostdelete, name="hpostdelete"),
-    path('human/hpostupdate/<int:post_id>/', human.views.hpostupdate, name="hpostupdate"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

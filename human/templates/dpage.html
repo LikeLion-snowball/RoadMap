@@ -1,43 +1,223 @@
-
 {% extends 'base.html' %}
 {% block content %}
-<h1>로드맵에서는 언제든지 멋진 팀원을 만날 수 있습니다.</h1>
+{% load static %}
 
-    <h1>{{ post.title }}</h1>
-    <p>{{ post.created_at }}</p>
-    <p>{{ post.body }}</p> 
-    <br>
-    <a href="{% url 'hpostupdate' post.id %}"><button type='submit'>구인글수정하기</button></a>
-    <a href="{% url 'hpostdelete' post.id %}"><button type='submit'>구인글삭제하기</button></a>
-    <br>
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .teamPage {
+        text-align: center;
+        min-height: 100vh;
+      }
+      .teamPage h1 {
+        font-size: 2.3rem;
+        color: rgb(72, 101, 173);
+        line-height: 4rem;
+        letter-spacing: 0.2rem;
+      }
+      .team_create {
+        font-size: 1.2rem;
+        display: inline;
+        border: 1.5px solid gray;
+        border-radius: 30px;
+        background-color: rgb(115, 132, 175);
+        color: white;
+        font-weight: 500;
+        padding: 0.7rem 1.2rem;
+        margin-left: 1rem;
+      }
+      select {
+        font-size: 1.2rem;
+        width: 7rem;
+        padding: 0.7rem 1.2rem;
+        border: 1.5px solid gray;
+        border-radius: 30px;
+        margin-right: 0.5rem;
+        background: url("https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg")
+          no-repeat 95% 50%;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+      }
+      select::-ms-expand {
+        display: none;
+      }
+      select:focus {
+        outline: none;
+      }
+      input:focus {
+        outline: none;
+      }
+      .teamPage .search {
+        font-size: 1.2rem;
+        width: 35vw;
+        min-width: 300px;
+        max-width: 700px;
+        padding: 0.7rem 1.2rem;
+        border: 1.5px solid gray;
+        border-radius: 30px;
+      }
+      .team_search {
+        margin-bottom: 3rem;
+      }
+      .team_post {
+        text-align: left;
+        width: 50vw;
+        min-width: 600px;
+        margin: 0 auto;
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+        padding: 3rem 4rem;
+        border: 1px solid rgb(220, 220, 220);
+        border-radius: 30px;
+        box-shadow: 0 0 20px -5px rgba(110, 110, 110, 0.4);
+      }
+      .team_title {
+        color:rgb(72, 101, 173);
+        margin-top: 1.5rem;
+        font-size: 1.3rem;
+        font-weight: bold;
+      }
+      .team_body {
+        font-size: 1.1rem;
+        line-height: 1.7rem;
+      }
+      .team_post hr {
+        margin-top: 1.5rem;
+        border: 1px solid rgb(220, 220, 220);
+      }
+      .team_post_top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .team_post_user {
+        display: flex;
+        align-items: center;
+      }
+      .team_user {
+        font-size: 1.2rem;
+        margin-right: 20px;
+      }
+      .team_date {
+        color: gray;
+        font-size: small;
+        margin-top: 3px;
+      }
+      .userImg {
+        max-height: 30px;
+        width: auto;
+        margin-right: 10px;
+      }
+      .edit a {
+        color: gray;
+        margin-left: 0.5rem;
+      }
+      .comments {
+        text-align: left;
+        width: 50vw;
+        min-width: 600px;
+        margin: 0 auto;
+        margin-top: 1.5rem;
+        margin-bottom: 10rem;
+        padding: 3rem 4rem;
+        border: 1px solid rgb(220, 220, 220);
+        border-radius: 30px;
+        box-shadow: 0 0 20px -5px rgba(110, 110, 110, 0.4);
+      }
+      .comments hr {
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        border: 1px solid rgb(220, 220, 220);
+      }
+      .comments input[type="submit"] {
+        font-size: 1.1rem;
+        width: 4.5rem;
+        height: 5rem;
+        color: white;
+        font-weight: 500;
+        margin-left: 0.5rem;
+        background-color: rgb(115, 132, 175);
+        border-radius: 10px;
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="teamPage">
+      <h1><a href="{% url 'humanhome' %}" style="color: rgb(72, 101, 173);">팀원모집</a></h1>
+      <div class="team_search">
+        <select id="filter" name="filter">
+          <option value="" disabled selected>필터</option>
+          <option value="latest">최신순</option>
+          <option value="popularity">인기순</option>
+          <option value="views">조회순</option>
+        </select>
+  
+        <input class="search" type="text" placeholder="검색어를 입력하세요" />
+        <a href="{% url 'hpostcreate' user.id %}"><p class="team_create">✏️ 글쓰기</p></a>
+      </div>
+         
+      <a href="{% url 'notice' %}">공지사항</a>
 
-    <a href="{% url 'commentcreate' user.id post.id %}"> <button type='submit'>댓글등록</button></a>
-    <form method='POST'>
-      {% csrf_token %} 
-      {{form}} 
-     
-    </form>
-    <br>
-
-<h4>댓글목록</h4>
-<form method='POST'>
-    {% csrf_token %} 
-    {{form_comment}} 
+      <div class="team_post">
+          <div class="team_post_top">
+            <div class="team_post_user">
+              <img class="userImg" src="{% static 'user.png' %}" alt="user">
+              <span class="team_user">{{ post.user.username }}</span>
+              <span class="team_date">{{ post.created_at }}</span>
+            </div>
+            {% if user.is_authenticated and user.username == post.user.username %}
+            <div class="edit">
+              <a href="{% url 'hpostupdate' post.id %}">수정</a>&nbsp;
+              <a href="{% url 'hpostdelete' post.id %}" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
+            </div>
+            {% endif %}
+          </div>
+          <hr>
+          <p class="team_title">{{ post.title }}</p>
+          <p class="team_body">{{ post.body }}</p>
+      </div>
+      
+      <div class="comments">
+        <h2>댓글목록</h2>
+          <form method='POST'>
+            {% csrf_token %} 
+            {{ form }} 
+            {% if not commentId %}
+            <input value="등록" type="submit" />
+            {% endif %}
+          </form>
+        <hr>
+        {% for comment in post.comment_set.all %}
+          <div class="comment">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: -1rem;">
+              <p class="team_title">{{ comment.user.username }}</p>
+              {% if user.is_authenticated and user.username == comment.user.username %}
+              <div class="edit">
+                <a href="{% url 'commentupdate' post.id comment.id user.id %}">수정</a>&nbsp;
+                <a href="{% url 'commentdelete' post.id comment.id user.id %}" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
+              </div>
+              {% endif %}
+            </div>
+            <p class="team_date">{{ comment.created_at }}</p>
+            {% if comment.id == commentId %}
+            <form method='POST'>
+              {% csrf_token %}
+              {{ form_comment }}
+              <input value="수정" type="submit" />
+            </form>
+            {% else %}
+            <p class="team_body">{{ comment.content }}</p>
+            {% endif %}
+          </div>
+        <hr>
+        {% endfor %}
+      </div>
     
-</form>
-{% for comment in post.comment_set.all %}
-<div class="comment">
-  <div>
-    <span>{{comment.user.username}}</span>
-    <div>{{comment.content}}</div>
-  </div>
- 
-    <a class="edit" href="{% url 'commentupdate' post.id comment.id %}"><button type="submit">댓글 수정</button></a>
-    <a class="delete" href="{% url 'commentdelete' post.id comment.id %}" onclick="return confirm('정말 삭제하시겠습니까?')"><button type="submit">댓글 삭제</button></a>
-
-</div>
-{% endfor %}
-</body>
+    </div>
+  </body>
 </html>
-<a href="{% url 'humanhome' %}">돌아가기</a>
 {% endblock %}
+

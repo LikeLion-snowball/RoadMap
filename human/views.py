@@ -1,7 +1,8 @@
+from commentcrud.forms import CommentForm
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Humanlog
 from .forms import PostForm
-from django.contrib.auth.models import User
+from accounts.models import CustomUser
 
 # Create your views here.
 
@@ -9,36 +10,50 @@ def humanhome(request):
     posts = Humanlog.objects
     return render(request, 'humanhome.html', {'posts':posts})
 
-def dnew(request):
-    return render(request, 'dnew.html')
+def notice(request):
+    return render(request, 'notice.html')
 
-def dpage(request, post_id):
-    post_dpage = get_object_or_404(Humanlog, pk=post_id)
-    return render(request, 'dpage.html', {'post': post_dpage})
+def dpage(request, post_id, user_id):
+    user = get_object_or_404(CustomUser, pk=user_id)
+    post = get_object_or_404(Humanlog, pk=post_id)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = user
+            comment.post = post
+            comment.save()
+            return redirect('dpage', post_id=post.pk, user_id=user.pk)
+    else:
+        form = CommentForm()
+        return render(request, 'dpage.html', {'form': form, 'post': post})
 
-def newcreate(request):
-    return render(request, 'newcreate.html')
-
-def hpostcreate(request):
-    post = Humanlog()
-    post.title = request.GET['title']
-    post.body = request.GET['body']
-    post.save()
-    return redirect('/human/dpage/' + str(post.id))
-
-def hpostdelete(request, post_id):
-    post = Humanlog.objects.get(id=post_id)
-    post.delete()
-    return redirect('/human/humanhome')
+def hpostcreate(request, user_id):
+    user = get_object_or_404(CustomUser, pk=user_id)
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = user
+            post.save()
+            return redirect('humanhome')
+    else:
+        form = PostForm()
+        return render(request, 'newpost.html', {'form': form})
 
 def hpostupdate(request, post_id):
-    post = Humanlog.objects.get(id=post_id)
-
+    post = get_object_or_404(Humanlog, pk=post_id)
     if request.method == "POST":
-        post.title = request.POST['title']
-        post.body = request.POST['body']
-        post.save()
-        return redirect('/human/dpage/' + str(post.id))
-
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+            return redirect('dpage', post_id=post.pk)
     else:
-        return render(request, 'hpostupdate.html')
+        form = PostForm(instance=post)
+        return render(request, 'updatepost.html', {'form': form})
+
+def hpostdelete(request, post_id):
+    post = get_object_or_404(Humanlog, pk=post_id)
+    post.delete()
+    return redirect('humanhome')
