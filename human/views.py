@@ -3,6 +3,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Humanlog
 from .forms import PostForm
 from accounts.models import CustomUser
+from django.db.models import Q
+
 
 # Create your views here.
 
@@ -61,3 +63,16 @@ def hpostdelete(request, post_id):
     post = get_object_or_404(Humanlog, pk=post_id)
     post.delete()
     return redirect('humanhome')
+
+def post_search(request):
+    post = get_object_or_404(Humanlog)
+    search_list = Humanlog.objects.all()
+
+    search = request.GET.get('search','')
+
+    if search:
+        search_list = search_list.filter(title__icontains=search)
+        return render(request, 'post_search.html', {'search_list' : search_list, 'search' : search})
+
+    else:
+        return render(request, 'post_search.html')

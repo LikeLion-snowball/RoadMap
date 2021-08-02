@@ -9,4 +9,5 @@ urlpatterns = [
     path('hpostcreate/<int:user_id>/', views.hpostcreate, name="hpostcreate"),
     path('hpostdelete/<int:post_id>/', views.hpostdelete, name="hpostdelete"),
     path('hpostupdate/<int:post_id>/', views.hpostupdate, name="hpostupdate"),
+    path('post_search/', views.post_search, name='post_search'),
 ]
