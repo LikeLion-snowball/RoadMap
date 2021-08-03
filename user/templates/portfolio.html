@@ -98,13 +98,12 @@
         <h1>{{username}}님의 포트폴리오</h1>
         {% if user.username == username %}
         <select id="field" name="field">
-          <!-- <option value="private" {% if portfolio.isPrivate == true %}selected="selected"{% endif %}>비공개</option>
-          <option value="open" {% if portfolio.isPrivate == false %}selected="selected"{% endif %}>공개</option> -->
-          <option value="private" selected="selected">비공개</option>
-          <option value="open">공개</option>
+          <option value="private" {% if user.portfolio_isPrivate == true %}selected="selected"{% endif %}>비공개</option>
+          <option value="open" {% if user.portfolio_isPrivate == false %}selected="selected"{% endif %}>공개</option>
         </select>
         {% endif %}
       </div>
+      <!-- {% if others.portfolio_isPrivate == false %} -->
       <div class="portfolio_content">
         <div class="projects_title">
           <h2>Projects</h2>
@@ -143,6 +142,9 @@
           </div>
         </div>
         {% endfor %}
+        <!-- {% else %} -->
+        <!-- <p>비공개입니다.</p> -->
+        <!-- {% endif %} -->
 
         <hr />
         <div class="activities_title">
