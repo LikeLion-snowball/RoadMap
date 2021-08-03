@@ -119,8 +119,14 @@
           <option value="인기순" {% if order == "인기순" %}selected{% endif %}>인기순</option>
         </select>
   
+<<<<<<< HEAD
         <input class="search" name="query" type="text" placeholder="검색어를 입력하세요" />
         </form>
+=======
+        <input class="search" type="text" placeholder="검색어를 입력하세요" />
+        <a href="{% url 'post_search' % }" method="post">🔎검색하기</a>
+        
+>>>>>>> dce5aa2f443779743b28fb8247a8fdd0c422a0a0
         {% if user.is_authenticated %}
         <a href="{% url 'hpostcreate' user.id %}"><p class="team_create">✏️ 글쓰기</p></a>
         {% endif %}

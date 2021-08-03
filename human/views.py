@@ -5,7 +5,11 @@ from .models import Humanlog, Like
 from .forms import PostForm
 from accounts.models import CustomUser
 from django.db.models import Q
+<<<<<<< HEAD
 from datetime import date
+=======
+
+>>>>>>> dce5aa2f443779743b28fb8247a8fdd0c422a0a0
 
 # Create your views here.
 
@@ -66,6 +70,7 @@ def hpostdelete(request, post_id):
     post.delete()
     return redirect('humanhome')
 
+<<<<<<< HEAD
 def like(request, post_id):
     post = get_object_or_404(Humanlog, pk=post_id)
     liked = Like.objects.filter(user=request.user, post=post)
@@ -95,3 +100,17 @@ def h_result(request):
         h_result = h_result.filter(Q(body__icontains=query) | Q(title__icontains=query))
 
     return render(request,'humanhome.html', {'h_results' : h_result, 'order': order } )
+=======
+def post_search(request):
+    post = get_object_or_404(Humanlog)
+    search_list = Humanlog.objects.all()
+
+    search = request.GET.get('search','')
+
+    if search:
+        search_list = search_list.filter(title__icontains=search)
+        return render(request, 'post_search.html', {'search_list' : search_list, 'search' : search})
+
+    else:
+        return render(request, 'post_search.html')
+>>>>>>> dce5aa2f443779743b28fb8247a8fdd0c422a0a0
