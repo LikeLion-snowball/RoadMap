@@ -1,3 +1,4 @@
+from info.models import Recruit
 from django.shortcuts import render
 
 # Create your views here.

@@ -194,6 +194,17 @@
           <hr>
           <p class="team_title">{{ post.title }}</p>
           <p class="team_body">{{ post.body }}</p>
+          {% if user.is_authenticated %}
+              {% if like %}
+                <a href="{% url 'like' post.id %}"><span>❤️ {{ post.like_count }}</span></a>
+              {% else %}
+                <a href="{% url 'like' post.id %}"><span>🤍 {{ post.like_count }}</span></a>
+              {% endif %}
+          {% else %}
+              {% if not like %}
+                <span>❤️ {{ post.like_count }}</span>
+              {% endif %}
+          {% endif %}
       </div>
       
       <div class="comments">
@@ -222,13 +233,13 @@
               {% endif %}
             </div>
             {% if comment.id == commentId %}
-            <form method='POST'>
-              {% csrf_token %}
-              {{ form_comment }}
-              <input value="수정" type="submit" />
-            </form>
+              <form method='POST'>
+                {% csrf_token %}
+                {{ form_comment }}
+                <input value="수정" type="submit" />
+              </form>
             {% else %}
-            <p class="comment_body">{{ comment.content }}</p>
+              <p class="comment_body">{{ comment.content }}</p>
             {% endif %}
           </div>
         <hr>
