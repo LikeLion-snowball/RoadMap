@@ -119,9 +119,7 @@
   
         <input class="search" type="text" placeholder="검색어를 입력하세요" />
         <a href="{% url 'post_search' % }" method="post">🔎검색하기</a>
-        <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method="post">
-          {% csrf_token %}
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search" value="{{search}}">
+        
         {% if user.is_authenticated %}
         <a href="{% url 'hpostcreate' user.id %}"><p class="team_create">✏️ 글쓰기</p></a>
         {% endif %}
