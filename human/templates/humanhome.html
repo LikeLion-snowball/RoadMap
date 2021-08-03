@@ -9,6 +9,7 @@
       .teamPage {
         text-align: center;
         min-height: 100vh;
+        padding-bottom: 10rem;
       }
       .teamPage h1 {
         font-size: 2.3rem;
@@ -89,6 +90,7 @@
       .team_post_user {
         display: flex;
         align-items: center;
+        justify-content: space-between;
       }
       .team_user {
         font-size: 1.2rem;
@@ -133,9 +135,14 @@
         <a href="{% url 'dpage_visitor' post.id %}">
         {% endif %}
           <div class="team_post_user">
-            <img class="userImg" src="{% static 'user.png' %}" alt="user">
-            <span class="team_user">{{ post.user.username }}</span>
-            <span class="team_date">{{ post.created_at }}</span>
+            <div style="display: flex; align-items: center;">
+              <img class="userImg" src="{% static 'user.png' %}" alt="user">
+              <span class="team_user">{{ post.user.username }}</span>
+              <span class="team_date">{{ post.created_at }}</span>
+            </div>
+            <div>
+              <span>❤️ {{ post.like_count }}</span>
+            </div>
           </div>
           <p class="team_title">{{ post.title }}</p>
           <p class="team_body">{{ post.summary }}...</p>

@@ -12,7 +12,15 @@ def portfolio(request, user_id):
     projects.order_by('project_start') # 시작날짜 순으로 정렬
     activities = Activity.objects.all().filter(user=request.user)
     activities.order_by('activity_start') # 시작날짜 순으로 정렬
-    return render(request, "portfolio.html", {'projects': projects, 'activities': activities})
+    return render(request, "portfolio.html", {'projects': projects, 'activities': activities, 'username': request.user.username})
+
+def others_portfolio(request, user_id):
+    user = get_object_or_404(CustomUser, pk=user_id)
+    projects = Project.objects.filter(user=user_id)
+    projects.order_by('project_start')
+    activities = Activity.objects.all().filter(user=user_id)
+    activities.order_by('activity_start') # 시작날짜 순으로 정렬
+    return render(request, "portfolio.html", {'projects': projects, 'activities': activities, 'username': user.username})
 
 def projectcreate(request, user_id):
     user = get_object_or_404(CustomUser, pk=user_id)

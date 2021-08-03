@@ -26,10 +26,10 @@
         border: 1px solid rgb(220, 220, 220);
       }
 
-      .home_recommend {
+      .home_rightarea {
         margin-left: calc(8rem + 300px);
       }
-      .home_recommend h1 {
+      .home_recommend h1, .home_team h1 {
         font-size: 2.3rem;
         color: rgb(72, 101, 173);
         line-height: 4rem;
@@ -49,9 +49,15 @@
             <a href=""><p>내가 쓴 댓글</p></a>
             <a href="{% url 'myscrap' user.id %}"><p>내 스크랩</p></a>
         </div>
-        <div class="home_recommend">
-            <h1>{{ user.username }}님께 추천하는 채용 정보</h1>
+        <div class="home_rightarea">
+          <div class="home_recommend">
+              <h1>{{ user.username }}님께 추천하는 채용 정보</h1>
+          </div>
+          <div class="home_team">
+              <!-- <h1>로드맵에서 함께 할 팀원을 구해보세요!</h1> -->
+          </div>
         </div>
+        {% else %}
         {% endif %}
     </div>
   </body>

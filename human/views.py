@@ -1,6 +1,7 @@
+from django.http.response import HttpResponseRedirect
 from commentcrud.forms import CommentForm
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Humanlog
+from .models import Humanlog, Like
 from .forms import PostForm
 from accounts.models import CustomUser
 
@@ -26,7 +27,8 @@ def dpage(request, post_id, user_id):
             return redirect('dpage', post_id=post.pk, user_id=user.pk)
     else:
         form = CommentForm()
-        return render(request, 'dpage.html', {'form': form, 'post': post})
+        like = Like.objects.filter(user=request.user, post=post)
+        return render(request, 'dpage.html', {'form': form, 'post': post, 'like': like})
 
 def dpage_visitor(request, post_id):
     post = get_object_or_404(Humanlog, pk=post_id)
@@ -61,3 +63,20 @@ def hpostdelete(request, post_id):
     post = get_object_or_404(Humanlog, pk=post_id)
     post.delete()
     return redirect('humanhome')
+
+def like(request, post_id):
+    post = get_object_or_404(Humanlog, pk=post_id)
+    liked = Like.objects.filter(user=request.user, post=post)
+    if not liked:
+        Like.objects.create(user=request.user, post=post)
+        post.like_count += 1
+        post.save()
+    else:
+        liked.delete()
+        post.like_count -= 1
+        post.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+def mylike(request, user_id):
+    liked = Like.objects.filter(user=request.user)
+    return render(request, 'like.html', {'likes': liked})
