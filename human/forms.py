@@ -14,4 +14,3 @@ class PostForm(forms.ModelForm):
                 }
             )
         }
-
