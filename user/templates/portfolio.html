@@ -97,13 +97,16 @@
       <div class="portfolio_header">
         <h1>{{username}}님의 포트폴리오</h1>
         {% if user.username == username %}
-        <select id="field" name="field">
-          <option value="private" {% if user.portfolio_isPrivate == true %}selected="selected"{% endif %}>비공개</option>
-          <option value="open" {% if user.portfolio_isPrivate == false %}selected="selected"{% endif %}>공개</option>
-        </select>
+        <form action="{% url 'port_open' user.id %}" method="post" id="port_query" style="display: inline;">
+          {% csrf_token %}
+          <select id="field" name="field" onchange="javascript:{document.getElementById('port_query').submit();}">
+            <option value="private" {% if user.portfolio_isPrivate == True %}selected="selected"{% endif %}>비공개</option>
+            <option value="open" {% if user.portfolio_isPrivate == False %}selected="selected"{% endif %}>공개</option>
+          </select>
+        </form>
         {% endif %}
       </div>
-      <!-- {% if others.portfolio_isPrivate == false %} -->
+      {% if others.portfolio_isPrivate == False or user.username == username %}
       <div class="portfolio_content">
         <div class="projects_title">
           <h2>Projects</h2>
@@ -142,9 +145,6 @@
           </div>
         </div>
         {% endfor %}
-        <!-- {% else %} -->
-        <!-- <p>비공개입니다.</p> -->
-        <!-- {% endif %} -->
 
         <hr />
         <div class="activities_title">
@@ -175,6 +175,9 @@
         </div>
         {% endfor %}
       </div>
+      {% else %}
+        <p>비공개입니다.</p>
+      {% endif %}
     </div>
   </body>
 </html>

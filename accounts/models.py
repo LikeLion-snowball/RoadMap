@@ -32,7 +32,7 @@ class CustomUser(AbstractUser):
     phonenum = models.IntegerField(null=True, blank=True)
     major = models.CharField(max_length=20, null=True, blank=True)
     address = models.CharField(max_length=100, null=True, blank=True)
-    portfolio_isPrivate = models.BooleanField(default=False)
+    portfolio_isPrivate = models.BooleanField(default=True)
 
     # is_active = models.BooleanField(default=True)
     # is_admin = models.BooleanField(default=False)
