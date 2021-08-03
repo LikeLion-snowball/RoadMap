@@ -10,4 +10,5 @@ urlpatterns = [
     path('hpostdelete/<int:post_id>/', views.hpostdelete, name="hpostdelete"),
     path('hpostupdate/<int:post_id>/', views.hpostupdate, name="hpostupdate"),
     path('like/<int:post_id>', views.like, name="like"),
+    path('h_result', views.h_result, name="h_result"),
 ]

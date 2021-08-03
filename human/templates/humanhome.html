@@ -112,21 +112,46 @@
     <div class="teamPage">
       <h1><a href="{% url 'humanhome' %}" style="color: rgb(72, 101, 173);">팀원모집</a></h1>
       <div class="team_search">
-        <select id="filter" name="filter">
+        <form action="{% url 'h_result' %}" method="get" id="type_query" style="display: inline;">
+        <select name="order" onchange="javascript:{document.getElementById('type_query').submit();}">
           <option value="" disabled selected>필터</option>
-          <option value="latest">최신순</option>
-          <option value="popularity">인기순</option>
-          <option value="views">조회순</option>
+          <option value="최신순" {% if order == "최신순" %}selected{% endif %}>최신순</option>
+          <option value="인기순" {% if order == "인기순" %}selected{% endif %}>인기순</option>
         </select>
   
-        <input class="search" type="text" placeholder="검색어를 입력하세요" />
+        <input class="search" name="query" type="text" placeholder="검색어를 입력하세요" />
+        </form>
         {% if user.is_authenticated %}
         <a href="{% url 'hpostcreate' user.id %}"><p class="team_create">✏️ 글쓰기</p></a>
         {% endif %}
       </div>
          
     <!-- <a href="{% url 'notice' %}">공지사항</a> -->
+    {% if h_results %}
+      {% for result in h_results.all %}
+      <div class="team_post">
+        {% if user.is_authenticated %}
+        <a href="{% url 'dpage' result.id user.id %}">
+        {% else %}
+        <a href="{% url 'dpage_visitor' result.id %}">
+        {% endif %}
+          <div class="team_post_user">
+            <div style="display: flex; align-items: center;">
+              <img class="userImg" src="{% static 'user.png' %}" alt="user">
+              <span class="team_user">{{ result.user.username }}</span>
+              <span class="team_date">{{ result.created_at }}</span>
+            </div>
+            <div>
+              <span>❤️ {{ result.like_count }}</span>
+            </div>
+          </div>
+          <p class="team_title">{{ result.title }}</p>
+          <p class="team_body">{{ result.summary }}...</p>
+        </a>
+      </div>
+      {% endfor %}
 
+    {% else %}
       {% for post in posts.all %}
       <div class="team_post">
         {% if user.is_authenticated %}
@@ -148,7 +173,8 @@
           <p class="team_body">{{ post.summary }}...</p>
         </a>
       </div>
-    {% endfor %}
+      {% endfor %}
+    {% endif %}
     </div>
   </body>
 </html>

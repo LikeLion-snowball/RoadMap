@@ -4,6 +4,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Humanlog, Like
 from .forms import PostForm
 from accounts.models import CustomUser
+from django.db.models import Q
+from datetime import date
 
 # Create your views here.
 
@@ -80,3 +82,16 @@ def like(request, post_id):
 def mylike(request, user_id):
     liked = Like.objects.filter(user=request.user)
     return render(request, 'like.html', {'likes': liked})
+
+def h_result(request):
+    h_result = Humanlog.objects.all()
+    order = request.GET.get('order', '')
+    query = request.GET.get('query', '')
+    if order == "최신순":
+        h_result = Humanlog.objects
+    if order == "인기순":
+        h_result = Humanlog.objects.order_by('-like_count')
+    if query:
+        h_result = h_result.filter(Q(body__icontains=query) | Q(title__icontains=query))
+
+    return render(request,'humanhome.html', {'h_results' : h_result, 'order': order } )
