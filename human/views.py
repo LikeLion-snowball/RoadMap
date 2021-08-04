@@ -1,8 +1,7 @@
 from django.http.response import HttpResponseRedirect
-from commentcrud.forms import CommentForm
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Humanlog, Like
-from .forms import PostForm
+from .models import Humanlog, Like, Comment
+from .forms import PostForm, CommentForm
 from accounts.models import CustomUser
 from django.db.models import Q
 
@@ -94,3 +93,24 @@ def h_result(request):
         h_result = h_result.filter(Q(body__icontains=query) | Q(title__icontains=query))
 
     return render(request,'humanhome.html', {'h_results' : h_result, 'order': order } )
+
+def commentupdate(request, post_id, comment_id, user_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+    post = get_object_or_404(Humanlog, pk=post_id)
+    user = get_object_or_404(CustomUser, pk=user_id)
+    if request.method=='POST':
+        form = CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.save()
+            return redirect('dpage', post_id=comment.post.pk, user_id=user.pk)
+    else:
+        form = CommentForm(instance=comment)
+        return render(request, 'dpage.html', {'form_comment': form, 'post': comment.post, 'commentId': comment_id})
+
+def commentdelete(request, post_id, comment_id, user_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+    post = get_object_or_404(Humanlog, pk=post_id)
+    user = get_object_or_404(CustomUser, pk=user_id)
+    comment.delete()
+    return redirect('dpage', post_id=post.pk, user_id=user.pk)     
