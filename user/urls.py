@@ -6,6 +6,7 @@ urlpatterns = [
     path('mypage/', views.myPage, name="myPage"),
     path('portfolio/', views.portfolio, name="portfolio"),
     path('portfolios/', views.others_portfolio, name="others_portfolio"),
+    path('change/', views.port_open, name="port_open"),
     path('portfolio/projectcreate/', views.projectcreate, name='projectcreate'),
     path('portfolio/projectupdate/<int:project_id>', views.projectupdate, name='projectupdate'),
     path('portfolio/projectdelete/<int:project_id>', views.projectdelete, name='projectdelete'),

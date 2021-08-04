@@ -31,5 +31,4 @@ urlpatterns = [
     path('qna/', include('qna.urls')),
     path('accounts/', include('accounts.urls')),
     path('human/', include('human.urls')),
-    path('commentcrud/', include('commentcrud.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
