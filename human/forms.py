@@ -7,12 +7,12 @@ class PostForm(forms.ModelForm):
         model = Humanlog
         fields = ['title', 'body']
         widgets ={
-            'created_at' : forms.DateInput(
-                attrs={
-                    'class' : 'form-control',
-                    'type' : 'date'
-                }
-            )
+            'title': forms.TextInput(
+                attrs={'placeholder': '제목을 입력하세요'}
+            ),
+            'body': forms.Textarea(
+                attrs={'placeholder': '질문을 입력하세요'}
+            ),
         }
 
 class CommentForm(forms.ModelForm):
