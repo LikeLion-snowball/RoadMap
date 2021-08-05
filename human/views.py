@@ -114,3 +114,8 @@ def commentdelete(request, post_id, comment_id, user_id):
     user = get_object_or_404(CustomUser, pk=user_id)
     comment.delete()
     return redirect('dpage', post_id=post.pk, user_id=user.pk)     
+
+def my_post(request, user_id):
+    posted = Humanlog.objects.filter(user=request.user)
+    return render(request, 'myPost.html', {'posts': posted})
+
