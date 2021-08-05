@@ -67,6 +67,9 @@ def fetch_recruit_latest_data():
         elif "내일마감" in dt:
             end_date = date.today() + timedelta(1)
             end_date = end_date.strftime("%Y-%m-%d")
+        elif "시마감" in dt:
+            end_date = date.today()
+            end_date = end_date.strftime("%Y-%m-%d")
 
         if len(dt) > 5:
             if dt[5] == "(":

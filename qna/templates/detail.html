@@ -1,4 +1,6 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
 <!DOCTYPE html>
 <html>
   <head>
@@ -24,40 +26,6 @@
         padding: 0.7rem 1.2rem;
         margin-left: 1rem;
       }
-      select {
-        font-size: 1.2rem;
-        width: 7rem;
-        padding: 0.7rem 1.2rem;
-        border: 1.5px solid gray;
-        border-radius: 30px;
-        margin-right: 0.5rem;
-        background: url("https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg")
-          no-repeat 95% 50%;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-      }
-      select::-ms-expand {
-        display: none;
-      }
-      select:focus {
-        outline: none;
-      }
-      input:focus {
-        outline: none;
-      }
-      .detailPage .search {
-        font-size: 1.2rem;
-        width: 35vw;
-        min-width: 300px;
-        max-width: 700px;
-        padding: 0.7rem 1.2rem;
-        border: 1.5px solid gray;
-        border-radius: 30px;
-      }
-      .qna_search {
-        margin-bottom: 3rem;
-      }
       .qna_post {
         text-align: left;
         width: 50vw;
@@ -65,24 +33,47 @@
         margin: 0 auto;
         margin-top: 1.5rem;
         margin-bottom: 1.5rem;
-        padding: 2rem 3rem;
+        padding: 3rem 4rem;
         border: 1px solid rgb(220, 220, 220);
         border-radius: 30px;
         box-shadow: 0 0 20px -5px rgba(110, 110, 110, 0.4);
       }
       .qna_title {
         color:rgb(72, 101, 173);
+        margin-top: 1.5rem;
         font-size: 1.3rem;
         font-weight: bold;
-      }
-      .qna_date {
-        color: gray;
-        font-size: small;
-        margin-bottom: 2rem;
       }
       .qna_body {
         font-size: 1.1rem;
         line-height: 1.7rem;
+      }
+      .qna_post hr {
+        margin-top: 1.5rem;
+        border: 1px solid rgb(220, 220, 220);
+      }
+      .qna_post_top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .qna_post_user {
+        display: flex;
+        align-items: center;
+      }
+      .qna_user {
+        font-size: 1.2rem;
+        margin-right: 20px;
+      }
+      .qna_date {
+        color: gray;
+        font-size: small;
+        margin-top: 3px;
+      }
+      .userImg {
+        max-height: 30px;
+        width: auto;
+        margin-right: 10px;
       }
       .edit {
         margin-top: 1rem;
@@ -90,34 +81,127 @@
       .edit a {
         color: gray;
       }
+      .comments {
+        text-align: left;
+        width: 50vw;
+        min-width: 600px;
+        margin: 0 auto;
+        margin-top: 1.5rem;
+        margin-bottom: 10rem;
+        padding: 3rem 4rem;
+        border: 1px solid rgb(220, 220, 220);
+        border-radius: 30px;
+        box-shadow: 0 0 20px -5px rgba(110, 110, 110, 0.4);
+      }
+      .comments hr {
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        border: 1px solid rgb(220, 220, 220);
+      }
+      .comments input[type="submit"] {
+        font-size: 1.1rem;
+        width: 4.5rem;
+        height: 5rem;
+        color: white;
+        font-weight: 500;
+        margin-left: 0.5rem;
+        background-color: rgb(115, 132, 175);
+        border-radius: 10px;
+        border: none;
+      }
+      .comment_user {
+        color:rgb(72, 101, 173);
+        font-size: 1.3rem;
+        font-weight: bold;
+      }
+      .comment_date {
+        color: gray;
+        font-size: small;
+        margin-top: 15px;
+        margin-left: 1rem;
+      }
+      .comment_body {
+        font-size: 1.1rem;
+      }
+      .detailPage input:hover {
+        cursor: pointer;
+      }
     </style>
   </head>
   <body>
     <div class="detailPage">
       <h1><a href="{% url 'qna' %}" style="color: rgb(72, 101, 173);">Q&A</a></h1>
-      <div class="qna_search">
-        <select id="filter" name="filter">
-          <option value="" disabled selected>필터</option>
-          <option value="latest">최신순</option>
-          <option value="popularity">인기순</option>
-          <option value="views">조회순</option>
-        </select>
-  
-        <input class="search" type="text" placeholder="검색어를 입력하세요" />
-        <a href="{% url 'postcreate' %}"><p class="qna_create">✏️ 질문하기</p></a>
-      </div>
+
       <div class="qna_post">
-          <div style="display: flex; justify-content: space-between; margin-bottom: -1rem;">
-            <p class="qna_title">{{ qna.title }}</p>
-            <div class="edit">
-              <a href="{% url 'postupdate' qna.id %}">수정</a>&nbsp;
-              <a href="{% url 'postdelete' qna.id %}" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
-            </div>
+        <div class="qna_post_top">
+          <div class="qna_post_user">
+            <img class="userImg" src="{% static 'user.png' %}" alt="user">
+            <a href="{% url 'others_portfolio' qna.user.id %}"><span class="qna_user">{{ qna.user.username }}</span></a>
+            <span class="qna_date">{{ qna.created_at }}</span>
           </div>
-          <p class="qna_date">{{ qna.pub_date }}</p>
-          <p class="qna_body">{{ qna.body }}</p>
+          {% if user.is_authenticated and user.username == qna.user.username %}
+          <div class="edit">
+            <a href="{% url 'postupdate' qna.id %}">수정</a>&nbsp;
+            <a href="{% url 'postdelete' qna.id %}" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
+          </div>
+          {% endif %}
+        </div>
+        <hr>
+        <p class="qna_title">{{ qna.title }}</p>
+        <p class="qna_body">{{ qna.body }}</p>
+        {% if user.is_authenticated %}
+            {% if like %}
+              <a href="{% url 'qlike' qna.id %}"><span>❤️ {{ qna.like_count }}</span></a>
+            {% else %}
+              <a href="{% url 'qlike' qna.id %}"><span>🤍 {{ qna.like_count }}</span></a>
+            {% endif %}
+        {% else %}
+            {% if not like %}
+              <span>❤️ {{ qna.like_count }}</span>
+            {% endif %}
+        {% endif %}
+      </div>
+      
+      <div class="comments">
+        <h2>댓글목록</h2>
+        <form method='POST'>
+          {% csrf_token %} 
+          {{ form }} 
+          {% if user.is_authenticated and not commentId %}
+          <input value="등록" type="submit" />
+          {% endif %}
+        </form>
+        <hr>
+        {% for comment in qna.q_comment_set.all %}
+        <div class="comment">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: -0.5rem;">
+            <div style="display: flex; align-items: center;">
+              <img class="userImg" src="{% static 'user.png' %}" alt="user">
+              <a href="{% url 'others_portfolio' comment.user.id %}"><p class="comment_user">{{ comment.user.username }}</p></a>
+              <p class="comment_date">{{ comment.created_at }}</p>
+            </div>
+            {% if user.is_authenticated and user.username == comment.user.username %}
+            <div class="edit">
+              <a href="{% url 'qcommentupdate' qna.id comment.id user.id %}">수정</a>&nbsp;
+              <a href="{% url 'qcommentdelete' qna.id comment.id user.id %}" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
+            </div>
+            {% endif %}
+          </div>
+          {% if comment.id == commentId %}
+          <form method='POST'>
+            {% csrf_token %}
+            {{ form_comment }}
+            <input value="수정" type="submit" />
+          </form>
+          {% else %}
+          <p class="comment_body">{{ comment.content }}</p>
+          {% endif %}
+        </div>
+        <hr>
+        {% endfor %}
       </div>
     </div>
   </body>
-</html>
-{% endblock %}
+  </html>
+  {% endblock %}
+    
