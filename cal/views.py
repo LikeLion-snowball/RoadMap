@@ -42,21 +42,32 @@ def next_month(day):
     month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
     return month
 
-#새로운 Event의 등록 혹은 수정
-def event(request, event_id=None):
-    if event_id:
-        instance = get_object_or_404(Event, pk=event_id)
-    else:
-        instance = Event()
-
-    
+#이벤트 생성
+def eventcreate(request):
+    instance = Event()
     form = EventForm(request.POST or None, instance=instance)
     if request.POST and form.is_valid():
         form.save()
         return redirect('calendar')
-    return render(request, 'input.html', {'form': form})
+    return render(request, 'eventcreate.html', {'form': form})
 
+#이벤트 수정
+def eventedit(request,event_id):
+    instance = get_object_or_404(Event, pk=event_id)
+    form = EventForm(request.POST or None, instance=instance)
+    if request.POST and form.is_valid():
+        form.save()
+        return redirect('calendar')
+    return render(request, 'eventedit.html', {'form': form})
+
+
+#이벤트 삭제
 def eventdelete(request, event_id) :
     instance = get_object_or_404(Event, pk=event_id)
     instance.delete()
     return redirect('calendar')
+
+#이벤트 디테일
+def eventdetail(request, event_id):
+    instance_detail = get_object_or_404(Event, pk=event_id)
+    return render(request, 'eventdetail.html', {'form':instance_detail})

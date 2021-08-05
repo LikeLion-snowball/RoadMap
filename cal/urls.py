@@ -3,7 +3,8 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-    path('event/new/', event, name="new"),
-    path('event/edit/<int:event_id>', event, name="edit"),
-    path('event/edit/delete/<int:event_id>', eventdelete, name="delete"),
+    path('eventcreate/', eventcreate, name="eventcreate"),
+    path('eventedit/<int:event_id>', eventedit, name="eventedit"),
+    path('eventdelete/<int:event_id>', eventdelete, name="eventdelete"),
+    path('<int:event_id>', eventdetail, name="eventdetail"),
 ]
