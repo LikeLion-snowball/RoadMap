@@ -1,7 +1,9 @@
+from django.conf import settings
 from django.db import models
 from django.urls import reverse
 
 class Event(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     start_time = models.DateTimeField("시작시간")
     end_time = models.DateTimeField("마감시간")
     title = models.CharField("이벤트 이름", max_length=50)

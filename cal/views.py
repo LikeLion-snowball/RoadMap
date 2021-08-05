@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from accounts.models import CustomUser
 import datetime
 from .models import Event
 import calendar
@@ -6,7 +7,8 @@ from .calendar import Calendar
 from django.utils.safestring import mark_safe
 from .forms import EventForm
 
-def calendar_view(request):
+def calendar_view(request, user_id):
+    user = get_object_or_404(CustomUser, pk=user_id)
     today = get_date(request.GET.get('month'))
 
     prev_month_var = prev_month(today)
@@ -43,31 +45,31 @@ def next_month(day):
     return month
 
 #이벤트 생성
-def eventcreate(request):
+def eventcreate(request, user_id):
+    user = get_object_or_404(CustomUser, pk=user_id)
     instance = Event()
     form = EventForm(request.POST or None, instance=instance)
     if request.POST and form.is_valid():
         form.save()
-        return redirect('calendar')
+        return redirect('calendar', user_id=user.pk)
+      
     return render(request, 'eventcreate.html', {'form': form})
 
 #이벤트 수정
-def eventedit(request,event_id):
+def eventedit(request,user_id,event_id):
+    user = get_object_or_404(CustomUser, pk=user_id)
     instance = get_object_or_404(Event, pk=event_id)
     form = EventForm(request.POST or None, instance=instance)
     if request.POST and form.is_valid():
         form.save()
-        return redirect('calendar')
+        return redirect('calendar',user_id=user.pk)
+    
     return render(request, 'eventedit.html', {'form': form})
 
 
 #이벤트 삭제
-def eventdelete(request, event_id) :
-    instance = get_object_or_404(Event, pk=event_id)
-    instance.delete()
-    return redirect('calendar')
+#def eventdelete(request, event_id) :
+#    instance = get_object_or_404(Event, pk=event_id)
+#    instance.delete()
+#    return redirect('calendar')
 
-#이벤트 디테일
-def eventdetail(request, event_id):
-    instance_detail = get_object_or_404(Event, pk=event_id)
-    return render(request, 'eventdetail.html', {'form':instance_detail})
