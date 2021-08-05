@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+
+        .infoPage {
+        text-align: center;
+        min-height: 100vh;
+      }
+      .infoPage h1 {
+        font-size: 2.3rem;
+        color: rgb(72, 101, 173);
+        line-height: 4rem;
+        letter-spacing: 0.2rem;
+      }
+      
+      .info_recruit {
+        display: grid;
+        grid-auto-rows: minmax(200px, auto);
+        grid-template-columns: repeat(auto-fill, minmax(500px,auto));
+        gap: 1rem;
+        row-gap: 2rem;
+        width: 80vw;
+        max-width: 1500px;
+        margin: 0 auto;
+        justify-items: center;
+        margin-top: 4rem;
+        margin-bottom: 10rem;
+      }
+
+          .comments {
+        text-align: left;
+        width: 50vw;
+        min-width: 600px;
+        margin: 0 auto;
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+        padding: 3rem 4rem;
+        border: 1px solid rgb(220, 220, 220);
+        border-radius: 30px;
+        box-shadow: 0 0 20px -5px rgba(110, 110, 110, 0.4);
+      }
+
+      .comments hr {
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        border: 1px solid rgb(220, 220, 220);
+      }
+      .comments input[type="submit"] {
+        font-size: 1.1rem;
+        width: 4.5rem;
+        height: 5rem;
+        color: white;
+        font-weight: 500;
+        margin-left: 0.5rem;
+        background-color: rgb(115, 132, 175);
+        border-radius: 10px;
+        border: none;
+      }
+      .comment_user {
+        color:rgb(72, 101, 173);
+        font-size: 1.3rem;
+        font-weight: bold;
+      }
+      .comment_date {
+        color: gray;
+        font-size: small;
+        margin-top: 15px;
+        margin-left: 1rem;
+      }
+      .comment_body {
+        font-size: 1.1rem;
+      }
+  
+    </style>
+  </head>
+         <body>            
+            <h1><a style="color: rgb(72, 101, 173);">{{ user.username }}님의 댓글</a></h1>
+                           
+            {% for comment in commentupdates %}  
+         
+
+            <div class="comments">
+                <a href="{% url 'others_portfolio' comment.user.id %}"><p class="comment_user">{{ comment.user.username }}</p></a>
+                <p class="comment_date">{{ comment.created_at }}</p>
+                {% if comment.id == commentId %}
+                <form method='POST'>
+                {% csrf_token %}
+                {{ form_comment }}
+                <input value="수정" type="submit" />
+                </form>
+                {% else %}
+                <p class="comment_body">{{ comment.content }}</p>
+                {% endif %}
+            </div>                      
+            {% endfor %}   
+            
+                        
+ </html>                      
+{% endblock %}
