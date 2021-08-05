@@ -41,7 +41,7 @@
       <div class="my_nav">
         <a href="{% url 'portfolio' user.id %}"><p>내 포트폴리오</p></a>
         <a href=""><p>내가 쓴 글</p></a>
-        <a href=""><p>내가 쓴 댓글</p></a>
+        <a href="{% url 'mycomment' user.id %}"><p>내가 쓴 댓글</p></a>
         <a href="{% url 'myscrap' user.id %}"><p>내 스크랩</p></a>
       </div>
     </div>
