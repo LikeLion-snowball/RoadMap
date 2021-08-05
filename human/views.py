@@ -4,7 +4,6 @@ from .models import Humanlog, Like, Comment
 from .forms import PostForm, CommentForm
 from accounts.models import CustomUser
 from django.db.models import Q
-
 # Create your views here.
 
 def humanhome(request):
@@ -114,3 +113,7 @@ def commentdelete(request, post_id, comment_id, user_id):
     user = get_object_or_404(CustomUser, pk=user_id)
     comment.delete()
     return redirect('dpage', post_id=post.pk, user_id=user.pk)     
+
+def mycomment(request, user_id):
+    commentupdated = Comment.objects.filter(user=request.user)
+    return render(request, 'myComment.html', {'commentupdates': commentupdated})

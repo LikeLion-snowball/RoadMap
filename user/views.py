@@ -1,5 +1,6 @@
+from typing import ClassVar
 from django.http.response import HttpResponseRedirect
-from accounts.models import CustomUser
+from accounts.models import CustomUser #Humanlog
 from django.shortcuts import redirect, render, get_object_or_404
 from .models import  Project, Activity
 from .forms import ActivityForm, ProjectForm
@@ -97,3 +98,7 @@ def activitydelete(request, user_id, activity_id):
     activity = get_object_or_404(Activity, pk=activity_id)
     activity.delete()
     return redirect('portfolio', user_id=user.pk)
+
+#def dpage_visitor(request, post_id):
+    #post = get_object_or_404(Humanlog, pk=post_id)
+    #return render(request, 'dpage.html', {'post': post})

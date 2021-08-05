@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-
+import human.views
 urlpatterns = [
     path('', views.humanhome, name="humanhome"),
     path('notice/', views.notice, name="notice"),
@@ -13,4 +13,5 @@ urlpatterns = [
     path('h_result', views.h_result, name="h_result"),
     path('commentupdate/<int:post_id>/<int:comment_id>/<int:user_id>',views.commentupdate,name='commentupdate'),
     path('commentdelete/<int:post_id>/<int:comment_id>/<int:user_id>',views.commentdelete,name='commentdelete'),
+    path('mycomment/<int:post_id>/<int:comment_id>/<int:user_id>', human.views.mycomment, name='mycomment'),
 ]
