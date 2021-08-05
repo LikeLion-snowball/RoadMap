@@ -83,9 +83,9 @@
                            
             {% for comment in commentupdates %}  
          
-
+            
             <div class="comments">
-                <a href="{% url 'others_portfolio' comment.user.id %}"><p class="comment_user">{{ comment.user.username }}</p></a>
+                <p class="comment_user">{{ comment.user.username }}</p>
                 <p class="comment_date">{{ comment.created_at }}</p>
                 {% if comment.id == commentId %}
                 <form method='POST'>
@@ -94,11 +94,10 @@
                 <input value="수정" type="submit" />
                 </form>
                 {% else %}
-                <p class="comment_body">{{ comment.content }}</p>
+                <a href="{}"><p class="comment_body">{{ comment.content }}</p></a>
                 {% endif %}
             </div>                      
             {% endfor %}   
             
-                        
  </html>                      
 {% endblock %}
