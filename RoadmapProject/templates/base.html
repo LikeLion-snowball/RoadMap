@@ -90,7 +90,12 @@
         <span class="header_menu">
           <a href="{% url 'info' %}">정보확인</a>
           <a href="{% url 'humanhome' %}">팀원모집</a>
-          <a href="{% url 'calendar' %}">일정관리</a>
+
+          {% if user.is_authenticated %}
+          <a href="{% url 'calendar' user.id %}">일정관리</a>
+          {% else %}
+          <a href="">일정관리</a>
+          {% endif %}
           <a href="{% url 'qna' %}">Q&A</a>
         </span>
         <span class="header_user">
