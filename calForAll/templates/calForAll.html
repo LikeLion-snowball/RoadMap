@@ -1,0 +1,151 @@
+{% extends 'base.html' %} {% block content %} {% load static %}
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <style>
+      .calPage {
+        text-align: center;
+        min-height: 100vh;
+      }
+      .calPage h1 {
+        font-size: 2.3rem;
+        color: rgb(72, 101, 173);
+        line-height: 4rem;
+        letter-spacing: 0.2rem;
+      }
+
+      .nav_item {
+        font-size: 1.2rem;
+        margin: 3rem;
+      }
+      .cal_add {
+        font-size: 1.2rem;
+        display: inline;
+        border: 1.5px solid gray;
+        border-radius: 30px;
+        background-color: rgb(115, 132, 175);
+        color: white;
+        font-weight: 500;
+        padding: 0.7rem 1.2rem;
+      }
+
+      @font-face {
+        font-family: 'BMHANNAPro';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.0/BMHANNAPro.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+      }
+      .calendar {
+        width: 70vw;
+        font-size: 1rem;
+        background: #fff;
+        padding: 1rem;
+        /* -webkit-box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .2), 10px 10px 10px 10px #fff; */
+        /* box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .2), 10px 10px 10px 10px #fff; */
+        border-radius: 40px;
+        box-shadow: 0 0 20px -7px rgba(115, 132, 175, .8);
+        color: #555;
+        text-align: center;
+      }
+      .calendar .month {
+        color: #222222;
+        line-height: 2rem;
+        font-size: 2rem;
+        font-weight: 800;
+      }
+      .calendar th {
+        padding: 1.8rem;
+        text-align: center;
+        font-size: 1.5rem;
+      }
+      .calendar tr {
+        color: #e66b6b;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+      .calendar td {
+        width: 1rem;
+        height: 5rem;
+        padding: .6rem .6rem;
+        transition: background .5s;
+      }
+      .calendar td:hover {
+        background: #e7e7e7;
+        color: #fff;
+      }
+
+      .event_line {
+        height: 100%;
+        padding: 0;
+        list-style: none;
+        margin: 0;
+      }
+      .calPage a {
+        transition: color .2s;
+      }
+      span {
+        color: black;
+      }
+      .calPage a:link {
+        color: rgb(72, 101, 173);
+        text-decoration: none;
+      }
+      .calPage a:visited {
+        color: rgb(72, 101, 173);
+        text-decoration: none;
+      }
+      .calPage a:hover {
+        color: #e66b6b;
+        text-decoration: none;
+      }
+
+      .outer {
+        display: flex;
+        justify-content: center;
+      }
+      .left {
+        font-size: 4rem;
+        font-weight: bold;
+        color:rgb(72, 101, 173);
+        margin-top: 1rem;
+        margin-right: 0.5rem;
+      }
+      .right {
+        font-size: 4rem;
+        font-weight: bold;
+        color:rgb(72, 101, 173);
+        margin-top: 1rem;
+        margin-left: 0.5rem;
+      }
+
+      /* .form {
+        margin: auto;
+      }
+      .form input,
+      .form select,
+      .form textarea {
+        border-radius: 5px;
+        border: 1px solid #17a2b8;
+        outline: none;
+        background: none;
+        padding: 5px;
+        width: 100%;
+      } */
+    </style>
+  </head>
+
+  <body>
+    <div class="calPage">
+      <!-- <h1><a href="{% url 'calendar' %}" style="color: rgb(72, 101, 173);">일정관리</a></h1> -->
+      <div class="nav_item">
+        <a href="{% url 'login' %}"><p class="cal_add">로그인 후 이용해주세요</p></a>
+      </div>
+      <div class="outer">
+        <img src="{% static 'calendar.PNG' %}" alt="Cal For All user">
+      </div>
+    </div>
+  </body>
+  
+</html>
+{% endblock %}
