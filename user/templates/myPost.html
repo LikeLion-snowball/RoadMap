@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .teamPage {
+        text-align: center;
+        min-height: 100vh;
+      }
+      .teamPage h1 {
+        font-size: 2.3rem;
+        color: rgb(72, 101, 173);
+        line-height: 4rem;
+        letter-spacing: 0.2rem;
+      }
+      .team_create {
+        font-size: 1.2rem;
+        display: inline;
+        border: 1.5px solid gray;
+        border-radius: 30px;
+        background-color: rgb(115, 132, 175);
+        color: white;
+        font-weight: 500;
+        padding: 0.7rem 1.2rem;
+        margin-left: 1rem;
+      }
+      .team_search {
+        margin-bottom: 3rem;
+      }
+      .team_post {
+        text-align: left;
+        width: 50vw;
+        min-width: 600px;
+        margin: 0 auto;
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+        padding: 3rem 4rem;
+        border: 1px solid rgb(220, 220, 220);
+        border-radius: 30px;
+        box-shadow: 0 0 20px -5px rgba(110, 110, 110, 0.4);
+      }
+      .team_title {
+        color:rgb(72, 101, 173);
+        margin-top: 1.5rem;
+        font-size: 1.3rem;
+        font-weight: bold;
+      }
+      .team_body {
+        font-size: 1.1rem;
+        line-height: 1.7rem;
+      }
+      .team_post hr {
+        margin-top: 1.5rem;
+        border: 1px solid rgb(220, 220, 220);
+      }
+      .team_post_top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .team_post_user {
+        display: flex;
+        align-items: center;
+      }
+      .team_user {
+        font-size: 1.2rem;
+        margin-right: 20px;
+      }
+      .team_date {
+        color: gray;
+        font-size: small;
+        margin-top: 3px;
+      }
+      .userImg {
+        max-height: 30px;
+        width: auto;
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="teamPage">
+      <h1><a href="{% url 'humanhome' %}" style="color: rgb(72, 101, 173);">{{ user.username }}님의 글</a></h1>
+      {% for post in posts %}
+      {% if user.is_authenticated and user.username == post.user.username %}
+      <div class="team_post">
+        <div class="team_post_top">
+          <div class="team_post_user">
+            <img class="userImg" src="{% static 'user.png' %}" alt="user">
+            <span class="team_user">{{ post.user.username }}</span>
+            <span class="team_date">{{ post.created_at }}</span>
+          </div>
+        </div>
+        <hr>
+        <a href="{% url 'dpage' post.id user.id%}"><p class="team_title">{{ post.title }}</p></a>
+        <p class="team_body">{{ post.body }}</p>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </body>
+</html>
+{% endblock %}

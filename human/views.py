@@ -117,3 +117,7 @@ def commentdelete(request, post_id, comment_id, user_id):
 def mycomment(request, user_id):
     commentupdated = Comment.objects.filter(user=request.user)
     return render(request, 'myComment.html', {'commentupdates': commentupdated})
+
+def my_post(request, user_id):
+    posted = Humanlog.objects.filter(user=request.user)
+    return render(request, 'myPost.html', {'posts': posted})
