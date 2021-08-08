@@ -22,6 +22,10 @@ def calendar_view(request, user_id):
 
     return render(request, 'cal.html', context)
 
+def calForAll(request):
+    # 로그인 안 한 사람이 보는 view
+    return render(request, 'cal.html')
+
 #현재 달력을 보고 있는 시점의 시간을 반환
 def get_date(req_day):
     if req_day:
@@ -51,11 +55,11 @@ def eventcreate(request, user_id):
     form = EventForm(request.POST or None, instance=instance)
     if request.POST and form.is_valid():
         form.save()
-        return redirect('calendar',user_id=user.pk)
+        return redirect('calendar', user_id=user.pk)
     return render(request, 'eventcreate.html', {'form': form})
 
 #이벤트 수정
-def eventedit(request,user_id, event_id):
+def eventedit(request, user_id, event_id):
     user = get_object_or_404(CustomUser, pk=user_id)
     instance = get_object_or_404(Event, pk=event_id)
     form = EventForm(request.POST or None, instance=instance)

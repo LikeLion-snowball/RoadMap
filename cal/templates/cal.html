@@ -47,6 +47,7 @@
         box-shadow: 0 0 20px -7px rgba(115, 132, 175, .8);
         color: #555;
         text-align: center;
+        margin-bottom: 5rem;
       }
       .calendar .month {
         color: #222222;
@@ -137,22 +138,20 @@
 
   <body>
     <div class="calPage">
-      <!-- <h1><a href="{% url 'calendar' %}" style="color: rgb(72, 101, 173);">일정관리</a></h1> -->
-      <div class="nav_item">
-        <a href="{% url 'eventcreate' user.id %}"><p class="cal_add">✚ 일정 추가</p></a>
-        <!--
-        {% if user.is_authenticated %}
-        <a href="{% url 'eventcreate' user.id %}"><p class="cal_add">✚ 일정 추가</p></a>
-        {% else %}
-        <a href="{% url 'login' %}"><p class="cal_add">로그인 후 이용해 주세요</p></a>
-        {% endif %}
-        -->
-      </div>
-      <div class="outer">
-        <a class="btn btn-info left" href="{% url 'calendar' %}?{{ prev_month }}"><span class="left">＜</span> </a>
-        {{calendar}}
-        <a class="btn btn-info right" href="{% url 'calendar' %}?{{ next_month }}"><span class="right">＞</span> </a>
-      </div>
+      {% if user.is_authenticated %}
+        <h1><a href="{% url 'calendar' user.id %}" style="color: rgb(72, 101, 173);">일정관리</a></h1>
+        <div class="nav_item">
+          <a href="{% url 'eventcreate' user.id %}"><p class="cal_add">✚ 일정 추가</p></a>
+        </div>
+        <div class="outer">
+          <a class="btn btn-info left" href="{% url 'calendar' user.id %}?{{ prev_month }}"><span class="left">＜</span> </a>
+          {{calendar}}
+          <a class="btn btn-info right" href="{% url 'calendar' user.id %}?{{ next_month }}"><span class="right">＞</span> </a>
+        </div>
+      {% else %}
+      <h1><a style="color: rgb(72, 101, 173);">일정관리</a></h1>
+        <p>로그인 후 이용해주세요.</p>
+      {% endif %}
     </div>
   </body>
   
