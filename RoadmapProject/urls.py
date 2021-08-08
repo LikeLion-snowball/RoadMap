@@ -19,14 +19,17 @@ from django.conf.urls.static import static
 import cal.views
 import qna.views
 import home.views
+import calForAll.views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home.views.home, name="home"),
     path('info/', include('info.urls')),
     path('<int:user_id>/', include('user.urls')),
-    path('cal/', cal.views.calendar_view, name="calendar"),
-    path('cal/', include('cal.urls')),
+    path('<int:user_id>/cal/', cal.views.calendar_view, name="calendar"),
+    path('<int:user_id>/cal/', include('cal.urls')),
+    path('calForAll/',calForAll.views.calForAll, name="calForAll"),
     path('qna/', qna.views.qna, name="qna"),
     path('qna/', include('qna.urls')),
     path('accounts/', include('accounts.urls')),

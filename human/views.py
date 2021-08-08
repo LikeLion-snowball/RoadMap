@@ -4,7 +4,6 @@ from .models import Humanlog, Like, Comment
 from .forms import PostForm, CommentForm
 from accounts.models import CustomUser
 from django.db.models import Q
-
 # Create your views here.
 
 def humanhome(request):
@@ -119,3 +118,6 @@ def my_post(request, user_id):
     posted = Humanlog.objects.filter(user=request.user)
     return render(request, 'myPost.html', {'posts': posted})
 
+def mycomment(request, user_id):
+    commentupdated = Comment.objects.filter(user=request.user)
+    return render(request, 'myComment.html', {'commentupdates': commentupdated})

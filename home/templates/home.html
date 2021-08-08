@@ -46,8 +46,9 @@
             <hr />
             <a href="{% url 'portfolio' user.id %}"><p>내 포트폴리오</p></a>
             <a href=""><p>내가 쓴 글</p></a>
-            <a href=""><p>내가 쓴 댓글</p></a>
+            <a href="{% url 'mycomment' user.id %}"><p>내가 쓴 댓글</p></a>
             <a href="{% url 'myscrap' user.id %}"><p>내 스크랩</p></a>
+            <a href="{% url 'calendar' user.id %}"><p>내 일정</p></a>
         </div>
         <div class="home_rightarea">
           <div class="home_recommend">

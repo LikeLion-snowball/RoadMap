@@ -2,7 +2,7 @@ from django.urls import path
 import info.views
 import human.views
 from . import views
-
+import human.views
 urlpatterns = [
     path('mypage/', views.myPage, name="myPage"),
     path('portfolio/', views.portfolio, name="portfolio"),
@@ -16,4 +16,9 @@ urlpatterns = [
     path('portfolio/activitydelete/<int:activity_id>', views.activitydelete, name='activitydelete'),
     path('myscrap/', info.views.my_scrap, name="myscrap"),
     path('mypost/', human.views.my_post, name="mypost"),
+    path('mycomment/', human.views.mycomment, name="mycomment"),
+    #path('human/commentupdate/<int:post_id>/<int:comment_id>/<int:user_id>',human.views.commentupdate,name='commentupdate'),
+    #path('human/commentdelete/<int:post_id>/<int:comment_id>/<int:user_id>',human.views.commentdelete,name='commentdelete'),
+    #path('human/dpage/<int:post_id>/<int:user_id>', human.views.dpage, name="dpage"),
+    #path('human/dpage/<int:post_id>/', human.views.dpage_visitor, name="dpage_visitor"),
 ]
