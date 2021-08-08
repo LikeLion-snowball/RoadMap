@@ -19,7 +19,6 @@ from django.conf.urls.static import static
 import cal.views
 import qna.views
 import home.views
-import calForAll.views
 
 
 urlpatterns = [
@@ -28,8 +27,8 @@ urlpatterns = [
     path('info/', include('info.urls')),
     path('<int:user_id>/', include('user.urls')),
     path('<int:user_id>/cal/', cal.views.calendar_view, name="calendar"),
+    path('cal/', cal.views.calForAll, name="calForAll"),
     path('<int:user_id>/cal/', include('cal.urls')),
-    path('calForAll/',calForAll.views.calForAll, name="calForAll"),
     path('qna/', qna.views.qna, name="qna"),
     path('qna/', include('qna.urls')),
     path('accounts/', include('accounts.urls')),
