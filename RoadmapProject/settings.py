@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'human',
     'accounts',
     'home',
-    'calForAll',
 ]
 
 MIDDLEWARE = [

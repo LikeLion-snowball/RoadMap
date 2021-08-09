@@ -121,3 +121,4 @@ def my_post(request, user_id):
 def mycomment(request, user_id):
     commentupdated = Comment.objects.filter(user=request.user)
     return render(request, 'myComment.html', {'commentupdates': commentupdated})
+
