@@ -45,7 +45,7 @@
             <p>{{ user.major }}</p>
             <hr />
             <a href="{% url 'portfolio' user.id %}"><p>내 포트폴리오</p></a>
-            <a href=""><p>내가 쓴 글</p></a>
+            <a href="{% url 'mypost' user.id %}"><p>내가 쓴 글</p></a>
             <a href="{% url 'mycomment' user.id %}"><p>내가 쓴 댓글</p></a>
             <a href="{% url 'myscrap' user.id %}"><p>내 스크랩</p></a>
             <a href="{% url 'calendar' user.id %}"><p>내 일정</p></a>
@@ -53,10 +53,27 @@
         <div class="home_rightarea">
           <div class="home_recommend">
               <h1>{{ user.username }}님께 추천하는 채용 정보</h1>
+              <h2>Q & A</h2>
+              {% for Qnadt in Qnadts.all %}
+              <h2> {{Qnadt.title}} </h2>
+              <p> {{Qnadt.user}} </p>
+              <p> {{Qnadt.created_at}} </p>
+              <p> {{Qnadt.body}} </p>
+              {% endfor %}
           </div>
           <div class="home_team">
+            <h1>로드맵에서 함께 할 팀원을 구해보세요!</h1>
+            {{Humandts}}
               <!-- <h1>로드맵에서 함께 할 팀원을 구해보세요!</h1> -->
           </div>
+          <h2>취직하자!</h2>
+          {% for Recruitdt in Recruitdts.all %}
+            <h2> {{Recruitdt.corp}} </h2>
+            <p> {{Recruitdt.title}} </p>
+            <p> {{Recruitdt.end_date}} </p>
+            <p> {{Recruitdt.link}} </p>
+            <p> {{Recruitdt.career}} </p>      
+          {% endfor %}
         </div>
         {% else %}
         {% endif %}
