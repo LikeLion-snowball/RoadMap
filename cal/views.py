@@ -68,7 +68,6 @@ def eventedit(request, user_id, event_id):
         return redirect('calendar', user_id=user.pk)
     return render(request, 'eventedit.html', {'form': form})
 
-
 #이벤트 삭제
 #def eventdelete(request, event_id) :
 #    instance = get_object_or_404(Event, pk=event_id)
