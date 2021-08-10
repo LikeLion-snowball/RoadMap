@@ -6,12 +6,6 @@ from human.models import Humanlog
 # Create your views here.
 def home(request):
     Qnadts = Qna.objects.all()[:3]
-    return render(request, 'home.html', {'Qnadts' : Qnadts})
-
-def home2(request):
-    Humandts = Humanlog.objects
-    return render(request, 'home.html', {'Humandts' : Humandts})
-
-def home3(request):
+    Humandts = Humanlog.objects.all()[:3]
     Recruitdts = Recruit.objects.all()[:4]
-    return render(request, 'home.html', {'Recruitdts' : Recruitdts})
+    return render(request, 'home.html', {'Qnadts' : Qnadts, 'Humandts' : Humandts, 'Recruitdts' : Recruitdts})

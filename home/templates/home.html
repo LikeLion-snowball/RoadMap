@@ -63,16 +63,21 @@
           </div>
           <div class="home_team">
             <h1>로드맵에서 함께 할 팀원을 구해보세요!</h1>
-            {{Humandts}}
+            {% for Humandt in Humandts.all %}
+            <h2> {{Humandt.title}} </h2>
+            <p> {{Humandt.user}} </p>
+            <p> {{Humandt.created_at}} </p>
+            <p> {{Humandt.body}} </p>
+            {% endfor %}
               <!-- <h1>로드맵에서 함께 할 팀원을 구해보세요!</h1> -->
           </div>
           <h2>취직하자!</h2>
           {% for Recruitdt in Recruitdts.all %}
-            <h2> {{Recruitdt.corp}} </h2>
-            <p> {{Recruitdt.title}} </p>
-            <p> {{Recruitdt.end_date}} </p>
-            <p> {{Recruitdt.link}} </p>
-            <p> {{Recruitdt.career}} </p>      
+          <h2> {{Recruitdt.corp}} </h2>
+          <p> {{Recruitdt.title}} </p>
+          <p> {{Recruitdt.end_date}} </p>
+          <p> {{Recruitdt.link}} </p>
+          <p> {{Recruitdt.career}} </p>      
           {% endfor %}
         </div>
         {% else %}
