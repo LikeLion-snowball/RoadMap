@@ -8,6 +8,9 @@
         font-size: 1.1rem;
         margin-top: 3rem;
       }
+      .home hr {
+        border: 1px solid rgb(220, 220, 220);
+      }
 
       .home_nav {
         position: fixed;
@@ -29,11 +32,109 @@
       .home_rightarea {
         margin-left: calc(8rem + 300px);
       }
-      .home_recommend h1, .home_team h1, .home_qna h1 {
+      .home_recommend h1, .home h1 {
         font-size: 2.3rem;
         color: rgb(72, 101, 173);
         line-height: 4rem;
         letter-spacing: 1px;
+      }
+      .home_link {
+        color: gray;
+      }
+      .home_team, .home_qna {
+        margin: 5rem 0;
+      }
+
+      .info_recruit {
+        display: grid;
+        grid-auto-rows: minmax(200px, auto);
+        grid-template-columns: repeat(auto-fill, minmax(400px,auto));
+        gap: 1rem;
+        row-gap: 2rem;
+        width: 65vw;
+        max-width: 1500px;
+        justify-items: center;
+        margin-top: 2rem;
+        margin-bottom: 5rem;
+      }
+      .info_recruit_item {
+        text-align: left;
+        padding: 1rem 2.5rem;
+        width: 25vw;
+        min-width: 300px;
+        max-width: 600px;
+        border: 1px solid rgb(220, 220, 220);
+        border-radius: 30px;
+        box-shadow: 0 0 20px -5px rgba(110, 110, 110, 0.4);
+      }
+      .info_recruit_item:hover {
+        cursor: pointer;
+        box-shadow: 0 0 20px -5px rgba(0, 0, 0, 0.7);
+      }
+      .recruit_corp {
+        font-size: 1rem;
+        color:rgb(72, 101, 173);
+        font-weight: bold;
+      }
+      .recruit_scrap {
+        font-size: 1rem;
+        color: rgb(100, 100, 100);
+      }
+      .recruit_tit {
+        font-size: 1.1rem;
+      }
+      .recruit_etc {
+        font-size: 1rem;
+        color: rgb(80, 80, 80);
+      }
+      .recruit_date {
+        font-size: 1rem;
+        color: rgb(218, 19, 19);
+      }
+      .home_post {
+        text-align: left;
+        width: 50vw;
+        min-width: 100px;
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+        padding: 2rem 3rem;
+        border: 1px solid rgb(220, 220, 220);
+        border-radius: 30px;
+        box-shadow: 0 0 20px -5px rgba(110, 110, 110, 0.4);
+      }
+      
+      .home_notlogin {
+        margin-bottom: 10rem;
+      }
+      .home_notlogin h1 {
+        text-align: center;
+        margin: 0 auto;
+      }
+      .home_notlogin .home_post, .home_notlogin .home_qna {
+        margin: 0 auto;
+      }
+
+      .home_login {
+        margin: 0 auto;
+        text-align: center;
+        padding: 5rem;
+      }
+      .home_login_bt {
+        font-size: 1.6rem;
+        display: inline;
+        border: 1.5px solid gray;
+        border-radius: 20px;
+        background-color: rgb(115, 132, 175);
+        color: white;
+        font-weight: 500;
+        padding: 2rem 2rem;
+        letter-spacing: 3px;
+        margin-left: 1rem;
+      }
+      @media (max-width: 1250px) {
+        .info_recruit_item {
+          width: 600px;
+        }
       }
     </style>
   </head>
@@ -52,38 +153,117 @@
         </div>
         <div class="home_rightarea">
           <div class="home_recommend">
-            <a href="{% url 'info' %}"><h1>{{ user.username }}님께 추천하는 채용 정보</h1></a>
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 65vw; padding-right: 10rem">
+              <h1>{{ user.username }}님께 추천하는 채용 정보</h1>
+              <a href="{% url 'info' %}"><p class="home_link">채용정보 더 보러가기</p></a>
+            </div>
+            <div class="info_recruit">
               {% for Recruitdt in Recruitdts.all %}
-              <h3> {{Recruitdt.corp}} </h3>
-              <p> {{Recruitdt.title}} </p>
-              <p> {{Recruitdt.end_date}} </p>
-              <p> {{Recruitdt.end_date_str}} </p>
-              <p> {{Recruitdt.career}} </p>
-              <p> {{Recruitdt.academic}} </p> 
-              <p> {{Recruitdt.type}} </p>
-              <p> {{Recruitdt.area}} </p>
+                <div class="info_recruit_item" target="_blank">
+                  <div style="display: flex; justify-content: space-between; margin-bottom: -1rem;">
+                    <p class="recruit_corp">{{Recruitdt.corp}}</p>
+                    {% if user.is_authenticated %}
+                      <a href="{% url 'scrap' Recruitdt.id %}"><p class="recruit_scrap">✩ {{Recruitdt.scrap_count}}</p></a>
+                    {% else %}
+                      <a><p class="recruit_scrap">✩ {{Recruitdt.scrap_count}}</p></a>
+                    {% endif %}
+                  </div>
+                  <div onclick="window.open('{{Recruitdt.link}}');">
+                    <p class="recruit_tit">{{Recruitdt.title}}</p>
+                    <p class="recruit_etc">{{Recruitdt.career}} &nbsp;|&nbsp; {{Recruitdt.academic}} &nbsp;|&nbsp; {{Recruitdt.type}} &nbsp;|&nbsp; {{Recruitdt.area}}</p>
+                    {% if Recruitdt.end_date %}
+                      {% if Recruitdt.end_date == today %}
+                      <p class="recruit_date">오늘마감</p>
+                      {% else %}
+                      <p class="recruit_date">~ {{Recruitdt.end_date.month}}/{{Recruitdt.end_date.day}}</p>
+                      {% endif %}
+                    {% else %}
+                      <p class="recruit_date">{{Recruitdt.end_date_str}}</p>
+                    {% endif %}
+                  </div>
+                </div>
               {% endfor %}
+            </div>
           </div>
           <div class="home_team">
-            <a href="{% url 'humanhome' %}"><h1>로드맵에서 함께 할 팀원을 구해보세요!</h1></a>
-            {% for Humandt in Humandts.all %}
-            <h2> {{Humandt.title}} </h2>
-            <p> {{Humandt.user}} </p>
-            <p> {{Humandt.created_at}} </p>
-            <p> {{Humandt.body}} </p>
-            {% endfor %}
+            <h1>포트폴리오를 보고 함께 할 팀원을 구해보세요</h1>
+            <div class="home_post"  style="margin-top: 2rem;">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <p style="font-size: 1.2rem; font-weight: 600;">지금 핫한 모집글🔥🔥🔥</p>
+                <a href="{% url 'humanhome' %}"><p style="color: gray;">더보기</p></a>
+              </div>
+              {% for Humandt in Humandts.all %}
+              <hr />
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <p style="font-size: 1.2rem; color:rgb(72, 101, 173); font-weight: 600;">{{Humandt.title}}</p>
+                <p style="color: gray; font-size: small;">{{Humandt.created_at}}</p>
+              </div>
+              <p style="margin-top: 0rem;">{{Humandt.summary}}</p>
+              {% endfor %}
+            </div>
           </div>
+
           <div class="home_qna">
-            <a href="{% url 'qna' %}"><h1>Q & A</h1></a>
-            {% for Qnadt in Qnadts.all %}
-              <h2> {{Qnadt.title}} </h2>
-              <p> {{Qnadt.user}} </p>
-              <p> {{Qnadt.created_at}} </p>
-              <p> {{Qnadt.body}} </p>
-            {% endfor %}
+            <h1>궁금한 게 있다면 Q&A에서 질문하세요</h1>
+            <div class="home_post"  style="margin-top: 2rem;">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <p style="font-size: 1.2rem; font-weight: 600;">지금 핫한 질문글🔥🔥🔥</p>
+                <a href="{% url 'qna' %}"><p style="color: gray;">더보기</p></a>
+              </div>
+              {% for Qnadt in Qnadts.all %}
+              <hr />
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <p style="font-size: 1.2rem; color:rgb(72, 101, 173); font-weight: 600;">{{Qnadt.title}}</p>
+                <p style="color: gray; font-size: small;">{{Qnadt.created_at}}</p>
+              </div>
+              <p style="margin-top: 0rem;">{{Qnadt.summary}}</p>
+              {% endfor %}
+            </div>
+          </div>
+        {% else %}
+        <!-- 로그인 안했을 때 -->
+        <div class="home_notlogin">
+          <h1>로그인 후 로드맵을 이용해보세요</h1>
+          <div class="home_login">
+              <a href="{% url 'login' %}"><p class="home_login_bt">로그인하기</p></a><br/><br/><br/>
+              <p style="color: rgb(100, 100, 100); font-size: small;">계정이 없다면 <a href="{% url 'signup' %}" style="text-decoration: underline;">회원가입</a></p>
+          </div>
+          <div class="home_team">
+            <h1>포트폴리오를 보고 함께 할 팀원을 구해보세요</h1>
+            <div class="home_post"  style="margin-top: 2rem;">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <p style="font-size: 1.2rem; font-weight: 600;">지금 핫한 모집글🔥🔥🔥</p>
+                <a href="{% url 'humanhome' %}"><p style="color: gray;">더보기</p></a>
+              </div>
+              {% for Humandt in Humandts.all %}
+              <hr />
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <p style="font-size: 1.2rem; color:rgb(72, 101, 173); font-weight: 600;">{{Humandt.title}}</p>
+                <p style="color: gray; font-size: small;">{{Humandt.created_at}}</p>
+              </div>
+              <p style="margin-top: 0rem;">{{Humandt.summary}}</p>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="home_qna">
+            <h1>궁금한 게 있다면 Q&A에서 질문하세요</h1>
+            <div class="home_post"  style="margin-top: 2rem;">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <p style="font-size: 1.2rem; font-weight: 600;">지금 핫한 질문글🔥🔥🔥</p>
+                <a href="{% url 'qna' %}"><p style="color: gray;">더보기</p></a>
+              </div>
+              {% for Qnadt in Qnadts.all %}
+              <hr />
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <p style="font-size: 1.2rem; color:rgb(72, 101, 173); font-weight: 600;">{{Qnadt.title}}</p>
+                <p style="color: gray; font-size: small;">{{Qnadt.created_at}}</p>
+              </div>
+              <p style="margin-top: 0rem;">{{Qnadt.summary}}</p>
+              {% endfor %}
+            </div>
           </div>
         </div>
-        {% else %}
         {% endif %}
     </div>
   </body>
