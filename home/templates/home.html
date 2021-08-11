@@ -29,7 +29,7 @@
       .home_rightarea {
         margin-left: calc(8rem + 300px);
       }
-      .home_recommend h1, .home_team h1 {
+      .home_recommend h1, .home_team h1, .home_qna h1 {
         font-size: 2.3rem;
         color: rgb(72, 101, 173);
         line-height: 4rem;
@@ -52,28 +52,36 @@
         </div>
         <div class="home_rightarea">
           <div class="home_recommend">
-              <h1>{{ user.username }}님께 추천하는 채용 정보</h1>
-              <h2>Q & A</h2>
-              {% for Qnadt in Qnadts.all %}
+            <a href="{% url 'info' %}"><h1>{{ user.username }}님께 추천하는 채용 정보</h1></a>
+              {% for Recruitdt in Recruitdts.all %}
+              <h3> {{Recruitdt.corp}} </h3>
+              <p> {{Recruitdt.title}} </p>
+              <p> {{Recruitdt.end_date}} </p>
+              <p> {{Recruitdt.end_date_str}} </p>
+              <p> {{Recruitdt.career}} </p>
+              <p> {{Recruitdt.academic}} </p> 
+              <p> {{Recruitdt.type}} </p>
+              <p> {{Recruitdt.area}} </p>
+              {% endfor %}
+          </div>
+          <div class="home_team">
+            <a href="{% url 'humanhome' %}"><h1>로드맵에서 함께 할 팀원을 구해보세요!</h1></a>
+            {% for Humandt in Humandts.all %}
+            <h2> {{Humandt.title}} </h2>
+            <p> {{Humandt.user}} </p>
+            <p> {{Humandt.created_at}} </p>
+            <p> {{Humandt.body}} </p>
+            {% endfor %}
+          </div>
+          <div class="home_qna">
+            <a href="{% url 'qna' %}"><h1>Q & A</h1></a>
+            {% for Qnadt in Qnadts.all %}
               <h2> {{Qnadt.title}} </h2>
               <p> {{Qnadt.user}} </p>
               <p> {{Qnadt.created_at}} </p>
               <p> {{Qnadt.body}} </p>
-              {% endfor %}
+            {% endfor %}
           </div>
-          <div class="home_team">
-            <h1>로드맵에서 함께 할 팀원을 구해보세요!</h1>
-            {{Humandts}}
-              <!-- <h1>로드맵에서 함께 할 팀원을 구해보세요!</h1> -->
-          </div>
-          <h2>취직하자!</h2>
-          {% for Recruitdt in Recruitdts.all %}
-            <h2> {{Recruitdt.corp}} </h2>
-            <p> {{Recruitdt.title}} </p>
-            <p> {{Recruitdt.end_date}} </p>
-            <p> {{Recruitdt.link}} </p>
-            <p> {{Recruitdt.career}} </p>      
-          {% endfor %}
         </div>
         {% else %}
         {% endif %}

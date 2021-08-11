@@ -5,13 +5,7 @@ from human.models import Humanlog
 
 # Create your views here.
 def home(request):
-    Qnadts = Qna.objects.all()[:3]
-    return render(request, 'home.html', {'Qnadts' : Qnadts})
-
-def home2(request):
-    Humandts = Humanlog.objects
-    return render(request, 'home.html', {'Humandts' : Humandts})
-
-def home3(request):
-    Recruitdts = Recruit.objects.all()[:4]
-    return render(request, 'home.html', {'Recruitdts' : Recruitdts})
+    Qnadts = Qna.objects.order_by('-like_count')[:3]
+    Humandts = Humanlog.objects.order_by('-like_count')[:3]
+    Recruitdts = Recruit.objects.order_by('-scrap_count')[:4]
+    return render(request, 'home.html', {'Qnadts' : Qnadts, 'Humandts' : Humandts, 'Recruitdts' : Recruitdts})
